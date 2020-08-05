@@ -33,6 +33,10 @@ class Command(BaseCommand):
         tag_url = 'https://www.instagram.com/explore/tags/gellifique/'
 
         r = requests.get(tag_url,headers)
+
+        with open('instagrab_gellifique.html', 'w') as outfile:
+            outfile.write(r.text)
+
         js = re.search(r'window\._sharedData\s*=\s*([^<]*)',r.text)
 
         js = js.group(1).strip(' ;')
