@@ -1,0 +1,21 @@
+from . settings import *
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'vallkaxy_polls',
+        'USER': 'vallkaxy_polls',
+        'PASSWORD': os.environ['POLLS_DB_PASSWORD'],
+        'HOST': 'localhost',
+    }
+}  
+
+ALLOWED_HOSTS = ['polls.vallka.xyz']
+
+#STATIC_ROOT = '/home/vallkaxy/polls-static.vallka.xyz/'
+#STATIC_URL = 'http://polls-static.vallka.xyz/'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+DEBUG = False
