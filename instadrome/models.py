@@ -4,6 +4,7 @@ from django.db import models
 class InstagrabGellifiqueGelColour(models.Model):
     taken_at = models.DateTimeField()
     username = models.CharField(max_length=100)
+    userid = models.IntegerField(blank=True, null=True)
     code = models.CharField(unique=True, max_length=100)
     caption = models.TextField()
     like_count = models.IntegerField()
