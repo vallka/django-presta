@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/home/bitnami/.local/share/virtualenvs/django-presta-LyAUzlk5/bin/python
+
 import os
 import sys
 
