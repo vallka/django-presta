@@ -1,55 +1,23 @@
-from datetime import datetime, timedelta
-import time
-import requests
-import re
-import json
+from rest_framework.exceptions import ParseError
+from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from drf_yasg.utils import swagger_auto_schema
 
-from django.core.management.base import BaseCommand, CommandError
-from instadrome.models import *
-from django.conf import settings
 
-from instadrome.randomua import get_random_ua
+from .models import *
 
 import logging
 logger = logging.getLogger(__name__)
 
 
-class Command(BaseCommand):
-    help = 'instagrab'
+class MyUploadView(APIView):
+    parser_class = (JSONParser,)
 
-    def add_arguments(self, parser):
-        pass
+    @swagger_auto_schema(operation_description="description")
+    def post(self, request, format=None):
 
-    def handle(self, *args, **options):
-        print (self.help)
-        logger.info(self.help)
-
-        today = datetime.today().date() # get a Date object
-        logger.info(today)
-
-        
-        BASE_URL = 'https://www.instagram.com/'
-
-        headers = {
-            'User-Agent': get_random_ua(),
-            'Referer': BASE_URL,
-        }
-
-        tag_url = 'https://www.instagram.com/explore/tags/gellifique/'
-
-        r = requests.get(tag_url,headers)
-
-        with open('instagrab_gellifique.html', 'w') as outfile:
-            outfile.write(r.text)
-
-        js = re.search(r'window\._sharedData\s*=\s*([^<]*)',r.text)
-
-        js = js.group(1).strip(' ;')
-
-        obj=json.loads(js)
-
-        with open('instagrab_gellifique.json', 'w') as outfile:
-            json.dump(obj, outfile)
+        obj = request.data
 
         nodes = obj['entry_data']['TagPage'][0]['graphql']['hashtag']['edge_hashtag_to_media']['edges']
         print(len(nodes))
@@ -90,10 +58,9 @@ class Command(BaseCommand):
                 logger.error('Added '+n['node']['shortcode'])
             
 
-        logger.error("DONE - %s! - %s",self.help,str(today))
+        logger.error("DONE - %s! - %s",'MyUploadView')
 
 
 
 
-
-
+        return Response({'status': 'OK'})

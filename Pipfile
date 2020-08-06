@@ -10,6 +10,10 @@ django = "*"
 mysqlclient = "*"
 whitenoise = "*"
 requests = "*"
+djangorestframework = "*"
+drf-yasg = "*"
+pyyaml = "*"
+uritemplate = "*"
 
 [requires]
 python_version = "3.7"
