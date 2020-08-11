@@ -23,7 +23,7 @@ from drf_yasg import openapi
 
 #from rest_framework.schemas import get_schema_view
 
-#from .api import router
+from .api import router
 
 from instadrome.api_views import MyUploadView
 
@@ -52,6 +52,8 @@ urlpatterns = [
     #    version="1.0.0"
     #), name='openapi-schema'),
     #path('api/v1/', include(router.urls)),
+
+    path('api/v1/', include(router.urls)),
 
     path('api/v1/upload/', MyUploadView.as_view()),
 
