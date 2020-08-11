@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
@@ -58,7 +60,7 @@ class MyUploadView(APIView):
                 logger.error('Added '+n['node']['shortcode'])
             
 
-        logger.error("DONE - %s! - %s",'MyUploadView')
+        logger.error("DONE - %s!",'MyUploadView')
 
 
 

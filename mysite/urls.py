@@ -42,6 +42,7 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
+    path('dhl/', include('dhl.urls')),
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
 

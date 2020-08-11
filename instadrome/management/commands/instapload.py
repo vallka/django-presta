@@ -32,7 +32,8 @@ class Command(BaseCommand):
             obj=json.load(infile)
     
     
-        res = requests.post('http://localhost:8000/api/v1/upload/',json=obj)
+        #res = requests.post('http://localhost:8000/api/v1/upload/',json=obj)
+        res = requests.post('https://www2.gellifique.co.uk/pypy/api/v1/upload/',json=obj)
 
         print(res)
         print(res.status_code)
