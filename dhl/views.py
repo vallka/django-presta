@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
+from rest_framework import serializers
 
 from .models import DHLParcel,DHL_sql
 
@@ -10,3 +11,8 @@ class IndexView(generic.ListView):
         """
         """
         return DHLParcel.objects.using('presta').raw(DHL_sql())
+
+class DHLSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DHLParcel
+        fields = '__all__'
