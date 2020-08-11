@@ -11,4 +11,4 @@ class DHLViewset(viewsets.ModelViewSet):
     serializer_class = DHLSerializer
 
     def list(self, request):
-        super().list(self, request)
+        return super().list(self, request)
