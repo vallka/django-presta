@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class DHLParcel(models.Model) =
+class DHLParcel(models.Model):
 	name_ship_from = models.CharField(max_length=200,blank=True,null=True)
 	company_ship_from = models.CharField(max_length=200,blank=True,null=True)
 	address_1_ship_from = models.CharField(max_length=200,blank=True,null=True)
