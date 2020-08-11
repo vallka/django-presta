@@ -34,7 +34,7 @@ class DHLParcel(models.Model):
 	product_code_3_letter = models.CharField(max_length=200,blank=True,null=True)
 	summary_of_contents = models.CharField(max_length=200,blank=True,null=True)
 	shipment_type = models.CharField(max_length=200,blank=True,null=True)
-	shipment_reference = models.CharField(max_length=200,blank=True,null=True)
+	shipment_reference = models.CharField(max_length=200,primary_key=True)
 	total_shipment_pieces = models.CharField(max_length=200,blank=True,null=True)
 	invoice_type = models.CharField(max_length=200,blank=True,null=True)
 	length = models.CharField(max_length=200,blank=True,null=True)
