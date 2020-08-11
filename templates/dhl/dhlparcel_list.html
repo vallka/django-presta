@@ -1,9 +1,9 @@
 {% load static %}
 
 
-{% if dhlparser_list %}
+{% if dhlparcel_list %}
     <ul>
-    {% for dhl in dhlparser_list %}
+    {% for dhl in dhlparcel_list %}
     <li>{{ dhl.shipment_reference }}</li>
     {% endfor %}
     </ul>
