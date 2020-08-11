@@ -1,0 +1,12 @@
+{% load static %}
+
+
+{% if dhlparser_list %}
+    <ul>
+    {% for dhl in dhlparser_list %}
+    <li>{{ dhl.shipment_reference }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No data are available.</p>
+{% endif %}
