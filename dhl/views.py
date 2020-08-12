@@ -13,8 +13,10 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         """
         """
+        qs = DHLParcel.objects.using('presta').raw(DHL_sql())
         logger.error('get_queryset')
-        return DHLParcel.objects.using('presta').raw(DHL_sql())
+        logger.error(qs)
+        return qs
 
 class DHLSerializer(serializers.ModelSerializer):
     class Meta:
