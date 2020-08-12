@@ -7,11 +7,14 @@ from .views import *
 class DHLViewset(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated,)     
 
-    #queryset = DHLParcel.objects.using('presta').raw(DHL_sql())
+    queryset = DHLParcel.objects.using('presta').raw(DHL_sql())
     serializer_class = DHLSerializer
 
     def list(self, request):
         self.queryset = DHLParcel.objects.using('presta').raw(DHL_sql())
+
+        #self.queryset.
+
         logger.error('DHLViewset list')
         logger.error(self.queryset)
 
