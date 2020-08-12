@@ -153,6 +153,8 @@ LOGGING = {
     },
 }
 
+INTERNAL_IPS = ['127.0.0.1','90.253.35.173']
+
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
