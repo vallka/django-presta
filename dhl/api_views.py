@@ -13,7 +13,7 @@ class DHLViewset(viewsets.ModelViewSet):
     def list(self, request):
         #self.queryset = DHLParcel.objects.using('presta').raw(DHL_sql())
 
-        self.queryset = self.queryset.all()
+        self.queryset = self.queryset.clone()
 
         logger.error('DHLViewset list')
         logger.error(self.queryset)
