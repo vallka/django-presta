@@ -29,14 +29,14 @@ class DHLViewset(viewsets.ModelViewSet):
 
 
 class DHLListView(generics.ListAPIView):
-    #permission_classes = (IsAuthenticated,)     
+    permission_classes = (IsAuthenticated,)     
     serializer_class = DHLSerializer
 
     def get(self, request, *args, **kwargs):
         ids = kwargs.get('ids', '')
         ho = kwargs.get('ho', 'o')
 
-        queryset = DHLParcel.objects.using('presta-testa').raw(DHL_sql(kwargs.get('ho', 'o'),kwargs.get('ids', '')))
+        queryset = DHLParcel.objects.using('presta').raw(DHL_sql(kwargs.get('ho', 'o'),kwargs.get('ids', '')))
 
         logger.error(f'DHLListView:{ho}/{ids}')
         logger.error(queryset)
