@@ -60,7 +60,10 @@ urlpatterns = [
 
     path('api/v1/upload/', MyUploadView.as_view()),
 
-    path(r'api/v1/dhl/list/<str:ids>', DHLListView.as_view()),
+    path('api/v1/dhl/list/', DHLListView.as_view()),
+    path('api/v1/dhl/list/<str:ho>/', DHLListView.as_view()),
+    path('api/v1/dhl/list/<str:ho>/<str:ids>/', DHLListView.as_view()),
+
     re_path(r'^api/v1/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('api/v1/swagger/<slug:format>', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('api/v1/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

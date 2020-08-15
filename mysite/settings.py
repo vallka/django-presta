@@ -93,8 +93,12 @@ DATABASES = {
     },
     'presta': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'NAME': os.path.join(BASE_DIR, 'db-presta.sqlite3'),
+    },
+    'presta-testa': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db-presta-testa.sqlite3'),
+    },
 }
 
 
