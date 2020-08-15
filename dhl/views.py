@@ -13,7 +13,7 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         """
         """
-        qs = DHLParcel.objects.using('presta').raw(DHL_sql())
+        qs = DHLParcel.objects.using('presta').raw(DHL_sql('o',''))
         logger.error('get_queryset')
         logger.error(qs)
         return qs

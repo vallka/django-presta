@@ -33,10 +33,10 @@ class DHLListView(generics.ListAPIView):
     serializer_class = DHLSerializer
 
     def get(self, request, *args, **kwargs):
-        ids = kwargs.get('ids', '')
-        ho = kwargs.get('ho', 'o')
+        #ids = kwargs.get('ids', '')
+        #ho = kwargs.get('ho', 'o')
 
-        queryset = DHLParcel.objects.using('presta-testa').raw(DHL_sql(ho,ids))
+        queryset = DHLParcel.objects.using('presta-testa').raw(DHL_sql(kwargs.get('ho', 'o'),kwargs.get('ids', '')))
 
         logger.error(f'DHLListView:{ho}/{ids}')
         logger.error(queryset)
