@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .models import *
 from .views import *
 
+"""
 class DHLViewset(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated,)     
 
@@ -24,16 +25,18 @@ class DHLViewset(viewsets.ModelViewSet):
         logger.error(self.queryset)
 
         return super().list(self, request)
+"""
 
 
 class DHLListView(generics.ListAPIView):
+    #permission_classes = (IsAuthenticated,)     
     serializer_class = DHLSerializer
 
     def get(self, request, *args, **kwargs):
         ids = kwargs.get('ids', '')
-        ho = kwargs.get('ho', '')
+        ho = kwargs.get('ho', 'o')
 
-        queryset = DHLParcel.objects.using('presta-testa').raw(DHL_sql())
+        queryset = DHLParcel.objects.using('presta-testa').raw(DHL_sql(ho,ids))
 
         logger.error(f'DHLListView:{ho}/{ids}')
         logger.error(queryset)

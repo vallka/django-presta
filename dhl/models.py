@@ -42,21 +42,44 @@ class DHLParcel(models.Model):
 	depth = models.CharField(max_length=200,blank=True,null=True)
 
 
-def DHL_sql():
-	return """
+addresses = {
+	'o':{
+		'name':'Margarita Dobroskokina',
+		'company':'GellifiQue Ltd',
+		'address':'159 Great Junction Street',
+		'postcode':'EH6 5LG',
+		'city':'Edinburgh',
+		'email':'info@gellifique.com',
+		'phone_country':'44',
+		'phone':'7729192470',
+	},
+	'h':{
+		'name':'Margarita Dobroskokina',
+		'company':'GellifiQue Ltd',
+		'address':'41 Deantown Avenue',
+		'postcode':'EH21 8NS',
+		'city':'Musselburgh',
+		'email':'info@gellifique.com',
+		'phone_country':'44',
+		'phone':'7729192470',
+	},
+}
+
+def DHL_sql(ho='o',ids=''):
+	return f"""
 	    SELECT
-				'Larisa Dobroskokina' name_ship_from,
-				'GellifiQue Ltd' company_ship_from,
-				'159 Great Junction Street' address_1_ship_from,
+				'{addresses[ho]['name']}' name_ship_from,
+				'{addresses[ho]['company']}' company_ship_from,
+				'{addresses[ho]['address']}' address_1_ship_from,
 				'' address_2_ship_from,
 				'' address_3_ship_from,
 				'' house_number_ship_from,
-				'EH6 5LG' postal_code_ship_from,
-				'Edinburgh' city_ship_from,
+				'{addresses[ho]['postcode']}' postal_code_ship_from,
+				'{addresses[ho]['city']}' city_ship_from,
 				'GB' country_code_ship_from,
-				'info@gellifique.com' email_address_ship_from,
-				'44' phone_country_code_ship_from,
-				'7729192470' phone_number_ship_from,
+				'{addresses[ho]['email']}' email_address_ship_from,
+				'{addresses[ho]['phone_country']}' phone_country_code_ship_from,
+				'{addresses[ho]['phone']}' phone_number_ship_from,
 				concat(a.firstname,' ',a.lastname) name_ship_to,
 				if (a.company!='',a.company,concat(a.firstname,' ',a.lastname)) company_ship_to,
 				COALESCE(a.address1,'') address_1_ship_to,
