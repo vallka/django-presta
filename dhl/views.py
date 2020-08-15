@@ -21,7 +21,8 @@ class IndexView(generic.ListView):
 class DHLSerializer(serializers.ModelSerializer):
     class Meta:
         model = DHLParcel
-        #fields = '__all__'
+        fields = '__all__'
+        """
         fields = [
             'name_ship_from',
             'company_ship_from',
@@ -62,4 +63,5 @@ class DHLSerializer(serializers.ModelSerializer):
             'width',
             'depth',
         ]
+        """
 
