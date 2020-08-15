@@ -12,7 +12,7 @@ class DHLViewset(viewsets.ModelViewSet):
 
     serializer_class = DHLSerializer
 
-    def list(self, request):
+    def list(self, request *args, **kwargs):
         # needed here to refresh results, otherwise it is cahced
         self.queryset = DHLParcel.objects.using('presta').raw(DHL_sql())
 
@@ -23,3 +23,19 @@ class DHLViewset(viewsets.ModelViewSet):
         logger.error(self.queryset)
 
         return super().list(self, request)
+
+
+class DHLListView(generics.ListAPIView):
+    serializer_class = DHLSerializer
+
+    def get(self, request, *args, **kwargs):
+        ids = kwargs.get('ids', '')
+
+        queryset = DHLParcel.objects.using('presta').raw(DHL_sql())
+
+        logger.error('DHLListView')
+        logger.error(queryset)
+
+        serializer = self.get_serializer(queryset, many=True)
+    
+        return Response(serializer.data)        
