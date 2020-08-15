@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['*']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-#FORCE_SCRIPT_NAME = '/pypy'
+#FORCE_SCRIPT_NAME = '/pyadmin734r04xdw'
 #STATIC_URL = FORCE_SCRIPT_NAME + '/static/'
 
 WHITENOISE_STATIC_PREFIX = '/static/'
