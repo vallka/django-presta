@@ -120,7 +120,7 @@ def DHL_sql(ho='o',ids=''):
 		"""
 	else:
 		ida = ids.split(',')
-		map(lambda x:x=f"'{x}'" ,ida)
+		map(lambda x:f"'{x}'" ,ida)
 		ids = ','.join(ida)
 
 		sql += f"o.id_order in ({ids})"
