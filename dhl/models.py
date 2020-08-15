@@ -66,7 +66,7 @@ addresses = {
 }
 
 def DHL_sql(ho='o',ids=''):
-	return f"""
+	sql = f"""
 	    SELECT
 				'{addresses[ho]['name']}' name_ship_from,
 				'{addresses[ho]['company']}' company_ship_from,
@@ -110,9 +110,22 @@ def DHL_sql(ho='o',ids=''):
 				join ps17_address a on a.id_address=o.id_address_delivery
 				join ps17_customer c on o.id_customer=c.id_customer
 			WHERE 
+	"""
+	
+	if ids=='':
+		sql +="""
 				id_carrier in (177,174)
 				and 
 				current_state=21
-				ORDER BY o.id_order
-	"""
+		"""
+	else:
+		ida = ids.split(',')
+		map(lambda x:x=f"'{x}'" ,ida)
+		ids = ','.join(ida)
+
+		sql += f"o.id_order in ({ids})"
+
+	sql += " ORDER BY o.id_order"
+
+	return sql
 
