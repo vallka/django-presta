@@ -33,7 +33,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #STATIC_URL = FORCE_SCRIPT_NAME + '/static/'
 
 WHITENOISE_STATIC_PREFIX = '/static/'
-FORCE_SCRIPT_NAME = '/pyadmin734r04xdw'
+FORCE_SCRIPT_NAME = '/pyadm'
 STATIC_URL = '%s%s' % (FORCE_SCRIPT_NAME, WHITENOISE_STATIC_PREFIX)
 
 DEBUG = True
