@@ -1,3 +1,4 @@
+import re 
 from django.shortcuts import render
 from django.views import generic
 from rest_framework import serializers
@@ -58,7 +59,7 @@ class UPSSerializer(serializers.BaseSerializer):
                         "AttentionName": instance.ShipTo_AttentionName,
                         "EMailAddress": instance.ShipTo_EMailAddress,
                         "Phone": {
-                            "Number": instance.ShipTo_Phone_Number
+                            "Number": re.sub(r'^0','44',re.sub(r'\D','',instance.ShipTo_Phone_Number)
                         },
                         "Address": {
                             "AddressLine": instance.ShipTo_Address_AddressLine1,
@@ -73,7 +74,7 @@ class UPSSerializer(serializers.BaseSerializer):
                         "AttentionName": "Margaryta",
                         "TaxIdentificationNumber": "",
                         "Phone": {
-                            "Number": "07746358920"
+                            "Number": "447746358920"
                         },
                         "ShipperNumber": "0001",
                         "Address": {
