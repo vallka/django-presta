@@ -149,21 +149,19 @@ def DHL_sql(ho='o',ids=''):
 def UPS_sql(ids):
 	sql = f"""
 	    SELECT
-				if (a.company!='',a.company,concat(a.firstname,' ',a.lastname)) company_ship_to,
-				concat(a.firstname,' ',a.lastname) name_ship_to,
-				COALESCE(a.address1,'') address_1_ship_to,
-				COALESCE(a.address2,'') address_2_ship_to,
-				COALESCE(a.postcode,'') postal_code_ship_to,
-				COALESCE(a.city,'') city_ship_to,
-				COALESCE(if (a.id_country!=17,(select iso_code from ps17_state where id_state=a.id_state),''),'') state_code_ship_to,
-				(select iso_code from ps17_country where id_country=a.id_country) country_code_ship_to,
-				c.email email_address_ship_to,
-				a.phone phone_number_ship_to,
-				(select sum(product_weight*product_quantity) from ps17_order_detail d where d.id_order=o.id_order) total_weight,
-				(select iso_code from ps17_currency where id_currency=o.id_currency) declared_value_currency,
-				if (a.id_country!=17,(o.total_paid_real-o.total_shipping_tax_incl),0) declared_value,
-				if (a.id_country!=17,'WPX','DOM') product_code_3_letter,
-				o.reference shipment_reference,
+				o.reference ReferenceNumber,
+				o.reference Description,
+				concat(a.firstname,' ',a.lastname) ShipTo_AttentionName,
+				if (a.company!='',a.company,concat(a.firstname,' ',a.lastname)) ShipTo_Name,
+				COALESCE(a.address1,'') ShipTo_Address_AddressLine1,
+				COALESCE(a.address2,'') ShipTo_Address_AddressLine2,
+				COALESCE(a.city,'') ShipTo_Address_City,
+				COALESCE(if (a.id_country!=17,(select iso_code from ps17_state where id_state=a.id_state),''),'') ShipTo_StateCode,
+				(select iso_code from ps17_country where id_country=a.id_country) ShipTo_CountryCode,
+				COALESCE(a.postcode,'') ShipTo_PostalCode,
+				c.email ShipTo_EMailAddress,
+				a.phone ShipTo_Phone_Number,
+				(select sum(product_weight*product_quantity) from ps17_order_detail d where d.id_order=o.id_order) Package_Weight
 			FROM ps17_orders o
 				join ps17_address a on a.id_address=o.id_address_delivery
 				join ps17_customer c on o.id_customer=c.id_customer
