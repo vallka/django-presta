@@ -52,7 +52,7 @@ class UPSListView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         ids = kwargs.get('ids', '')
 
-        queryset = DHLParcel.objects.using('presta').raw(UPS_sql(kwargs.get('ids', '')))
+        queryset = UPSParcel.objects.using('presta').raw(UPS_sql(kwargs.get('ids', '')))
 
         logger.info(f'UPSListView:{ids}')
         logger.error(queryset)
