@@ -156,9 +156,9 @@ def UPS_sql(ids):
 				COALESCE(a.address1,'') ShipTo_Address_AddressLine1,
 				COALESCE(a.address2,'') ShipTo_Address_AddressLine2,
 				COALESCE(a.city,'') ShipTo_Address_City,
-				COALESCE(if (a.id_country!=17,(select iso_code from ps17_state where id_state=a.id_state),''),'') ShipTo_StateCode,
-				(select iso_code from ps17_country where id_country=a.id_country) ShipTo_CountryCode,
-				COALESCE(a.postcode,'') ShipTo_PostalCode,
+				COALESCE(if (a.id_country!=17,(select iso_code from ps17_state where id_state=a.id_state),''),'') ShipTo_Address_StateCode,
+				(select iso_code from ps17_country where id_country=a.id_country) ShipTo_Address_CountryCode,
+				COALESCE(a.postcode,'') ShipTo_Address_PostalCode,
 				c.email ShipTo_EMailAddress,
 				a.phone ShipTo_Phone_Number,
 				(select sum(product_weight*product_quantity) from ps17_order_detail d where d.id_order=o.id_order) Package_Weight
