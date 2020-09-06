@@ -62,7 +62,7 @@ class UPSSerializer(serializers.BaseSerializer):
                             "Number": re.sub(r'^0','44',re.sub(r'\D','',instance.ShipTo_Phone_Number))
                         },
                         "Address": {
-                            "AddressLine": [instance.ShipTo_Address_AddressLine1,instance.ShipTo_Address_AddressLine2,instance.ShipTo_Address_AddressLine3],
+                            "AddressLine": [instance.ShipTo_Address_AddressLine1,instance.ShipTo_Address_AddressLine2],
                             "City": instance.ShipTo_Address_City,
                             "PostalCode": instance.ShipTo_Address_PostalCode,
                             "CountryCode": instance.ShipTo_Address_CountryCode
