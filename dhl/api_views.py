@@ -54,7 +54,7 @@ class UPSListView(generics.ListAPIView):
 
         queryset = DHLParcel.objects.using('presta').raw(UPS_sql(kwargs.get('ids', '')))
 
-        logger.info(f'UPSListView:{ho}/{ids}')
+        logger.info(f'UPSListView:{ids}')
         logger.error(queryset)
 
         serializer = self.get_serializer(queryset, many=True)
