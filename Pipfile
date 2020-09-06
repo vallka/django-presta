@@ -16,6 +16,9 @@ pyyaml = "*"
 uritemplate = "*"
 sentry-sdk = "*"
 django-debug-toolbar = "*"
+django-markdownx = "*"
+jinja2 = "*"
+jinja2-django-tags = "*"
 
 [requires]
 python_version = "3.7"

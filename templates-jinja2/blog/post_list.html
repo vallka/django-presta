@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Blog Posts{% endblock %}
+
+{% block content %}
+{% if post_list %}
+<div class="table-responsive"> 
+  <table class="table table-sm table-hover table-striped">
+  <thead class="thead-dark">
+    <th>Title</th>
+    <th>Date/Time</th>
+  </thead>
+  <tbody>
+  {% for p in post_list %}
+      <tr>
+        <td><a href="{% url 'blog:post' p.slug %}">{{ p.title }}</a></td>
+        <td>{{ p.created_dt }}</td>
+      </tr>
+{% endfor %}
+  </tbody>
+</table>
+</div>
+  {% else %}
+    <p>There are no posts yet.</p>
+  {% endif %}     
+{% endblock content %}
+
+{% block javascript %}
+{{ super() }}
+{% endblock %}

@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from django.conf import settings
 
+from django.conf.urls.static import static 
+
 from rest_framework import permissions
 
 from drf_yasg.views import get_schema_view
@@ -45,8 +47,11 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('dhl/', include('dhl.urls')),
-    path('polls/', include('polls.urls')),
+    path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
+
+    path('markdownx/', include('markdownx.urls')),
+
 
     #path('openapi', get_schema_view(
     #    title="Your Project",
@@ -60,12 +65,13 @@ urlpatterns = [
     path('api/v1/dhl/list/', DHLListView.as_view()),
     path('api/v1/dhl/list/<str:ho>/', DHLListView.as_view()),
     path('api/v1/dhl/list/<str:ho>/<str:ids>/', DHLListView.as_view()),
+    path('api/v1/dhl/ups/<str:ids>/', UPSListView.as_view()),
 
     re_path(r'^api/v1/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('api/v1/swagger/<slug:format>', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('api/v1/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/v1/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar

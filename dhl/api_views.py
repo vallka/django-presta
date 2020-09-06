@@ -38,9 +38,25 @@ class DHLListView(generics.ListAPIView):
 
         queryset = DHLParcel.objects.using('presta').raw(DHL_sql(kwargs.get('ho', 'o'),kwargs.get('ids', '')))
 
-        logger.error(f'DHLListView:{ho}/{ids}')
+        logger.info(f'DHLListView:{ho}/{ids}')
         logger.error(queryset)
 
         serializer = self.get_serializer(queryset, many=True)
     
         return Response(serializer.data)        
+
+class UPSListView(generics.ListAPIView):
+    #permission_classes = (IsAuthenticated,)     
+    serializer_class = UPSSerializer
+
+    def get(self, request, *args, **kwargs):
+        ids = kwargs.get('ids', '')
+
+        queryset = DHLParcel.objects.using('presta').raw(UPS_sql(kwargs.get('ids', '')))
+
+        logger.info(f'UPSListView:{ho}/{ids}')
+        logger.error(queryset)
+
+        serializer = self.get_serializer(queryset, many=True)
+    
+        return Response(serializer.data)                

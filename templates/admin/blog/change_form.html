@@ -1,0 +1,44 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls %}
+
+{% block extrahead %}{{ block.super }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endblock %}
+
+
+{% block submit_buttons_bottom %}
+<hr>
+{{ block.super }}
+{% endblock %}
+
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
+var simplemde = new SimpleMDE({
+    toolbar: [
+        "bold",
+        "italic",
+        "strikethrough",
+        "heading",
+        "heading-smaller",
+        "heading-bigger",
+        "heading-1",
+        "heading-2",
+        "heading-3",
+        "quote",
+        "unordered-list",
+        "ordered-list",
+        "clean-block",
+        "link",
+        "image",
+        "table",
+        "horizontal-rule",
+        "|",
+        "guide"
+],
+
+});
+</script>
+
+{% endblock %}

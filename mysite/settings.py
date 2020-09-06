@@ -33,7 +33,8 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'instadrome',
     'dhl',
-    'polls.apps.PollsConfig',
+    #'polls.apps.PollsConfig',
+    'blog',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,10 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django.forms',
+
+
     'rest_framework',
     'rest_framework.authtoken',
     'drf_yasg',
     'debug_toolbar',
+    'markdownx',
+
 
 
 ]
@@ -65,6 +71,17 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
+    { 
+        'BACKEND':'django.template.backends.jinja2.Jinja2',
+        'DIRS': [os.path.join(BASE_DIR, 'templates-jinja2')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'extensions': [
+                'jdj_tags.extensions.DjangoCompat',
+            ],
+            "environment": "mysite.jinja2.JinjaEnvironment",
+        },
+    },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
@@ -139,8 +156,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
 
 #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/' 
+
+from datetime import datetime
+
+MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

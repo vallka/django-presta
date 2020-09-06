@@ -42,6 +42,23 @@ class DHLParcel(models.Model):
 	depth = models.CharField(max_length=200,blank=True,null=True)
 
 
+class UPSParcel(models.Model):
+	ReferenceNumber = models.CharField(max_length=200,primary_key=True)
+	Description = models.CharField(max_length=200,blank=True,null=True)
+	ShipTo_AttentionName = models.CharField(max_length=200,blank=True,null=True)
+	ShipTo_Name = models.CharField(max_length=200,blank=True,null=True)
+	ShipTo_Address_AddressLine1 = models.CharField(max_length=200,blank=True,null=True)
+	ShipTo_Address_AddressLine2 = models.CharField(max_length=200,blank=True,null=True)
+	ShipTo_Address_City = models.CharField(max_length=200,blank=True,null=True)
+	ShipTo_CountryCode = models.CharField(max_length=200,blank=True,null=True)
+	ShipTo_StateCode = models.CharField(max_length=200,blank=True,null=True)
+	ShipTo_PostalCode = models.CharField(max_length=200,blank=True,null=True)
+	ShipTo_EMailAddress = models.CharField(max_length=200,blank=True,null=True)
+	ShipTo_Phone_Number = models.CharField(max_length=200,blank=True,null=True)
+	Package_Weight = models.CharField(max_length=200,blank=True,null=True)
+	#declared_value_currency = models.CharField(max_length=200,blank=True,null=True)
+	#declared_value = models.CharField(max_length=200,blank=True,null=True)
+
 addresses = {
 	'o':{
 		'name':'Margarita Dobroskokina',
@@ -106,6 +123,47 @@ def DHL_sql(ho='o',ids=''):
 				20 length,
 				15 width,
 				10 depth
+			FROM ps17_orders o
+				join ps17_address a on a.id_address=o.id_address_delivery
+				join ps17_customer c on o.id_customer=c.id_customer
+			WHERE 
+	"""
+	
+	if ids=='':
+		sql +="""
+				id_carrier in (177,174)
+				and 
+				current_state=21
+		"""
+	else:
+		ida = ids.split(',')
+		map(lambda x:f"'{x}'" ,ida)
+		ids = ','.join(ida)
+
+		sql += f"o.id_order in ({ids})"
+
+	sql += " ORDER BY o.id_order"
+
+	return sql
+
+def UPS_sql(ids):
+	sql = f"""
+	    SELECT
+				if (a.company!='',a.company,concat(a.firstname,' ',a.lastname)) company_ship_to,
+				concat(a.firstname,' ',a.lastname) name_ship_to,
+				COALESCE(a.address1,'') address_1_ship_to,
+				COALESCE(a.address2,'') address_2_ship_to,
+				COALESCE(a.postcode,'') postal_code_ship_to,
+				COALESCE(a.city,'') city_ship_to,
+				COALESCE(if (a.id_country!=17,(select iso_code from ps17_state where id_state=a.id_state),''),'') state_code_ship_to,
+				(select iso_code from ps17_country where id_country=a.id_country) country_code_ship_to,
+				c.email email_address_ship_to,
+				a.phone phone_number_ship_to,
+				(select sum(product_weight*product_quantity) from ps17_order_detail d where d.id_order=o.id_order) total_weight,
+				(select iso_code from ps17_currency where id_currency=o.id_currency) declared_value_currency,
+				if (a.id_country!=17,(o.total_paid_real-o.total_shipping_tax_incl),0) declared_value,
+				if (a.id_country!=17,'WPX','DOM') product_code_3_letter,
+				o.reference shipment_reference,
 			FROM ps17_orders o
 				join ps17_address a on a.id_address=o.id_address_delivery
 				join ps17_customer c on o.id_customer=c.id_customer
