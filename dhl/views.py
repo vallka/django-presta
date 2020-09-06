@@ -59,7 +59,7 @@ class UPSSerializer(serializers.BaseSerializer):
                         "AttentionName": instance.ShipTo_AttentionName,
                         "EMailAddress": instance.ShipTo_EMailAddress,
                         "Phone": {
-                            "Number": re.sub(r'^0','44',re.sub(r'\D','',instance.ShipTo_Phone_Number)
+                            "Number": re.sub(r'^0','44',re.sub(r'\D','',instance.ShipTo_Phone_Number))
                         },
                         "Address": {
                             "AddressLine": instance.ShipTo_Address_AddressLine1,
