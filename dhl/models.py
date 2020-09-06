@@ -152,7 +152,7 @@ def UPS_sql(ids):
 				o.reference ReferenceNumber,
 				concat(a.firstname,' ',a.lastname) Description,
 				concat(a.firstname,' ',a.lastname) ShipTo_AttentionName,
-				if (a.company!='',a.company,concat(a.firstname,' ',a.lastname)) ShipTo_Name,
+				if (a.company!='',a.company,concat(a.firstname,' ',a.lastname,' ','Nails')) ShipTo_Name,
 				COALESCE(a.address1,'') ShipTo_Address_AddressLine1,
 				COALESCE(a.address2,'') ShipTo_Address_AddressLine2,
 				COALESCE(a.city,'') ShipTo_Address_City,
