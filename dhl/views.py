@@ -5,7 +5,7 @@ from rest_framework import serializers
 import logging
 logger = logging.getLogger(__name__)
 
-from .models import DHLParcel,DHL_sql
+from .models import *
 
 # Create your views here.
 class IndexView(generic.ListView):

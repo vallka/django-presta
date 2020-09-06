@@ -27,7 +27,7 @@ from drf_yasg import openapi
 #from rest_framework.schemas import get_schema_view
 #from .api import router
 
-from dhl.api_views import DHLListView
+from dhl.api_views import *
 
 from instadrome.api_views import MyUploadView
 
