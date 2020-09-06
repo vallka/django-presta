@@ -150,7 +150,7 @@ def UPS_sql(ids):
 	sql = f"""
 	    SELECT
 				o.reference ReferenceNumber,
-				o.reference Description,
+				concat(a.firstname,' ',a.lastname) Description,
 				concat(a.firstname,' ',a.lastname) ShipTo_AttentionName,
 				if (a.company!='',a.company,concat(a.firstname,' ',a.lastname)) ShipTo_Name,
 				COALESCE(a.address1,'') ShipTo_Address_AddressLine1,
