@@ -118,8 +118,8 @@ def processItem(dat):
     rn = dat['ShipmentRequest']['Shipment']['ReferenceNumber']['Value']
     path = settings.MEDIA_ROOT + '/UPS/'
 
-    #response = requests.post(' https://onlinetools.ups.com/ship/v1807/shipments',data=json.dumps(dat),headers=newHeaders)
-    response = requests.post(' https://wwwcie.ups.com/ship/v1807/shipments',data=json.dumps(dat),headers=newHeaders)
+    response = requests.post(' https://onlinetools.ups.com/ship/v1807/shipments',data=json.dumps(dat),headers=newHeaders)
+    #response = requests.post(' https://wwwcie.ups.com/ship/v1807/shipments',data=json.dumps(dat),headers=newHeaders)
 
     print("Status code: ", response.status_code)
 
@@ -131,7 +131,7 @@ def processItem(dat):
 
     logger.error(jsn)
 
-    pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["NegotiatedRateCharges"])
+    pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["NegotiatedRateCharges"]["TotalChargesWithTaxes"]["MonetaryValue"])
 
     pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
     
