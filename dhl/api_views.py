@@ -99,7 +99,7 @@ class UPSAction(generics.ListAPIView):
         shipping_no = resp["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"]
 
         with connections['presta'].cursor() as cursor:
-            cursor.execute("UPDATE ps17_order SET shipping_number=%s WHERE id_order=%s", [shipping_no,id_order])
+            cursor.execute("UPDATE ps17_orders SET shipping_number=%s WHERE id_order=%s", [shipping_no,id_order])
 
 
         return Response({'status': 'OK','data':resp})
