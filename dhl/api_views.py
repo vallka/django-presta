@@ -76,6 +76,12 @@ class UPSAction(APIView):
 
         print(obj)
 
+        queryset = UPSParcel.objects.using('presta').raw(UPS_sql(obj['id_order']))
+
+        logger.info(f'UPSListView:{ids}')
+        logger.error(queryset)
+
+        serializer = self.get_serializer(queryset, many=True)
 
 
-        return Response({'status': 'OK','data':obj})
+        return Response({'status': 'OK','data':serializer})
