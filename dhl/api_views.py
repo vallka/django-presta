@@ -12,6 +12,7 @@ from rest_framework.exceptions import ParseError
 from rest_framework.parsers import JSONParser
 from drf_yasg.utils import swagger_auto_schema
 from django.conf import settings
+from django.db import connections
 
 from .models import *
 from .views import *
@@ -93,6 +94,13 @@ class UPSAction(generics.ListAPIView):
         resp = processItem(serializer.data[0])
 
         logger.error('####' + resp["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
+
+        id_order = obj['id_order']
+        shipping_no = resp["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"]
+
+        with connections['presta'].cursor() as cursor:
+            cursor.execute("UPDATE ps17_order SET shipping_number=%s WHERE id_order=%s", [shipping_no,id_order])
+
 
         return Response({'status': 'OK','data':resp})
 
