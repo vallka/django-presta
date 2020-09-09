@@ -19,6 +19,7 @@ django-debug-toolbar = "*"
 django-markdownx = "*"
 jinja2 = "*"
 jinja2-django-tags = "*"
+update = "*"
 
 [requires]
 python_version = "3.7"

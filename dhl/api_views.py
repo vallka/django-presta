@@ -1,6 +1,10 @@
 from rest_framework import viewsets,generics
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated 
 from rest_framework.response import Response
+from rest_framework.exceptions import ParseError
+from rest_framework.parsers import JSONParser
+from drf_yasg.utils import swagger_auto_schema
 
 from .models import *
 from .views import *
@@ -60,3 +64,18 @@ class UPSListView(generics.ListAPIView):
         serializer = self.get_serializer(queryset, many=True)
     
         return Response(serializer.data)                
+
+
+class UPSAction(APIView):
+    parser_class = (JSONParser,)
+
+    @swagger_auto_schema(operation_description="UPS description")
+    def post(self, request, format=None):
+
+        obj = request.data
+
+        print(obj)
+
+
+
+        return Response({'status': 'OK','data':obj})
