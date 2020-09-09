@@ -80,7 +80,7 @@ class UPSAction(APIView):
 
         logger.error(queryset)
 
-        serializer = self.get_serializer(queryset, many=True)
+        serializer = UPSSerializer(queryset, many=True)
 
 
         return Response({'status': 'OK','data':serializer})
