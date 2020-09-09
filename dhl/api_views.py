@@ -68,6 +68,7 @@ class UPSListView(generics.ListAPIView):
 
 class UPSAction(APIView):
     parser_class = (JSONParser,)
+    serializer_class = UPSSerializer
 
     @swagger_auto_schema(operation_description="UPS description")
     def post(self, request, format=None):
@@ -80,7 +81,7 @@ class UPSAction(APIView):
 
         logger.error(queryset)
 
-        serializer = UPSSerializer(queryset, many=True)
+        serializer = self.get_serializer(queryset, many=True)
 
 
         return Response({'status': 'OK','data':serializer})
