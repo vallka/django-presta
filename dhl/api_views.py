@@ -1,5 +1,5 @@
 from rest_framework import viewsets,generics
-from rest_framework.views import APIView
+from rest_framework.views import APIView,ListAPIView
 from rest_framework.permissions import IsAuthenticated 
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
@@ -66,7 +66,7 @@ class UPSListView(generics.ListAPIView):
         return Response(serializer.data)                
 
 
-class UPSAction(APIView):
+class UPSAction(ListAPIView):
     parser_class = (JSONParser,)
     serializer_class = UPSSerializer
 
