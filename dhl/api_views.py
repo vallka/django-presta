@@ -92,6 +92,8 @@ class UPSAction(generics.ListAPIView):
 
         resp = processItem(serializer.data[0])
 
+        logger.error('####' + resp["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
+
         return Response({'status': 'OK','data':resp})
 
 def processItem(dat):
@@ -120,7 +122,7 @@ def processItem(dat):
 
 
     logger.error(jsn)
-    
+
     pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["NegotiatedRateCharges"])
 
     pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
@@ -132,4 +134,4 @@ def processItem(dat):
     pdf = Image.open(f"{path}{rn}.gif")    
     pdf.save(f"{path}{rn}.pdf", "PDF" ,resolution=100.0, save_all=True)
 
-    return response
+    return jsn
