@@ -1,3 +1,9 @@
+import json
+import pprint
+import requests
+import base64
+from PIL import Image
+
 from rest_framework import viewsets,generics
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated 
@@ -5,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import JSONParser
 from drf_yasg.utils import swagger_auto_schema
+from django.conf import settings
 
 from .models import *
 from .views import *
@@ -83,5 +90,46 @@ class UPSAction(generics.ListAPIView):
 
         serializer = self.get_serializer(queryset, many=True)
 
+        resp = processItem(serializer.data[0])
 
-        return Response({'status': 'OK','data':serializer.data})
+        return Response({'status': 'OK','data':resp})
+
+def processItem(dat):
+    newHeaders = {
+        'Content-type': 'application/json', 
+        'Accept': 'application/json',
+        'Username': 'info@gellifique.com',
+        'Password': 'Dobroskokina1',
+        'AccessLicenseNumber': 'BD878DD5B5667B91',
+        'transId': 'Transaction001',
+        'transactionSrc': 'test'
+    }
+
+    rn = dat['ShipmentRequest']['Shipment']['ReferenceNumber']['Value']
+    path = settings.MEDIA_ROOT + '/UPS/'
+
+    #response = requests.post(' https://onlinetools.ups.com/ship/v1807/shipments',data=json.dumps(dat),headers=newHeaders)
+    response = requests.post(' https://wwwcie.ups.com/ship/v1807/shipments',data=json.dumps(dat),headers=newHeaders)
+
+    print("Status code: ", response.status_code)
+
+    with open(f"{path}{rn}.json", "w") as file:
+        file.write(response.text)
+
+    jsn = json.loads(response.text)
+
+
+    logger.error(jsn)
+    
+    pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["NegotiatedRateCharges"])
+
+    pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
+    
+
+    with open(f"{path}{rn}.gif", "wb") as file:
+        file.write(base64.b64decode(jsn["ShipmentResponse"]["ShipmentResults"]["PackageResults"]["ShippingLabel"]["GraphicImage"]))    
+
+    pdf = Image.open(f"{path}{rn}.gif")    
+    pdf.save(f"{path}{rn}.pdf", "PDF" ,resolution=100.0, save_all=True)
+
+    return response
