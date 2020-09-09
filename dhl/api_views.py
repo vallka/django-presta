@@ -84,4 +84,4 @@ class UPSAction(generics.ListAPIView):
         serializer = self.get_serializer(queryset, many=True)
 
 
-        return Response({'status': 'OK','data':serializer})
+        return Response({'status': 'OK','data':serializer.data})
