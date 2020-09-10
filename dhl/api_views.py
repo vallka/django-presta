@@ -91,7 +91,7 @@ class UPSAction(generics.ListAPIView):
 
         serializer = self.get_serializer(queryset, many=True)
 
-        resp = processItem(serializer.data[0])
+        resp = processItem(serializer.data[0],obj['id_order'])
 
         logger.error('####' + resp["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
 
@@ -99,12 +99,12 @@ class UPSAction(generics.ListAPIView):
         shipping_no = resp["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"]
 
         with connections['presta'].cursor() as cursor:
-            cursor.execute("UPDATE ps17_orders SET shipping_number=%s WHERE id_order=%s", [shipping_no,id_order])
-
+            cursor.execute("UPDATE ps17_orders SET shipping_number=%s,current_state=31 WHERE id_order=%s", [shipping_no,id_order])
+            cursor.execute("insert into ps17_order_history (id_employee,id_order,id_order_state,date_add) values (%s,%s,%s,now())", [0,id_order,31])
 
         return Response({'status': 'OK','data':resp})
 
-def processItem(dat):
+def processItem(dat,id_order):
     newHeaders = {
         'Content-type': 'application/json', 
         'Accept': 'application/json',
@@ -123,7 +123,7 @@ def processItem(dat):
 
     print("Status code: ", response.status_code)
 
-    with open(f"{path}{rn}.json", "w") as file:
+    with open(f"{path}{id_order}.json", "w") as file:
         file.write(response.text)
 
     jsn = json.loads(response.text)
@@ -131,15 +131,15 @@ def processItem(dat):
 
     logger.error(jsn)
 
-    pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["NegotiatedRateCharges"]["TotalChargesWithTaxes"]["MonetaryValue"])
+    #pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["NegotiatedRateCharges"]["TotalChargesWithTaxes"]["MonetaryValue"])
 
-    pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
+    #pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
     
 
-    with open(f"{path}{rn}.gif", "wb") as file:
+    with open(f"{path}{id_order}.gif", "wb") as file:
         file.write(base64.b64decode(jsn["ShipmentResponse"]["ShipmentResults"]["PackageResults"]["ShippingLabel"]["GraphicImage"]))    
 
-    pdf = Image.open(f"{path}{rn}.gif")    
-    pdf.save(f"{path}{rn}.pdf", "PDF" ,resolution=100.0, save_all=True)
+    pdf = Image.open(f"{path}{id_order}.gif")    
+    pdf.save(f"{path}{id_order}.pdf", "PDF" ,resolution=100.0, save_all=True)
 
     return jsn
