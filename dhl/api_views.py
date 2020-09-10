@@ -100,6 +100,8 @@ class UPSAction(generics.ListAPIView):
 
         with connections['presta'].cursor() as cursor:
             cursor.execute("UPDATE ps17_orders SET shipping_number=%s,current_state=31 WHERE id_order=%s", [shipping_no,id_order])
+            cursor.execute("update ps17_order_carrier set tracking_number=%s where id_order=%s", [shipping_no,id_order])
+            
             cursor.execute("insert into ps17_order_history (id_employee,id_order,id_order_state,date_add) values (%s,%s,%s,now())", [0,id_order,31])
 
         return Response({'status': 'OK','data':resp})
