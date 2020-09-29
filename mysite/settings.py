@@ -169,7 +169,10 @@ MEDIA_URL = '/media/'
 from datetime import datetime
 
 MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
-
+MARKDOWNX_IMAGE_MAX_SIZE = { 'size': (610, 610), 'quality': 80 }
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'tables'
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
