@@ -145,3 +145,68 @@ def processItem(dat,id_order):
     pdf.save(f"{path}{id_order}.pdf", "PDF" ,resolution=100.0, save_all=True)
 
     return jsn
+
+class UPSLabelAction(generics.ListAPIView):
+    parser_class = (JSONParser,)
+    serializer_class = UPSLabelSerializer
+
+    @swagger_auto_schema(operation_description="UPS description - label")
+    def post(self, request, format=None):
+
+        obj = request.data
+
+        print(obj)
+
+        queryset = ShippingNumber.objects.using('presta').raw(ShippingNumber_sql(obj['id_order']))
+
+        logger.error(queryset)
+
+        serializer = self.get_serializer(queryset, many=True)
+
+        resp = processLabelItem(serializer.data[0],obj['id_order'])
+
+        logger.error('####' + resp["LabelRecoveryResponse"]["LabelResults"]["ShipmentIdentificationNumber"])
+
+        id_order = obj['id_order']
+        shipping_no = resp["LabelRecoveryResponse"]["LabelResults"]["ShipmentIdentificationNumber"]
+
+        return Response({'status': 'OK','data':resp})
+
+def processLabelItem(dat,id_order):
+    newHeaders = {
+        'Content-type': 'application/json', 
+        'Accept': 'application/json',
+        'Username': 'info@gellifique.com',
+        'Password': 'Dobroskokina1',
+        'AccessLicenseNumber': 'BD878DD5B5667B91',
+        'transId': 'Transaction001',
+        'transactionSrc': 'test'
+    }
+
+    path = settings.MEDIA_ROOT + '/UPS/'
+
+    response = requests.post(' https://onlinetools.ups.com/ship/v1/shipments/labels',data=json.dumps(dat),headers=newHeaders)
+    shipping_no = response["LabelRecoveryResponse"]["LabelResults"]["ShipmentIdentificationNumber"]
+
+    print("Status code: ", response.status_code)
+
+    with open(f"{path}{id_order}-{shipping_no}.json", "w") as file:
+        file.write(response.text)
+
+    jsn = json.loads(response.text)
+
+
+    logger.error(jsn)
+
+    #pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["NegotiatedRateCharges"]["TotalChargesWithTaxes"]["MonetaryValue"])
+
+    #pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
+    
+
+    with open(f"{path}{id_order}-{shipping_no}.gif", "wb") as file:
+        file.write(base64.b64decode(jsn["LabelRecoveryResponse"]["LabelResults"]["LabelImage"]["GraphicImage"]))    
+
+    pdf = Image.open(f"{path}{id_order}-{shipping_no}.gif")    
+    pdf.save(f"{path}{id_order}-{shipping_no}.pdf", "PDF" ,resolution=100.0, save_all=True)
+
+    return jsn

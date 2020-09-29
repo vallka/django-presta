@@ -124,3 +124,16 @@ class UPSSerializer(serializers.BaseSerializer):
                 }
             }
         }
+
+class UPSLabelSerializer(serializers.BaseSerializer):
+    def to_representation(self, instance):
+        return {
+            "LabelRecoveryRequest": {
+                "LabelSpecification": {
+                    "LabelImageFormat": {
+                            "Code": "GIF"
+                    },
+                },
+                "TrackingNumber": str(instance.Tracking_Number)
+            }
+        }        

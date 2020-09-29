@@ -59,6 +59,10 @@ class UPSParcel(models.Model):
 	#declared_value_currency = models.CharField(max_length=200,blank=True,null=True)
 	#declared_value = models.CharField(max_length=200,blank=True,null=True)
 
+class ShippingNumber(models.Model):
+	ReferenceNumber = models.CharField(max_length=200,primary_key=True)
+	ShippingNumber = models.CharField(max_length=200)
+
 addresses = {
 	'o':{
 		'name':'Margarita Dobroskokina',
@@ -185,3 +189,29 @@ def UPS_sql(ids):
 
 	return sql
 
+
+def ShippingNumber_sql(ids):
+	sql = f"""
+		SELECT
+			o.reference ReferenceNumber,
+			o.shipping_number ShippingNumber
+		FROM ps17_orders o
+		WHERE 
+	"""
+	
+	if ids=='':
+		sql +="""
+				id_carrier in (177,174)
+				and 
+				current_state=21
+		"""
+	else:
+		ida = ids.split(',')
+		map(lambda x:f"'{x}'" ,ida)
+		ids = ','.join(ida)
+
+		sql += f"o.id_order in ({ids})"
+
+	sql += " ORDER BY o.id_order"
+
+	return sql

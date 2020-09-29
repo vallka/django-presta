@@ -67,6 +67,7 @@ urlpatterns = [
     path('api/v1/dhl/list/<str:ho>/<str:ids>/', DHLListView.as_view()),
     path('api/v1/dhl/ups/action/', UPSAction.as_view()),
     path('api/v1/dhl/ups/list/<str:ids>/', UPSListView.as_view()),
+    path('api/v1/dhl/ups/label/', UPSLabelAction.as_view()),
 
     
 
