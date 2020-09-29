@@ -186,11 +186,10 @@ def processLabelItem(dat,id_order):
     path = settings.MEDIA_ROOT + '/UPS/'
 
     response = requests.post(' https://onlinetools.ups.com/ship/v1/shipments/labels',data=json.dumps(dat),headers=newHeaders)
-    shipping_no = response["LabelRecoveryResponse"]["LabelResults"]["ShipmentIdentificationNumber"]
 
     print("Status code: ", response.status_code)
 
-    with open(f"{path}{id_order}-{shipping_no}.json", "w") as file:
+    with open(f"{path}{id_order}-ups.json", "w") as file:
         file.write(response.text)
 
     jsn = json.loads(response.text)
@@ -203,10 +202,10 @@ def processLabelItem(dat,id_order):
     #pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
     
 
-    with open(f"{path}{id_order}-{shipping_no}.gif", "wb") as file:
+    with open(f"{path}{id_order}-ups.gif", "wb") as file:
         file.write(base64.b64decode(jsn["LabelRecoveryResponse"]["LabelResults"]["LabelImage"]["GraphicImage"]))    
 
-    pdf = Image.open(f"{path}{id_order}-{shipping_no}.gif")    
-    pdf.save(f"{path}{id_order}-{shipping_no}.pdf", "PDF" ,resolution=100.0, save_all=True)
+    pdf = Image.open(f"{path}{id_order}-ups.gif")    
+    pdf.save(f"{path}{id_order}-ups.pdf", "PDF" ,resolution=100.0, save_all=True)
 
     return jsn
