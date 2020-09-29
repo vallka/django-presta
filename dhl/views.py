@@ -134,6 +134,6 @@ class UPSLabelSerializer(serializers.BaseSerializer):
                             "Code": "GIF"
                     },
                 },
-                "TrackingNumber": str(instance.Tracking_Number)
+                "TrackingNumber": str(instance.ShippingNumber)
             }
         }        
