@@ -33,6 +33,10 @@ class UPSSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
         addressLines = instance.ShipTo_Address_AddressLine1.split(' ',1)
         addressLines.append(instance.ShipTo_Address_AddressLine2)
+        phoneCountryCode = '' 
+        if instance.ShipTo_Address_CountryCode=='GB': phoneCountryCode = '44' 
+        if instance.ShipTo_Address_CountryCode=='FR': phoneCountryCode = '33' 
+        if instance.ShipTo_Address_CountryCode=='ES': phoneCountryCode = '34' 
         return {
             "ShipmentRequest": {
                 "Shipment": {
@@ -61,7 +65,7 @@ class UPSSerializer(serializers.BaseSerializer):
                         "AttentionName": instance.ShipTo_AttentionName,
                         "EMailAddress": instance.ShipTo_EMailAddress,
                         "Phone": {
-                            "Number": re.sub(r'^0','44',re.sub(r'\D','',instance.ShipTo_Phone_Number))
+                            "Number": re.sub(r'^0',phoneCountryCode,re.sub(r'\D','',instance.ShipTo_Phone_Number))
                         },
                         "Address": {
                             "AddressLine": addressLines,
