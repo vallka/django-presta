@@ -189,7 +189,7 @@ def processLabelItem(dat,id_order):
 
     print("Status code: ", response.status_code)
 
-    with open(f"{path}{id_order}-ups.json", "w") as file:
+    with open(f"{path}{id_order.json", "w") as file:
         file.write(response.text)
 
     jsn = json.loads(response.text)
@@ -202,10 +202,10 @@ def processLabelItem(dat,id_order):
     #pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
     
 
-    with open(f"{path}{id_order}-ups.gif", "wb") as file:
+    with open(f"{path}{id_order.gif", "wb") as file:
         file.write(base64.b64decode(jsn["LabelRecoveryResponse"]["LabelResults"]["LabelImage"]["GraphicImage"]))    
 
-    pdf = Image.open(f"{path}{id_order}-ups.gif")    
-    pdf.save(f"{path}{id_order}-ups.pdf", "PDF" ,resolution=100.0, save_all=True)
+    pdf = Image.open(f"{path}{id_order.gif")    
+    pdf.save(f"{path}{id_order.pdf", "PDF" ,resolution=100.0, save_all=True)
 
     return jsn

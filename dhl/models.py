@@ -154,12 +154,12 @@ def UPS_sql(ids):
 	sql = f"""
 		SELECT
 			o.reference ReferenceNumber,
-			upper(concat(a.firstname,' ',a.lastname)) Description,
-			upper(concat(a.firstname,' ',a.lastname)) ShipTo_AttentionName,
-			upper(if (a.company!='',a.company,concat(a.firstname,' ',a.lastname,' ','Nails'))) ShipTo_Name,
-			upper(COALESCE(a.address1,'')) ShipTo_Address_AddressLine1,
-			upper(COALESCE(a.address2,'')) ShipTo_Address_AddressLine2,
-			upper(COALESCE(a.city,'')) ShipTo_Address_City,
+			concat(a.firstname,' ',a.lastname) Description,
+			concat(a.firstname,' ',a.lastname) ShipTo_AttentionName,
+			if (a.company!='',a.company,concat(a.firstname,' ',a.lastname,' ','Nails')) ShipTo_Name,
+			COALESCE(a.address1,'') ShipTo_Address_AddressLine1,
+			COALESCE(a.address2,'') ShipTo_Address_AddressLine2,
+			COALESCE(a.city,'') ShipTo_Address_City,
 			COALESCE(if (a.id_country!=17,(select iso_code from ps17_state where id_state=a.id_state),''),'') ShipTo_Address_StateCode,
 			(select iso_code from ps17_country where id_country=a.id_country) ShipTo_Address_CountryCode,
 			COALESCE(a.postcode,'') ShipTo_Address_PostalCode,

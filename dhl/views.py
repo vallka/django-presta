@@ -31,6 +31,8 @@ class UPSSerializer0(serializers.ModelSerializer):
 
 class UPSSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
+        addressLines = instance.ShipTo_Address_AddressLine1.split(' ',1)
+        addressLines.append(instance.ShipTo_Address_AddressLine2)
         return {
             "ShipmentRequest": {
                 "Shipment": {
@@ -62,7 +64,7 @@ class UPSSerializer(serializers.BaseSerializer):
                             "Number": re.sub(r'^0','44',re.sub(r'\D','',instance.ShipTo_Phone_Number))
                         },
                         "Address": {
-                            "AddressLine": [instance.ShipTo_Address_AddressLine1,instance.ShipTo_Address_AddressLine2],
+                            "AddressLine": addressLines,
                             "City": instance.ShipTo_Address_City,
                             "PostalCode": instance.ShipTo_Address_PostalCode,
                             "CountryCode": instance.ShipTo_Address_CountryCode
