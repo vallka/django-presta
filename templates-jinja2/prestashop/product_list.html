@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+
+
+{% block content %}
+{% if product_list %}
+    {% for product in product_list %}
+        <div class="prestashop_product">
+            <div class="blog_a">
+                {{ product.id_product }}
+            </div>
+            <div class="blog_body">
+                {{product.reference}}
+            </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p>There are no products yet.</p>
+  {% endif %}     
+{% endblock content %}
+
+
+
+{% block javascript %}
+{{ super() }}
+{% endblock %}
