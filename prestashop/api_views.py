@@ -50,4 +50,4 @@ class UpdateProduct(APIView):
         obj = request.data
 
         logger.error(obj)
-        return Response({'success':1,'id_product':obj['id_product']})                
+        return Response({'success':1,'id_product':obj})                
