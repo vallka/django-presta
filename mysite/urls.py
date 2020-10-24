@@ -28,6 +28,7 @@ from drf_yasg import openapi
 #from .api import router
 
 from dhl.api_views import *
+from prestashop.api_views import *
 
 from instadrome.api_views import MyUploadView
 
@@ -70,6 +71,7 @@ urlpatterns = [
     path('api/v1/dhl/ups/list/<str:ids>/', UPSListView.as_view()),
     path('api/v1/dhl/ups/label/', UPSLabelAction.as_view()),
 
+    path('api/v1/prestashop/product/<str:ids>/', ProductList.as_view()),
     
 
     re_path(r'^api/v1/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
