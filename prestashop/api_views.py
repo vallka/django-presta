@@ -45,7 +45,6 @@ class UpdateProduct(APIView):
     parser_class = (JSONParser,)
 
     @swagger_auto_schema(operation_description="Update product",method="POST")
-    @api_view(['POST'])
     def post(self, request, format=None):
 
         obj = request.data
