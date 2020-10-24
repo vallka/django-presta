@@ -9,6 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view
+
 from drf_yasg.utils import swagger_auto_schema
 from django.conf import settings
 from django.db import connections
@@ -43,6 +45,7 @@ class UpdateProduct(APIView):
     parser_class = (JSONParser,)
 
     @swagger_auto_schema(operation_description="Update product")
+    @api_view(['POST'])
     def post(self, request, format=None):
 
         obj = request.data
