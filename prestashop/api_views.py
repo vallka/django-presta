@@ -16,6 +16,10 @@ from django.db import connections
 from .models import *
 from .views import *
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 class ProductList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)     
     serializer_class = ProductSerializer
