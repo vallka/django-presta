@@ -58,7 +58,7 @@ class DHLListView(generics.ListAPIView):
         return Response(serializer.data)        
 
 class UPSListView(generics.ListAPIView):
-    #permission_classes = (IsAuthenticated,)     
+    permission_classes = (IsAuthenticated,)     
     serializer_class = UPSSerializer
 
     def get(self, request, *args, **kwargs):
@@ -75,6 +75,7 @@ class UPSListView(generics.ListAPIView):
 
 
 class UPSAction(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)     
     parser_class = (JSONParser,)
     serializer_class = UPSSerializer
 
@@ -147,6 +148,7 @@ def processItem(dat,id_order):
     return jsn
 
 class UPSLabelAction(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)     
     parser_class = (JSONParser,)
     serializer_class = UPSLabelSerializer
 

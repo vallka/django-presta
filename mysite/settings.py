@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'dhl',
     #'polls.apps.PollsConfig',
     'blog',
+    'prestashop',
 
     'django.contrib.admin',
     'django.contrib.auth',
