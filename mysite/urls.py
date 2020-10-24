@@ -48,6 +48,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('dhl/', include('dhl.urls')),
     path('blog/', include('blog.urls')),
+    path('prestashop/', include('prestashop.urls')),
     path('admin/', admin.site.urls),
 
     path('markdownx/', include('markdownx.urls')),
