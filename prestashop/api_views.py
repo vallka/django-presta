@@ -19,6 +19,7 @@ from .views import *
 import logging
 logger = logging.getLogger(__name__)
 
+db = 'presta-testa'
 
 class ProductList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)     
@@ -28,7 +29,7 @@ class ProductList(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         ids = kwargs.get('ids', '')
 
-        queryset = Ps17Product.objects.using('presta').filter(id_product__in=kwargs.get('ids', '').split(','))
+        queryset = Ps17Product.objects.using(db).filter(id_product__in=kwargs.get('ids', '').split(','))
 
         logger.info(f'ProductList:{ids}')
         #logger.error(queryset)
