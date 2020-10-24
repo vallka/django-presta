@@ -38,3 +38,14 @@ class ProductList(generics.ListAPIView):
     
         return Response(serializer.data)                
 
+class UpdateProduct(generics.APIView):
+    permission_classes = (IsAuthenticated,)     
+    parser_class = (JSONParser,)
+
+    @swagger_auto_schema(operation_description="Update product")
+    def post(self, request, format=None):
+
+        obj = request.data
+
+        logger.error(obj)
+        return Response({'success':1,'id_product':obj['id_product']})                
