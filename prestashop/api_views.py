@@ -44,7 +44,7 @@ class UpdateProduct(APIView):
     permission_classes = (IsAuthenticated,)     
     parser_class = (JSONParser,)
 
-    @swagger_auto_schema(operation_description="Update product")
+    @swagger_auto_schema(operation_description="Update product",manual_parameters=["data"])
     def post(self, request, format=None):
 
         obj = request.data
