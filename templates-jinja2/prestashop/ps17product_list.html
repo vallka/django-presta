@@ -4,14 +4,14 @@
 
 
 {% block content %}
-{% if product_list %}
-    {% for product in product_list %}
-        <div class="prestashop_product">
+{% if ps17product_list %}
+    {% for ps17product in ps17product_list %}
+        <div class="prestashop_ps17product">
             <div class="blog_a">
-                {{ product.id_product }}
+                {{ ps17product.id_product }}
             </div>
             <div class="blog_body">
-                {{product.reference}}
+                {{ps17product.reference}}
             </div>
     </div>
     {% endfor %}
