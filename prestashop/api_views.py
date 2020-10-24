@@ -38,7 +38,7 @@ class ProductList(generics.ListAPIView):
     
         return Response(serializer.data)                
 
-class UpdateProduct(APIView):
+class UpdateProduct(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)     
     parser_class = (JSONParser,)
 
