@@ -5,16 +5,30 @@
 
 {% block content %}
 {% if ps17product_list %}
-    {% for ps17product in ps17product_list %}
-        <div class="prestashop_ps17product">
-            <div class="blog_a">
-                {{ ps17product.id_product }}
-            </div>
-            <div class="blog_body">
-                {{ps17product.reference}}
-            </div>
-    </div>
-    {% endfor %}
+    <table>
+      <thead>
+        <tr>
+          <th>id_product</th>
+          <th>reference</th>
+          <th>active</th>
+          <th>price</th>
+          <th>wholesale_price</th>
+          <th>quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ps17product in ps17product_list %}
+      <tr>
+          <td>{{ps17product.id_product}}</td>
+          <td>{{ps17product.reference}}</td>
+          <td>{{ps17product.active}}</td>
+          <td>{{ps17product.price}}</td>
+          <td>{{ps17product.wholesale_price}}</td>
+          <td>{{ps17product.quantity}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
   {% else %}
     <p>There are no products yet.</p>
   {% endif %}     
