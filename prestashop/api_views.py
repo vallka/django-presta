@@ -41,6 +41,7 @@ class ProductList(generics.ListAPIView):
 class UpdateProduct(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)     
     parser_class = (JSONParser,)
+    serializer_class = ProductSerializer
 
     @swagger_auto_schema(operation_description="Update product")
     def post(self, request, format=None):
