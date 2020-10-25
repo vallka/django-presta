@@ -57,8 +57,8 @@ class UpdateProduct(APIView):
 
             if obj['what']=='reference':
                 queryset = Ps17Product.objects.using(db).filter(id_product__in=ids)
-                len = len(queryset)
-                logger.info(f'found:{len}')
+                l = len(queryset)
+                logger.info(f'found:{l}')
                 for p in queryset:
                     n += 1
 
