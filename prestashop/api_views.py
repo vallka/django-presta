@@ -91,7 +91,7 @@ class UpdateProduct(APIView):
 
 
                         with connections[db].cursor() as cursor:
-                            cursor.execute("update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and is_shop=%s",
+                            cursor.execute("update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and id_shop=%s",
                                 [new_name,p.id_product,p.id_lang,p.id_shop])
 
                         n_updated += 1
