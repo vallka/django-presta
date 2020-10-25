@@ -86,8 +86,8 @@ class UpdateProduct(APIView):
                         #p.save()
                         # DOSN'T WORK AS ps_product_lang uses composite pk!
 
-                        logger.info("update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and is_shop=%s",
-                            new_name,p.id_product,p.id_lang,p.id_shop)
+                        logger.info("update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and is_shop=%s")
+                        logger.info(f"pars:{new_name},{p.id_product},{p.id_lang},{p.id_shop}")
 
 
                         with connections[db].cursor() as cursor:
