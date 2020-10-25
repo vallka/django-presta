@@ -22,7 +22,7 @@ from .views import *
 import logging
 logger = logging.getLogger(__name__)
 
-db = 'presta-testa'
+db = 'presta'
 
 class ProductList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)     
@@ -55,12 +55,15 @@ class UpdateProduct(APIView):
         if obj['ids'] and obj['what'] and obj['search']:
             ids = obj['ids'].split(',')
 
-            queryset = Ps17Product.objects.using(db).filter(id_product__in=ids)
-            for p in queryset:
-                n += 1
-                logger.info(n)
-                logger.info(p.id_product)
-                logger.info(p.reference)
+            if obj['what']=='reference':
+                queryset = Ps17Product.objects.using(db).filter(id_product__in=ids)
+                len = len(queryset)
+                logger.info(f'found:{len}')
+                for p in queryset:
+                    n += 1
+
+                    new_reference = re.sub(obj['search'],obj['replace'])
+                    logger.info(f"{n} {p.id_product}: {p.reference}=>{new_reference}")
 
         logger.error(f'done:{n}')
 
