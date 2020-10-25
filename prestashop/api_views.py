@@ -108,12 +108,12 @@ class UpdateProduct(APIView):
                     if p.price!=new_price:
 
                         logger.info("update ps17_product_shop set price=%s where id_product=%s and id_shop=%s")
-                        logger.info(f"pars:{new_price},{p.id_product},{p.id_shop}")
+                        logger.info(f"pars:{new_price},{p.id_product},1")
 
 
                         with connections[db].cursor() as cursor:
-                            cursor.execute("update ps17_product_shop set price=%s where id_product=%s and id_shop=%s",[new_name,p.id_product,p.id_shop])
-                            cursor.execute("update ps17_product set price=%s where id_product=%s",[new_name,p.id_product])
+                            cursor.execute("update ps17_product_shop set price=%s where id_product=%s and id_shop=%s",[new_price,p.id_product,1])
+                            cursor.execute("update ps17_product set price=%s where id_product=%s",[new_price,p.id_product])
 
                         n_updated += 1
                         logger.info(f'saved:{p.id_product},{p.id_lang},{p.id_shop}')
