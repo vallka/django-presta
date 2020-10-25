@@ -48,6 +48,8 @@ class UpdateProduct(APIView):
     def post(self, request, format=None):
 
         obj = request.data
+        ids = obj['ids']
+        logger.info(f'UpdateProduct:{ids}')
 
         logger.error(obj)
-        return Response({'success':1,'id_product':obj})                
+        return Response({'success':1,'req':obj})                
