@@ -82,10 +82,22 @@ class UpdateProduct(APIView):
                     logger.info(f"{n} {p.id_product}: {p.name}=>{new_name}")
                     if p.name!=new_name:
                         p.name=new_name
-                        p.save()
+                        
+                        #p.save()
+                        # DOSN'T WORK AS ps_product_lang uses composite pk!
+
+                        logger.info(f"update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and is_shop=%s",
+                            [new_name,p.id_product,p.id_land,p.id_shop])
+
+
+                        #with connections[db].cursor() as cursor:
+                        #    cursor.execute("UPDATE bar SET foo = 1 WHERE baz = %s", [self.baz])
+
                         n_updated += 1
-                        logger.info(f'saved:{p.id_product}')
+                        logger.info(f'saved:{p.id_product},{p.id_land},{p.id_shop}')
 
         logger.error(f'done:{n}/{n_updated}')
 
         return Response({'success':1,'req':obj, 'count':n, 'updated':n_updated})                
+
+    
