@@ -82,7 +82,7 @@ class UpdateProduct(APIView):
                     logger.info(f"{n} {p.id_product}: {p.name}=>{new_name}")
                     if p.name!=new_name:
                         p.name=new_name
-                        #p.save()
+                        p.save()
                         n_updated += 1
                         logger.info(f'saved:{p.id_product}')
 
