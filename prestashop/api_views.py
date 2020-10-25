@@ -116,7 +116,7 @@ class UpdateProduct(APIView):
                             cursor.execute("update ps17_product set price=%s where id_product=%s",[new_price,p.id_product])
 
                         n_updated += 1
-                        logger.info(f'saved:{p.id_product},{p.id_lang},{p.id_shop}')
+                        logger.info(f'saved:{p.id_product}')
 
         logger.error(f'done:{n}/{n_updated}')
 
