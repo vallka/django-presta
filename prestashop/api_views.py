@@ -52,6 +52,7 @@ class UpdateProduct(APIView):
         logger.info(f"UpdateProduct:{obj['ids']} | {obj['what']} | {obj['search']} | {obj['replace']}")
 
         n = 0
+        n_updated = 0
         if obj['ids'] and obj['what'] and obj['search']:
             ids = obj['ids'].split(',')
 
@@ -66,8 +67,9 @@ class UpdateProduct(APIView):
                     if p.reference!=new_reference:
                         p.reference=new_reference
                         p.save()
+                        n_updated += 1
                         logger.info(f'saved:{p.id_product}')
 
         logger.error(f'done:{n}')
 
-        return Response({'success':1,'req':obj, 'count':n})                
+        return Response({'success':1,'req':obj, 'count':n, 'updated':n_updated})                
