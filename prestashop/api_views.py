@@ -70,7 +70,7 @@ class UpdateProduct(APIView):
                         n_updated += 1
                         logger.info(f'saved:{p.id_product}')
 
-            if obj['what'][0:5]=='name':
+            if obj['what'][0:4]=='name':
                 id_lang = int(obj['what'][5:])
                 logger.info(f'id_lang:{id_lang}')
                 queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
