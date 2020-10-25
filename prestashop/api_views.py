@@ -2,6 +2,7 @@ import json
 import pprint
 import requests
 import base64
+import re
 
 from rest_framework import viewsets,generics
 from rest_framework.views import APIView
@@ -48,8 +49,19 @@ class UpdateProduct(APIView):
     def post(self, request, format=None):
 
         obj = request.data
-        ids = obj['ids']
-        logger.info(f'UpdateProduct:{ids}')
+        logger.info(f"UpdateProduct:{obj['ids']} | {obj['what']} | {obj['search']} | {obj['replace']}")
 
-        logger.error(obj)
-        return Response({'success':1,'req':obj})                
+        n = 0
+        if obj['ids'] and obj['what'] and obj['search']:
+            ids = obj['ids'].split(',')
+
+            queryset = Ps17Product.objects.using(db).filter(id_product__in=ids)
+            for p in queryset:
+                n += 1
+                logger.info(n)
+                logger.info(p.id_product)
+                logger.info(p.reference)
+
+        logger.error(f'done:{n}')
+
+        return Response({'success':1,'req':obj, 'count':n})                
