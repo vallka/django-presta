@@ -62,7 +62,7 @@ class UpdateProduct(APIView):
                 for p in queryset:
                     n += 1
 
-                    new_reference = re.sub(obj['search'],obj['replace'])
+                    new_reference = re.sub(obj['search'],obj['replace'],p.reference)
                     logger.info(f"{n} {p.id_product}: {p.reference}=>{new_reference}")
 
         logger.error(f'done:{n}')
