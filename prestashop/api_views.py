@@ -97,6 +97,27 @@ class UpdateProduct(APIView):
                         n_updated += 1
                         logger.info(f'saved:{p.id_product},{p.id_lang},{p.id_shop}')
 
+            if obj['what']=='price':
+                queryset = Ps17Product.objects.using(db).filter(id_product__in=ids,)
+                l = len(queryset)
+                logger.info(f'found:{l}')
+                for p in queryset:
+                    n += 1
+                    new_price = obj['replace']
+                    logger.info(f"{n} {p.id_product}: {p.price}=>{new_price}")
+                    if p.price!=new_price:
+
+                        logger.info("update ps17_product_shop set price=%s where id_product=%s and id_shop=%s")
+                        logger.info(f"pars:{new_price},{p.id_product},{p.id_shop}")
+
+
+                        with connections[db].cursor() as cursor:
+                            cursor.execute("update ps17_product_shop set price=%s where id_product=%s and id_shop=%s",[new_name,p.id_product,p.id_shop])
+                            cursor.execute("update ps17_product set price=%s where id_product=%s",[new_name,p.id_product])
+
+                        n_updated += 1
+                        logger.info(f'saved:{p.id_product},{p.id_lang},{p.id_shop}')
+
         logger.error(f'done:{n}/{n_updated}')
 
         return Response({'success':1,'req':obj, 'count':n, 'updated':n_updated})                
