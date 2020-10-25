@@ -64,7 +64,7 @@ class Ps17Product(models.Model):
 
 
 class Ps17ProductLang(models.Model):
-    id_product = models.PositiveIntegerField()
+    id_product = models.PositiveIntegerField(primary_key=True)
     id_shop = models.PositiveIntegerField()
     id_lang = models.PositiveIntegerField()
     description = models.TextField(blank=True, null=True)
