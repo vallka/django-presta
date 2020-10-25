@@ -70,6 +70,22 @@ class UpdateProduct(APIView):
                         n_updated += 1
                         logger.info(f'saved:{p.id_product}')
 
-        logger.error(f'done:{n}')
+            if obj['what'][0:5]=='name':
+                id_lang = int(obj['what'][5:])
+                logger.info(f'id_lang:{id_lang}')
+                queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
+                l = len(queryset)
+                logger.info(f'found:{l}')
+                for p in queryset:
+                    n += 1
+                    new_name = re.sub(obj['search'],obj['replace'],p.name)
+                    logger.info(f"{n} {p.id_product}: {p.name}=>{new_name}")
+                    if p.name!=new_name:
+                        p.name=new_name
+                        #p.save()
+                        n_updated += 1
+                        logger.info(f'saved:{p.id_product}')
+
+        logger.error(f'done:{n}/{n_updated}')
 
         return Response({'success':1,'req':obj, 'count':n, 'updated':n_updated})                
