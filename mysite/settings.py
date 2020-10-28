@@ -174,8 +174,8 @@ MARKDOWNX_IMAGE_MAX_SIZE = { 'size': (610, 610), 'quality': 80 }
 MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'tables'
 ]
-MARKDOWNX_URLS_PATH = 'markdownx/markdownify/'
-MARKDOWNX_UPLOAD_URLS_PATH = 'markdownx/upload/'
+MARKDOWNX_URLS_PATH = '/pyadmin734r04xdw/markdownify/'
+MARKDOWNX_UPLOAD_URLS_PATH = '/pyadmin734r04xdw/upload/'
 
  
 
