@@ -52,7 +52,8 @@ urlpatterns = [
     path('prestashop/', include('prestashop.urls')),
     path('admin/', admin.site.urls),
 
-    path('markdownx/', include('markdownx.urls')),
+    #path('markdownx/', include('markdownx.urls')),
+    path('', include('markdownx.urls')),
 
 
     #path('openapi', get_schema_view(
