@@ -33,6 +33,7 @@ WHITENOISE_STATIC_PREFIX = '/static/'
 FORCE_SCRIPT_NAME = '/pyadmin734r04xdw'
 STATIC_URL = '%s%s' % (FORCE_SCRIPT_NAME, WHITENOISE_STATIC_PREFIX)
 
+
 DEBUG = True
 
 sentry_sdk.init(
