@@ -195,7 +195,7 @@ LOGGING = {
     },
 }
 
-INTERNAL_IPS = ['127.0.0.1','90.253.35.173']
+INTERNAL_IPS = ['127.0.0.1','90.253.35.173','87.74.96.146']
 
 
 import sentry_sdk
