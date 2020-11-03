@@ -21,6 +21,7 @@ jinja2 = "*"
 jinja2-django-tags = "*"
 update = "*"
 pillow = "*"
+jupyterlab = "*"
 
 [requires]
 python_version = "3.7"

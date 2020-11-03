@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'instadrome',
     'dhl',
     #'polls.apps.PollsConfig',
-    'blog',
+    #'blog',
     'prestashop',
 
     'django.contrib.admin',
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_yasg',
     'debug_toolbar',
-    'markdownx',
+    #'markdownx',
 
 
 
@@ -162,18 +162,16 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/' 
 
 from datetime import datetime
 
-MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
-MARKDOWNX_IMAGE_MAX_SIZE = { 'size': (610, 610), 'quality': 80 }
-MARKDOWNX_MARKDOWN_EXTENSIONS = [
-    'tables'
-]
+#MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
+#MARKDOWNX_IMAGE_MAX_SIZE = { 'size': (610, 610), 'quality': 80 }
+#MARKDOWNX_MARKDOWN_EXTENSIONS = [
+#    'tables'
+#]
 #MARKDOWNX_URLS_PATH = '/pyadmin734r04xdw/markdownify/'
 #MARKDOWNX_UPLOAD_URLS_PATH = '/pyadmin734r04xdw/upload/'
  
