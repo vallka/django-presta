@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'instadrome',
     'dhl',
     #'polls.apps.PollsConfig',
-    #'blog',
+    'blog',
     'prestashop',
 
     'django.contrib.admin',
@@ -46,14 +46,13 @@ INSTALLED_APPS = [
 
     'django.forms',
 
-
     'rest_framework',
     'rest_framework.authtoken',
     'drf_yasg',
     'debug_toolbar',
     #'markdownx',
 
-
+    'django_extensions',
 
 ]
 
