@@ -50,8 +50,8 @@ class DHLListView(generics.ListAPIView):
 
         queryset = DHLParcel.objects.using('presta').raw(DHL_sql(kwargs.get('ho', 'o'),kwargs.get('ids', '')))
 
-        logger.info(f'DHLListView:{ho}/{ids}')
-        logger.error(queryset)
+        #logger.info(f'DHLListView:{ho}/{ids}')
+        #logger.error(queryset)
 
         serializer = self.get_serializer(queryset, many=True)
     
@@ -66,8 +66,8 @@ class UPSListView(generics.ListAPIView):
 
         queryset = UPSParcel.objects.using('presta').raw(UPS_sql(kwargs.get('ids', '')))
 
-        logger.info(f'UPSListView:{ids}')
-        logger.error(queryset)
+        #logger.info(f'UPSListView:{ids}')
+        #logger.error(queryset)
 
         serializer = self.get_serializer(queryset, many=True)
     
@@ -88,13 +88,13 @@ class UPSAction(generics.ListAPIView):
 
         queryset = UPSParcel.objects.using('presta').raw(UPS_sql(obj['id_order']))
 
-        logger.error(queryset)
+        #logger.error(queryset)
 
         serializer = self.get_serializer(queryset, many=True)
 
         resp = processItem(serializer.data[0],obj['id_order'])
 
-        logger.error('####' + resp["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
+        #logger.error('####' + resp["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"])
 
         id_order = obj['id_order']
         shipping_no = resp["ShipmentResponse"]["ShipmentResults"]["ShipmentIdentificationNumber"]
@@ -124,7 +124,7 @@ def processItem(dat,id_order):
     response = requests.post(' https://onlinetools.ups.com/ship/v1807/shipments',data=json.dumps(dat),headers=newHeaders)
     #response = requests.post(' https://wwwcie.ups.com/ship/v1807/shipments',data=json.dumps(dat),headers=newHeaders)
 
-    print("Status code: ", response.status_code)
+    #print("Status code: ", response.status_code)
 
     with open(f"{path}{id_order}.json", "w") as file:
         file.write(response.text)
@@ -132,7 +132,7 @@ def processItem(dat,id_order):
     jsn = json.loads(response.text)
 
 
-    logger.error(jsn)
+    #logger.error(jsn)
 
     #pprint.pprint(jsn["ShipmentResponse"]["ShipmentResults"]["NegotiatedRateCharges"]["TotalChargesWithTaxes"]["MonetaryValue"])
 
@@ -161,13 +161,13 @@ class UPSLabelAction(generics.ListAPIView):
 
         queryset = ShippingNumber.objects.using('presta').raw(ShippingNumber_sql(obj['id_order']))
 
-        logger.error(queryset)
+        #logger.error(queryset)
 
         serializer = self.get_serializer(queryset, many=True)
 
         resp = processLabelItem(serializer.data[0],obj['id_order'])
 
-        logger.error('####' + resp["LabelRecoveryResponse"]["LabelResults"]["ShipmentIdentificationNumber"])
+        #logger.error('####' + resp["LabelRecoveryResponse"]["LabelResults"]["ShipmentIdentificationNumber"])
 
         id_order = obj['id_order']
         shipping_no = resp["LabelRecoveryResponse"]["LabelResults"]["ShipmentIdentificationNumber"]
