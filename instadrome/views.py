@@ -21,6 +21,8 @@ def ig_image(request):
     try:
         page = requests.get(img, allow_redirects=True)
 
+        return HttpResponse(page)   
+
         data = re.search(r'window\._sharedData\s*=\s*(\{.*?\});<',page.text)
         url = re.search(r'"display_url":"(https://.*?)"',data[1])
         url = url[1].replace(r'\u0026','&')
