@@ -16,7 +16,7 @@ def ig_image(request):
     logger.error("ig_image - id:%s",id)
     img = f'https://www.instagram.com/p/{id}/'
 
-    text = img`
+    text = img
 
     try:
         page = requests.get(img, allow_redirects=True)
