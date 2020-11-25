@@ -32,7 +32,7 @@ def ig_image(request):
 
     except Exception as e:
         logger.error(e)
-        text += "\nError:" + e
+        text += "\nError:" + str(e)
 
     return HttpResponse(text)
 
