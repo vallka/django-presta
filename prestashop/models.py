@@ -123,7 +123,7 @@ class Order(models.Model):
     SELECT 
         id_order,
         reference,
-        o.current_state
+        o.current_state as id_order_state
         ,(select name from ps17_order_state_lang where id_lang=1 and id_order_state=o.current_state) order_state
         ,o.shipping_number
         ,c.firstname,
