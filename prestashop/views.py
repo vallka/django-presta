@@ -33,7 +33,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('id_order',)
-        readonly_fields = ('reference','id_order_state','order_state','shipping_number','firstname_customer','lastname_customer','note','firstname','lastname','email','postcode',
+        read_only_fields = ('reference','id_order_state','order_state','shipping_number','firstname_customer','lastname_customer','note','firstname','lastname','email','postcode',
                 'address1','address2','city','phone','country','currency_code','total_paid','total_products_wt','total_shipping_tax_incl','date_add','date_upd','id_country','carrier','is_new')
 
     def build_unknown_field(self, field_name, model_class):
