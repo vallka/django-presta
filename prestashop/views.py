@@ -31,7 +31,7 @@ class OrderListView(generic.ListView):
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        depth = 1
+        depth = 0
         model = Order
         fields = "__all__"
         read_only_fields = ('reference','id_order_state','order_state','shipping_number','firstname_customer','lastname_customer','note','firstname','lastname','email','postcode',
