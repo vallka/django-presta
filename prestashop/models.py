@@ -85,7 +85,7 @@ class Ps17ProductLang(models.Model):
         unique_together = (('id_product', 'id_shop', 'id_lang'),)
 
 
-class Order():
+class Order:
     #class Meta:
     #    managed = False
     #    db_table = 'ps17_orders'
@@ -99,23 +99,23 @@ class Order():
     lastname_customer = models.CharField(max_length=255, blank=True, null=True,editable=False,)
     note = models.TextField(blank=True, null=True,editable=False,)
     firstname = models.CharField(max_length=255, blank=True, null=True,editable=False,)
-    lastname = models.CharField(max_length=255, blank=True, ,editable=False,)
-    email = models.CharField(max_length=255, blank=True, ,editable=False,)
-    postcode = models.CharField(max_length=255, blank=True, ,editable=False,)
-    address1 = models.CharField(max_length=255, blank=True, ,editable=False,)
-    address2 = models.CharField(max_length=255, blank=True, ,editable=False,)
-    city = models.CharField(max_length=255, blank=True, ,editable=False,)
-    phone = models.CharField(max_length=255, blank=True, ,editable=False,)
-    country = models.CharField(max_length=255, blank=True, ,editable=False,)
-    currency_code = models.CharField(max_length=3, blank=True, ,editable=False,)
-    total_paid  = models.FloatField(blank=True, ,editable=False,)
-    total_products_wt   = models.FloatField(blank=True, ,editable=False,)
-    total_shipping_tax_incl  = models.FloatField(blank=True, ,editable=False,)
-    date_add  = models.DateTimeField(blank=True, ,editable=False,)
-    date_upd  = models.DateTimeField(blank=True, ,editable=False,)
-    id_country = models.PositiveIntegerField(blank=True, ,editable=False,)
-    carrier = models.CharField(max_length=255, blank=True, ,editable=False,)
-    is_new = models.PositiveIntegerField(blank=True, ,editable=False,)
+    lastname = models.CharField(max_length=255, blank=True, editable=False,)
+    email = models.CharField(max_length=255, blank=True, editable=False,)
+    postcode = models.CharField(max_length=255, blank=True, editable=False,)
+    address1 = models.CharField(max_length=255, blank=True, editable=False,)
+    address2 = models.CharField(max_length=255, blank=True, editable=False,)
+    city = models.CharField(max_length=255, blank=True, editable=False,)
+    phone = models.CharField(max_length=255, blank=True, editable=False,)
+    country = models.CharField(max_length=255, blank=True, editable=False,)
+    currency_code = models.CharField(max_length=3, blank=True, editable=False,)
+    total_paid  = models.FloatField(blank=True, editable=False,)
+    total_products_wt   = models.FloatField(blank=True, editable=False,)
+    total_shipping_tax_incl  = models.FloatField(blank=True, editable=False,)
+    date_add  = models.DateTimeField(blank=True, editable=False,)
+    date_upd  = models.DateTimeField(blank=True, editable=False,)
+    id_country = models.PositiveIntegerField(blank=True, editable=False,)
+    carrier = models.CharField(max_length=255, blank=True, editable=False,)
+    is_new = models.PositiveIntegerField(blank=True, editable=False,)
 
     @staticmethod
     def SQL():
