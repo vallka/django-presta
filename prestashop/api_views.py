@@ -31,8 +31,11 @@ class OrderList(generics.ListAPIView):
     @swagger_auto_schema(operation_description="Orders")
     def get(self, request, *args, **kwargs):
 
-        queryset = Order.objects.using(db).raw(Order.SQL())
-        serializer = self.get_serializer(queryset, many=True)
+        sql = Order.SQL()
+        logger.error(f'get sql:{sql}')
+        qs = Order.objects.using(db).raw(sql)
+        logger.error(qs)
+        serializer = self.get_serializer(qs, many=True)
     
         return Response(serializer.data)                
 
