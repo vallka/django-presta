@@ -23,8 +23,9 @@ class OrderListView(generic.ListView):
     def get_queryset(self):
         """
         """
-        qs = Order.objects.using('presta').raw(Order.SQL())
-        logger.error('get_queryset')
+        sql = Order.SQL()
+        logger.error(f'get_queryset sql:{sql}')
+        qs = Order.objects.using('presta').raw(sql)
         logger.error(qs)
         return qs
 
