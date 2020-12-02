@@ -39,6 +39,22 @@ class OrderList(generics.ListAPIView):
     
         return Response(serializer.data)                
 
+class OrderDetailList(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)     
+    serializer_class = OrderDetailSerializer
+
+    @swagger_auto_schema(operation_description="Order Detail")
+    def get(self, request, *args, **kwargs):
+
+        sql = OrderDetail.SQL()
+        logger.error(f'get sql:{sql}')
+        qs = Order.objects.using(db).raw(sql,[id_order])
+       
+        serializer = self.get_serializer(qs, many=True)
+    
+        return Response(serializer.data)                
+
+
 class ProductList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)     
     serializer_class = ProductSerializer

@@ -44,3 +44,8 @@ class OrderDetailListView(generic.ListView):
         qs = OrderDetail.objects.using('presta').raw(sql,[self.kwargs['id_order']])
         logger.error(qs)
         return qs
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderDetail
+        fields = "__all__"
