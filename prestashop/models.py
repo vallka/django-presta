@@ -85,12 +85,12 @@ class Ps17ProductLang(models.Model):
         unique_together = (('id_product', 'id_shop', 'id_lang'),)
 
 
-class Order(models.Model):
-    class Meta:
-        managed = False
-        db_table = 'ps17_orders'
+class Order():
+    #class Meta:
+    #    managed = False
+    #    db_table = 'ps17_orders'
 
-    id_order = models.PositiveIntegerField(primary_key=True,editable=False,)
+    id_order = models.PositiveIntegerField(primary_key=True,editable=False,db_column=None)
     reference = models.CharField(max_length=255, blank=True, null=True,editable=False,)
     id_order_state = models.PositiveIntegerField(blank=True, null=True,editable=False,)
     order_state = models.CharField(max_length=255, blank=True, null=True,editable=False,)

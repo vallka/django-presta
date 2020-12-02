@@ -31,7 +31,6 @@ class OrderListView(generic.ListView):
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        depth = 0
         model = Order
         fields = "__all__"
 
