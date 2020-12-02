@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Orders{% endblock %}
+
+
+{% block content %}
+{% if order_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>id_order</th>
+          <th>reference</th>
+          <th>state</th>
+          <th>date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in order_list %}
+      <tr>
+          <td>{{order.id_order}}</td>
+          <td>{{order.reference}}</td>
+          <td>{{order.order_state}}</td>
+          <td>{{order.date_add}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>There are no orders.</p>
+  {% endif %}     
+{% endblock content %}
+
+
+
+{% block javascript %}
+{{ super() }}
+{% endblock %}

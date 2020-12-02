@@ -83,3 +83,70 @@ class Ps17ProductLang(models.Model):
         managed = False
         db_table = 'ps17_product_lang'
         unique_together = (('id_product', 'id_shop', 'id_lang'),)
+
+
+class Order(models.Model):
+    class Meta:
+        managed = False
+
+    id_order = models.PositiveIntegerField(primary_key=True)
+    reference = models.CharField(max_length=255, blank=True, null=True)
+    id_order_state = models.PositiveIntegerField(blank=True, null=True)
+    order_state = models.CharField(max_length=255, blank=True, null=True)
+    shipping_number = models.CharField(max_length=255, blank=True, null=True)
+    firstname_customer = models.CharField(max_length=255, blank=True, null=True)
+    lastname_customer = models.CharField(max_length=255, blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
+    firstname = models.CharField(max_length=255, blank=True, null=True)
+    lastname = models.CharField(max_length=255, blank=True, null=True)
+    email = models.CharField(max_length=255, blank=True, null=True)
+    postcode = models.CharField(max_length=255, blank=True, null=True)
+    address1 = models.CharField(max_length=255, blank=True, null=True)
+    address2 = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+    country = models.CharField(max_length=255, blank=True, null=True)
+    currency_code = models.CharField(max_length=3, blank=True, null=True)
+    total_paid  = models.FloatField(blank=True, null=True)
+    total_products_wt   = models.FloatField(blank=True, null=True)
+    total_shipping_tax_incl  = models.FloatField(blank=True, null=True)
+    date_add  = models.DateTimeField(blank=True, null=True)
+    date_upd  = models.DateTimeField(blank=True, null=True)
+    id_country = models.PositiveIntegerField(blank=True, null=True)
+    carrier = models.CharField(max_length=255, blank=True, null=True)
+    is_new = models.PositiveIntegerField(blank=True, null=True)
+
+    @staticmethod
+    def SQL():
+        return
+"""
+    SELECT 
+        id_order,
+        reference,
+        o.current_state
+        ,(select name from ps17_order_state_lang where id_lang=1 and id_order_state=o.current_state) order_state
+        ,o.shipping_number
+        ,c.firstname,
+        c.lastname,
+        c.note
+        ,a.firstname as firstname_a,
+        a.lastname as lastname_a
+        ,c.email,
+        a.postcode,
+        a.address1,
+        a.address2,
+        a.city,
+        a.phone
+        ,(select name from ps17_country_lang where id_lang=1 and id_country=a.id_country) country
+        ,iso_code,total_paid ,total_products_wt ,total_shipping_tax_incl,o.date_add,o.date_upd
+        ,o.id_customer,o.id_address_delivery,a.id_country
+        ,ca.name as carrier
+        ,IF((SELECT so.id_order FROM `ps17_orders` so WHERE so.id_customer = o.id_customer AND so.id_order < o.id_order LIMIT 1) > 0, 0, 1) as is_new
+        FROM `ps17_orders` o
+        JOIN ps17_customer c on o.id_customer=c.id_customer
+        JOIN ps17_address a on id_address_delivery=a.id_address
+        join ps17_carrier ca on ca.id_carrier=o.id_carrier
+        join ps17_currency cu on cu.id_currency=o.id_currency
+        WHERE o.current_state in (2,3)
+        ORDER BY id_order DESC
+"""
