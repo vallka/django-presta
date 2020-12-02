@@ -34,12 +34,16 @@ class OrderSerializer(serializers.ModelSerializer):
         depth = 0
         model = Order
         fields = "__all__"
-        read_only_fields = ('reference','id_order_state','order_state','shipping_number','firstname_customer','lastname_customer','note','firstname','lastname','email','postcode',
-                'address1','address2','city','phone','country','currency_code','total_paid','total_products_wt','total_shipping_tax_incl','date_add','date_upd','id_country','carrier','is_new')
 
     def build_unknown_field(self, field_name, model_class):
             """
             Return a two tuple of (cls, kwargs) to build a serializer field with. For fields that werent originally on
             The model
             """
-            return serializers.fields.CharField, {'read_only': True}
+            return serializers.CharField, {'read_only': True}
+
+    def to_representation(self, instance):
+        return {
+            'score': instance.score,
+            'player_name': instance.player_name
+        }
