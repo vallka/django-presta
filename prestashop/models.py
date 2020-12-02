@@ -138,7 +138,8 @@ class Order(models.Model):
         a.city,
         a.phone
         ,(select name from ps17_country_lang where id_lang=1 and id_country=a.id_country) country
-        ,iso_code,total_paid ,total_products_wt ,total_shipping_tax_incl,o.date_add,o.date_upd
+        ,iso_code as currency_code
+        ,total_paid ,total_products_wt ,total_shipping_tax_incl,o.date_add,o.date_upd
         ,o.id_customer,o.id_address_delivery,a.id_country
         ,ca.name as carrier
         ,IF((SELECT so.id_order FROM `ps17_orders` so WHERE so.id_customer = o.id_customer AND so.id_order < o.id_order LIMIT 1) > 0, 0, 1) as is_new
