@@ -118,8 +118,7 @@ class Order(models.Model):
 
     @staticmethod
     def SQL():
-        return
-"""
+        return """
     SELECT 
         id_order,
         reference,
