@@ -48,7 +48,7 @@ class OrderDetailList(generics.ListAPIView):
 
         sql = OrderDetail.SQL()
         logger.error(f'get sql:{sql}')
-        qs = Order.objects.using(db).raw(sql,[kwargs['id_order']])
+        qs = OrderDetail.objects.using(db).raw(sql,[kwargs['id_order']])
        
         serializer = self.get_serializer(qs, many=True)
     
