@@ -151,3 +151,40 @@ class Order(models.Model):
         WHERE o.current_state in (2,3)
         ORDER BY id_order DESC
 """
+
+class OrderDetail(models.Model):
+    class Meta:
+        managed = False
+        db_table = 'ps17_order_detail'
+
+    id_order_detail = models.PositiveIntegerField(primary_key=True,editable=False,db_column=None)
+    product_id = models.PositiveIntegerField(editable=False,db_column=None)
+    product_reference = models.CharField(max_length=255, blank=True, null=True,editable=False,)
+    product_name = models.CharField(max_length=255, blank=True, null=True,editable=False,)
+    product_ean13 = models.CharField(max_length=255, blank=True, null=True,editable=False,)
+    product_quantity = models.PositiveIntegerField(editable=False,db_column=None)
+    unity = models.PositiveIntegerField(editable=False,db_column=None)
+    quantity = models.IntegerField(editable=False,db_column=None)
+    id_image = models.PositiveIntegerField(editable=False,db_column=None)
+
+
+    @staticmethod
+    def SQL():
+        return """
+SELECT 
+p.id_order_detail,
+p.product_id,
+p.product_reference,
+p.product_name,
+p.product_ean13,
+p.product_quantity,
+if(pr.unity>1,pr.unity,1) unity,
+a.quantity,
+i.id_image
+	FROM ps17_order_detail p 
+	left outer join ps17_image i on p.product_id=i.id_product and i.cover=1 
+	left outer join ps17_stock_available a on a.id_product=p.product_id and 	
+	a.id_product_attribute=p.product_attribute_id
+    left outer join ps17_product pr on pr.id_product=p.product_id	
+	WHERE id_order=%s order by product_name
+"""

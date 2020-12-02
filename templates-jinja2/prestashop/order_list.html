@@ -18,7 +18,7 @@
         {% for order in order_list %}
       <tr>
           <td>{{order.id_order}}</td>
-          <td>{{order.reference}}</td>
+          <td><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.reference}}</a></td>
           <td>{{order.order_state}}</td>
           <td>{{order.date_add}}</td>
       </tr>

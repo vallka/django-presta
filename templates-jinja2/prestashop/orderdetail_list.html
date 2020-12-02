@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Order Detail{% endblock %}
+
+
+{% block content %}
+{% if orderdetail_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>id_order_detail</th>
+          <th>product_reference</th>
+          <th>product_quantity</th>
+          <th>unity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orderdetail_list %}
+      <tr>
+          <td>{{order.id_order_detail}}</td>
+          <td>{{order.product_reference}}</td>
+          <td>{{order.product_quantity}}</td>
+          <td>{{order.unity}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>There are no orders.</p>
+  {% endif %}     
+{% endblock content %}
+
+
+
+{% block javascript %}
+{{ super() }}
+{% endblock %}

@@ -7,4 +7,5 @@ app_name = 'prestashop'
 urlpatterns = [
     path('product/', ProductListView.as_view(), name='product'),
     path('order/', OrderListView.as_view(), name='order'),
+    path('order/<int:id_order>/', OrderDetailListView.as_view(), name='order_detail'),
 ]
