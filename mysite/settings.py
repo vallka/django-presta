@@ -200,7 +200,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 sentry_sdk.init(
     environment="dev",
-    dsn="https://21b5ea815b7a4191ade6d32c3dfac546@o360522.ingest.sentry.io/3651329",
+    dsn="https://2c7d92371b0143f982e0e528d8a519c8@o480612.ingest.sentry.io/5541486",
     integrations=[DjangoIntegration()],
 
     # If you wish to associate users to errors (assuming you are using
