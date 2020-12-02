@@ -86,10 +86,6 @@ class Ps17ProductLang(models.Model):
 
 
 class Order(models.Model):
-    class Meta:
-        managed = False
-        db_table = None
-
     id_order = models.PositiveIntegerField(primary_key=True)
     reference = models.CharField(max_length=255, blank=True, null=True)
     id_order_state = models.PositiveIntegerField(blank=True, null=True)
