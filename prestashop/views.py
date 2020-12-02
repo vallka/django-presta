@@ -29,8 +29,7 @@ class OrderListView(generic.ListView):
         logger.error(qs)
         return qs
 
-class OrderSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.Serializer):
     class Meta:
-        model = Order
-        fields = '__all__'
-
+        fields = "id_order,reference,id_order_state,order_state,shipping_number,firstname_customer,lastname_customer,note,firstname,lastname,email,postcode," + \
+                "address1,address2,city,phone,country,currency_code,total_paid,total_products_wt,total_shipping_tax_incl,date_add,date_upd,id_country,carrier,is_new"
