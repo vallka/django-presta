@@ -86,7 +86,7 @@ class Ps17ProductLang(models.Model):
 
 
 class Order(models.Model):
-    id_order = models.PositiveIntegerField(blank=True, null=True)
+    id_order = models.PositiveIntegerField(primary_key=True)
     reference = models.CharField(max_length=255, blank=True, null=True)
     id_order_state = models.PositiveIntegerField(blank=True, null=True)
     order_state = models.CharField(max_length=255, blank=True, null=True)
