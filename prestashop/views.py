@@ -29,20 +29,34 @@ class OrderListView(generic.ListView):
         logger.error(qs)
         return qs
 
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
-        fields = "__all__"
-
-    def build_unknown_field(self, field_name, model_class):
-            """
-            Return a two tuple of (cls, kwargs) to build a serializer field with. For fields that werent originally on
-            The model
-            """
-            return serializers.CharField, {'read_only': True}
+class OrderSerializer(serializers.BaseSerializer):
 
     def to_representation(self, instance):
         return {
-            'score': instance.score,
-            'player_name': instance.player_name
+            'id_order' : instance.id_order,
+            'reference' : instance.reference,
+            'id_order_state' : instance.id_order_state,
+            'order_state' : instance.order_state,
+            'shipping_number' : instance.shipping_number,
+            'firstname_customer' : instance.firstname_customer,
+            'lastname_customer' : instance.lastname_customer,
+            'note' : instance.note,
+            'firstname' : instance.firstname,
+            'lastname' : instance.lastname,
+            'email' : instance.email,
+            'postcode' : instance.postcode,
+            'address1' : instance.address1,
+            'address2' : instance.address2,
+            'city' : instance.city,
+            'phone' : instance.phone,
+            'country' : instance.country,
+            'currency_code' : instance.currency_code,
+            'total_paid' : instance.total_paid,
+            'total_products_wt' : instance.total_products_wt,
+            'total_shipping_tax_incl' : instance.total_shipping_tax_incl,
+            'date_add' : instance.date_add,
+            'date_upd' : instance.date_upd,
+            'id_country' : instance.id_country,
+            'carrier' : instance.carrier,
+            'is_new' : instance.is_new,
         }
