@@ -39,7 +39,7 @@ class OrderDetailListView(generic.ListView):
     def get_queryset(self):
         """
         """
-        sql = Order.SQL()
+        sql = OrderDetail.SQL()
         logger.error(f'get_queryset sql:{sql}')
         qs = OrderDetail.objects.using('presta').raw(sql,[self.kwargs['id_order']])
         logger.error(qs)
