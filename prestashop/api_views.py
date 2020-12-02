@@ -24,6 +24,18 @@ logger = logging.getLogger(__name__)
 
 db = 'presta'
 
+class OrderList(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)     
+    serializer_class = OrderSerializer
+
+    @swagger_auto_schema(operation_description="Orders")
+    def get(self, request, *args, **kwargs):
+
+        queryset = Order.objects.using(db)
+        serializer = self.get_serializer(queryset, many=True)
+    
+        return Response(serializer.data)                
+
 class ProductList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)     
     serializer_class = ProductSerializer
