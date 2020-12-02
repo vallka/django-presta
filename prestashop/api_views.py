@@ -35,6 +35,11 @@ class OrderList(generics.ListAPIView):
         logger.error(f'get sql:{sql}')
         qs = Order.objects.using(db).raw(sql)
         logger.error(len(qs))
+        
+        for o in qs:
+            logger.error(o.id_order)
+            logger.error(o.id_order_state)
+        
         serializer = self.get_serializer(qs, many=True)
     
         return Response(serializer.data)                
