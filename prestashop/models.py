@@ -126,11 +126,11 @@ class Order(models.Model):
         o.current_state as id_order_state
         ,(select name from ps17_order_state_lang where id_lang=1 and id_order_state=o.current_state) order_state
         ,o.shipping_number
-        ,c.firstname,
-        c.lastname,
+        ,c.firstname as firstname_customer,
+        c.lastname as lastname_customer,
         c.note
-        ,a.firstname as firstname_a,
-        a.lastname as lastname_a
+        ,a.firstname,
+        a.lastname
         ,c.email,
         a.postcode,
         a.address1,
