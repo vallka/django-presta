@@ -23,7 +23,7 @@
   </style>
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
-<body>
+<body id="body">
  
 <form>
   <fieldset>
@@ -34,19 +34,33 @@
 <button id="other">
   Trigger the handler
 </button>
-<script type="text/javascript" src="/resources/events.js"></script>
  
 <script>
-var xTriggered = 0;
-$( "#target" ).keyup(function( event ) {
-  xTriggered++;
-  var msg = "Handler for .keyup() called " + xTriggered + " time(s).";
-  $.print( msg, "html" );
-  $.print( event );
-}).keydown(function( event ) {
-  if ( event.which == 13 ) {
-    event.preventDefault();
+var code='';
+$( "#body" ).keyup(function( event ) {
+  console.log( event.originalEvent.key + ' --- ' + code);
+
+  if (event.originalEvent.key=='0' ||
+      event.originalEvent.key=='1' ||
+      event.originalEvent.key=='2' ||
+      event.originalEvent.key=='3' ||
+      event.originalEvent.key=='4' ||
+      event.originalEvent.key=='5' ||
+      event.originalEvent.key=='6' ||
+      event.originalEvent.key=='7' ||
+      event.originalEvent.key=='8' ||
+      event.originalEvent.key=='9') {
+        code += event.originalEvent.key;
   }
+
+  else if (event.originalEvent.key=='Enter' && code.length==13) {
+    alert(code);
+    code = '';
+  }
+  else {
+    code = '';
+  }
+
 });
  
 $( "#other").click(function() {

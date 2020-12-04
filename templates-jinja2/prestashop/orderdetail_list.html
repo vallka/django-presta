@@ -36,4 +36,32 @@
 
 {% block javascript %}
 {{ super() }}
+<script>
+  var code='';
+  $( "body" ).keyup(function( event ) {
+    console.log( event.originalEvent.key + ' --- ' + code);
+  
+    if (event.originalEvent.key=='0' ||
+        event.originalEvent.key=='1' ||
+        event.originalEvent.key=='2' ||
+        event.originalEvent.key=='3' ||
+        event.originalEvent.key=='4' ||
+        event.originalEvent.key=='5' ||
+        event.originalEvent.key=='6' ||
+        event.originalEvent.key=='7' ||
+        event.originalEvent.key=='8' ||
+        event.originalEvent.key=='9') {
+          code += event.originalEvent.key;
+    }
+  
+    else if (event.originalEvent.key=='Enter' && code.length==13) {
+      alert(code);
+      code = '';
+    }
+    else {
+      code = '';
+    }
+  
+  });
+  </script>
 {% endblock %}
