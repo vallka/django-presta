@@ -45,8 +45,9 @@ function process(code) {
     tt = $(this).find('.ean13_col');
     console.log( tt );
     console.log( tt[0] );
-    console.log( tt.text() );
-    if (tt==code) {
+    ttt = tt.text()
+    console.log( '? ' + ttt + ' == ' + code);
+    if (ttt==code) {
       console.log( "!!!!");
       $(this).find('checkbox').prop('checked',true)
     }
