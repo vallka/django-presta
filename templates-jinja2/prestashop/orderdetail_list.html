@@ -42,8 +42,8 @@
 function process(code) {
   alert(code);
   $('.product_row').each(function(){
-    tt = this.find('.ean13_col').text();
-    console.log( tt + ' = ' + code);
+    tt = $(this).find('.ean13_col');
+    console.log( tt );
     if (tt==code) {
       console.log( "!!!!");
       $(this).find('checkbox').prop('checked',true)
