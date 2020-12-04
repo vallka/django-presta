@@ -42,7 +42,7 @@
 function process(code) {
   alert(code);
   $('.product_row').each(function(){
-    tt = $(this).find('ean13_col').text();
+    tt = $(this).find('.ean13_col').text();
     console.log( tt + ' = ' + code);
     if (tt==code) {
       console.log( "!!!!");
