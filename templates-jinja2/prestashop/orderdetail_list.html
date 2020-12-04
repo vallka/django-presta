@@ -24,7 +24,7 @@
           <td class="ean13_col">{{order.product_ean13}}</td>
           <td class="qnt_col">{{order.product_quantity}}</td>
           <td>{{order.unity}}</td>
-          <td><input type="checkbox>"</td>
+          <td><input type="checkbox"></td>
       </tr>
       {% endfor %}
       </tbody>
@@ -47,7 +47,7 @@ function process(code) {
     if (tt==code) {
       console.log( "!!!!");
       $(this).find('checkbox').prop('checked',true)
-    })
+    }
   });
 }
 
