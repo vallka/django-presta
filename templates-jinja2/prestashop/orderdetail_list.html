@@ -10,6 +10,7 @@
         <tr>
           <th>id_order_detail</th>
           <th>product_reference</th>
+          <th>ean13</th>
           <th>product_quantity</th>
           <th>unity</th>
         </tr>
@@ -19,7 +20,8 @@
       <tr>
           <td>{{order.id_order_detail}}</td>
           <td>{{order.product_reference}}</td>
-          <td>{{order.product_quantity}}</td>
+          <td class="ean13_col">{{order.product_ean13}}</td>
+          <td class="qnt_col">{{order.product_quantity}}</td>
           <td>{{order.unity}}</td>
       </tr>
       {% endfor %}
