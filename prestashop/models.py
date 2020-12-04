@@ -174,9 +174,9 @@ class OrderDetail(models.Model):
 SELECT 
 p.id_order_detail,
 p.product_id,
-p.product_reference,
+pr.reference as product_reference,
 p.product_name,
-p.product_ean13,
+pr.ean13 as product_ean13,
 p.product_quantity,
 if(pr.unity>1,pr.unity,1) unity,
 a.quantity,
