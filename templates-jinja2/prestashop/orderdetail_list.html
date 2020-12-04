@@ -49,7 +49,7 @@ function process(code) {
     console.log( '? ' + ttt + ' == ' + code);
     if (ttt==code) {
       console.log( "!!!!");
-      $(this).find('checkbox').prop('checked',true)
+      $(this).find('input[type=checkbox]').prop('checked',true)
     }
   });
 }
