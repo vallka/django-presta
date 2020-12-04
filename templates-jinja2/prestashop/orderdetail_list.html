@@ -13,16 +13,18 @@
           <th>ean13</th>
           <th>product_quantity</th>
           <th>unity</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         {% for order in orderdetail_list %}
-      <tr>
+      <tr class="product_row">
           <td>{{order.id_order_detail}}</td>
           <td>{{order.product_reference}}</td>
           <td class="ean13_col">{{order.product_ean13}}</td>
           <td class="qnt_col">{{order.product_quantity}}</td>
           <td>{{order.unity}}</td>
+          <td><input type="checkbox>"</td>
       </tr>
       {% endfor %}
       </tbody>
@@ -37,7 +39,20 @@
 {% block javascript %}
 {{ super() }}
 <script>
-  var code='';
+function process(code) {
+  alert(code);
+  $('.product_row').each(function(){
+    tt = $(this).find('ean13_col').text()''
+    console.log( tt + ' = ' + code);
+    if (tt==code) {
+      console.log( "!!!!");
+      $(this).find('checkbox').prop('checked',true)
+    })
+  });
+}
+
+
+var code='';
   $( "body" ).keyup(function( event ) {
     console.log( event.originalEvent.key + ' --- ' + code);
   
@@ -55,7 +70,7 @@
     }
   
     else if (event.originalEvent.key=='Enter' && code.length==13) {
-      alert(code);
+      process(code);
       code = '';
     }
     else {
