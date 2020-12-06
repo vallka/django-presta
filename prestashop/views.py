@@ -46,7 +46,7 @@ class OrderDetailListView(generic.ListView):
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super(CLASS_NAME, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         context['order'] = {'id_order':12345, 'reference':'QWEQWEQWE'}
 
