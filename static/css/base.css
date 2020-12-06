@@ -17,4 +17,9 @@
 .gel_thead .gel_row > div {
   background-color:chocolate;
   color:white;
-}.fa
+}
+
+.gel_thead > div {
+  background-color:chocolate;
+  color:white;
+}
