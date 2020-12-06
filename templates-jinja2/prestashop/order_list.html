@@ -15,17 +15,20 @@
 <div class="gel_table">
   <div class="gel_thead">
     <div class="gel_row">
-          <div>id_order</div>
-          <div>reference</div>
+          <div>reference<br>
+          (id_order)</div>
+          <div>customer</div>
           <div>state</div>
           <div>date</div>
-    </div>
+    </br>
   </div>
   <div class="gel_tbody">
     {% for order in order_list %}
       <div class="gel_row">
-          <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.id_order}}</a></div>
-          <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.reference}}</a></div>
+          <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.reference}}</a>
+            (<a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.id_order}}</a>)
+          </div>
+          <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.firstname}} {{order.lastname}}</a></div>
           <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.order_state}}</a></div>
           <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.date_add}}</a></div>
       </div>
