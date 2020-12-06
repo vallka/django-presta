@@ -5,26 +5,26 @@
 
 {% block content %}
 {% if order_list %}
-    <table>
-      <thead>
-        <tr>
-          <th>id_order</th>
-          <th>reference</th>
-          <th>state</th>
-          <th>date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for order in order_list %}
-      <tr>
-          <td>{{order.id_order}}</td>
-          <td><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.reference}}</a></td>
-          <td>{{order.order_state}}</td>
-          <td>{{order.date_add}}</td>
-      </tr>
+<div class="gel_table">
+  <div class="gel_thead">
+    <div class="gel_row">
+          <div>id_order</div>
+          <div>reference</div>
+          <div>state</div>
+          <div>date</div>
+    </div>
+  </div>
+  <div class="gel_tbody">
+    {% for order in order_list %}
+      <div class="gel_row">
+          <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.id_order}}</a></div>
+          <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.reference}}</a></div>
+          <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.order_state}}</a></div>
+          <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.date_add}}</a></div>
+      </div>
       {% endfor %}
-      </tbody>
-    </table>
+  </div>
+</div>
   {% else %}
     <p>There are no orders.</p>
   {% endif %}     
