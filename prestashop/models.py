@@ -149,8 +149,7 @@ class Order(models.Model):
         join ps17_carrier ca on ca.id_carrier=o.id_carrier
         join ps17_currency cu on cu.id_currency=o.id_currency
         WHERE o.current_state in (2,3)
-        """ 
-        + " AND o.id_order=%s " if one else " ORDER BY id_order DESC "
+        """ + " AND o.id_order=%s " if one else " ORDER BY id_order DESC "
 
         
 
