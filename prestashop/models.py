@@ -119,7 +119,7 @@ class Order(models.Model):
 
     @staticmethod
     def SQL(one=False):
-        return """
+        sql = """
     SELECT 
         id_order,
         reference,
@@ -149,9 +149,13 @@ class Order(models.Model):
         join ps17_carrier ca on ca.id_carrier=o.id_carrier
         join ps17_currency cu on cu.id_currency=o.id_currency
         WHERE o.current_state in (2,3)
-        """ + " AND o.id_order=%s " if one else " ORDER BY id_order DESC "
+"""
+        if one:
+            sql += " AND o.id_order=%s " 
+        else:
+            sql += " ORDER BY id_order DESC "
 
-        
+        return sql        
 
 class OrderDetail(models.Model):
     class Meta:
