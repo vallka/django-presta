@@ -5,30 +5,29 @@
 
 {% block content %}
 {% if orderdetail_list %}
-    <table>
-      <thead>
-        <tr>
-          <th>id_order_detail</th>
-          <th>product_reference</th>
-          <th>ean13</th>
-          <th>product_quantity</th>
-          <th>unity</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for order in orderdetail_list %}
-      <tr class="product_row">
-          <td>{{order.id_order_detail}}</td>
-          <td>{{order.product_reference}}</td>
-          <td class="ean13_col">{{order.product_ean13}}</td>
-          <td class="qnt_col">{{order.product_quantity}}</td>
-          <td>{{order.unity}}</td>
-          <td><input type="checkbox"></td>
-      </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+<div class="gel_table">
+  <div class="gel_thead">
+    <div class="gel_row">
+      <div>reference / ean13</div>
+      <div>units</div>
+      <div>qnt</div>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="gel_tbody">
+  {% for order in orderdetail_list %}
+    <div class="product_row gel_row">
+      <div>{{order.product_reference}}<br>
+        {{order.product_ean13}}
+      </div>
+      <div class="qnt_col">{{order.unity}}</div>
+      <div>{{order.product_quantity}}</div>
+      <div><input type="checkbox" checked="checked"></div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
   {% else %}
     <p>There are no orders.</p>
   {% endif %}     

@@ -1,0 +1,20 @@
+.gel_row {
+  display: grid;
+  grid-template-columns: 1fr 3em 3em 3em;
+  background-color:darkgrey;
+  gap: 1px;
+  padding: 0 1px 1px 1px;
+}
+
+.gel_row > div {
+  background-color:cornsilk;
+  text-align: center;
+
+}
+.gel_thead {
+  font-weight: bold;
+}
+.gel_thead .gel_row > div {
+  background-color:chocolate;
+  color:white;
+}.fa
