@@ -48,7 +48,10 @@ class OrderDetailListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['order'] = {'id_order':12345, 'reference':'QWEQWEQWE'}
+        sql = Order.SQL(one=True)
+        qs = Order.objects.using('presta').raw(sql,[self.kwargs['id_order']])
+
+        context['order'] = qs[0]
 
         return context
     
