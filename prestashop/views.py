@@ -45,6 +45,14 @@ class OrderDetailListView(generic.ListView):
         logger.error(qs)
         return qs
 
+    def get_context_data(self, **kwargs):
+        context = super(CLASS_NAME, self).get_context_data(**kwargs)
+
+        context['order'] = {'id_order':12345, 'reference':'QWEQWEQWE'}
+
+        return context
+    
+
 class OrderDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderDetail
