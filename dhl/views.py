@@ -32,7 +32,7 @@ class UPSSerializer0(serializers.ModelSerializer):
 class UPSSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
         addressLines = instance.ShipTo_Address_AddressLine1.split(' ',2)
-        if len(addressLines)>1:
+        if len(addressLines)>2:
             addressLines[1] = addressLines[0]+' '+addressLines[1]
             addressLines.pop(0)
         addressLines.append(instance.ShipTo_Address_AddressLine2)
