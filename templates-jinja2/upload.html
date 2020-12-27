@@ -2,6 +2,11 @@
 
 {% block title %}Upload page{% endblock title %}
 
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% endblock %}
+
 {% block content %}
 
 <div id="app">
@@ -22,7 +27,7 @@
       @input-filter="inputFilter"
       :multiple="true"
       :drop="true"
-      :data="{filename: filename, email: '{{email}}' }"
+      :data="{filename: filename}"
     >
     <div>
       <button class="btn btn-primary">
