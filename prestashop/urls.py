@@ -9,5 +9,5 @@ urlpatterns = [
     path('order/', OrderListView.as_view(), name='order'),
     path('order/<int:id_order>/', OrderDetailListView.as_view(), name='order_detail'),
     path('upload-cert/', UploadPageView.as_view(), name='upload-cert'),
-    path('put.method/', putfile, name='putmethod'),
+    path('upload-cert/put.method/', putfile, name='putmethod'),
 ]
