@@ -5,6 +5,30 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<style>
+.file-uploads {
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    display: block;
+    width: 90%;
+    height: 250px;
+    border: solid 1px #3e9bc8;
+    margin: auto;
+}
+
+#app {
+    text-align: center;
+    position: relative;
+}
+
+#app div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+</style>  
 {% endblock %}
 
 {% block content %}
