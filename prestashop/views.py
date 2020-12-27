@@ -64,3 +64,25 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
 class UploadPageView(generic.TemplateView):
     template_name = 'upload.html'
+
+import uuid
+import os
+from django.conf import settings
+
+from django.views.generic import TemplateView
+from django.http import HttpResponse
+
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def putfile(request):
+
+    filename = request.GET.get('filename',str(uuid.uuid1()) + '.pdf')
+
+    f = open(os.path.join(settings.MEDIA_ROOT,'customer-certificates',filename)   ,'wb')
+    f.write(request.body)
+    f.close()
+
+    
+    return HttpResponse(os.path.join(settings.MEDIA_URL,filename))
+
