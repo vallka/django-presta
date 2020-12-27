@@ -84,7 +84,10 @@ def putfile(request,email):
 
     filename = request.GET.get('filename',str(uuid.uuid1()) + '.pdf')
 
-    f = open(os.path.join(settings.MEDIA_ROOT,'customer-certificates',email,filename)   ,'wb')
+    fullname = os.path.join(settings.MEDIA_ROOT,'customer-certificates',email,filename)
+
+    os.makedirs(os.path.dirname(fullname), exist_ok=True)
+    f = open(fullname,'wb')
     f.write(request.body)
     f.close()
 
