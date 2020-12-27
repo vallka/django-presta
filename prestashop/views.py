@@ -65,6 +65,11 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 class UploadPageView(generic.TemplateView):
     template_name = 'upload.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['email'] = self.kwargs['email']
+        return context
+
 import uuid
 import os
 from django.conf import settings
