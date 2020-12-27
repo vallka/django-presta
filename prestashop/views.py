@@ -80,11 +80,11 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
-def putfile(request):
+def putfile(request,email):
 
     filename = request.GET.get('filename',str(uuid.uuid1()) + '.pdf')
 
-    f = open(os.path.join(settings.MEDIA_ROOT,'customer-certificates',filename)   ,'wb')
+    f = open(os.path.join(settings.MEDIA_ROOT,'customer-certificates',email,filename)   ,'wb')
     f.write(request.body)
     f.close()
 
