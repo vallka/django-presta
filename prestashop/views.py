@@ -61,3 +61,6 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderDetail
         fields = "__all__"
+
+class UploadPageView(generic.TemplateView):
+    template_name = 'upload.html'
