@@ -164,6 +164,9 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/' 
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 26214400 
+FILE_UPLOAD_MAX_MEMORY_SIZE = 26214400
+
 from datetime import datetime
 
 #MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
