@@ -84,7 +84,9 @@ a {
 
 
   </div>
-  <div id="div-continue" style="display:none">Thank you! Please <a href="javascript:history.back();">click here</a> to return to you shopping cart. You may need to refresh the page to be able to continue.</div>
+
+  <div v-show="$refs.upload && $refs.upload.active">Uploading, please wait...</div>
+  <div v-show="$refs.upload && $refs.upload.uploaded">Uploaded! Thank you! Please <a href="javascript:history.back();">click here</a> to return to you shopping cart. You may need to refresh the page to be able to continue.</div>
 
 {% endblock content %}
 
@@ -122,6 +124,24 @@ new Vue({
         if (newFile.active !== oldFile.active) {
           console.log('Start upload', newFile.active, newFile)
         }
+        if (newFile.active !== oldFile.active) {
+          console.log('Start upload', newFile.active, newFile)
+        }
+
+        // Upload progress
+        if (newFile.progress !== oldFile.progress) {
+          console.log('progress', newFile.progress, newFile)
+        }
+
+        // Upload error
+        if (newFile.error !== oldFile.error) {
+          console.log('error', newFile.error, newFile)
+        }
+
+        // Uploaded successfully
+        if (newFile.success !== oldFile.success) {
+          console.log('success', newFile.success, newFile)
+        }
 
 
         if (!newFile.active && oldFile.active) {
@@ -134,7 +154,7 @@ new Vue({
             if (newFile.xhr.status==200) {
               //alert('Thank you')
               document.cookie = "customer_cert_uploaded={{ email }}; path=/";
-              document.getElementById('div-continue').style.display = 'block';
+              //document.getElementById('div-continue').style.display = 'block';
             }
           }
         }
@@ -157,7 +177,7 @@ new Vue({
       if (newFile && !oldFile) {
         // Filter non-image file
         if (!/\.(pdf)|(jpg)|(jpeg)|(gif)|(png)|(tiff)|(jpg)|(dng)$/i.test(newFile.name)) {
-          alert('Please choose an image or PDF file!')
+          alert('Please choose an image or a PDF file!')
           return prevent()
         }
       }
