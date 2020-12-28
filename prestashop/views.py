@@ -66,7 +66,7 @@ class CertListView(generic.TemplateView):
         logger.error(f"CertListView:{cert_dir}")
 
 
-        if os.path.isdir:
+        if os.path.isdir(cert_dir):
             logger.error(os.listdir(cert_dir))
             context['cert_dir'] = cert_dir
         
