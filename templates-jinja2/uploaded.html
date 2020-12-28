@@ -52,7 +52,7 @@ a {
 {{ cert_dir }}
 
 <ul>
-{% for f files %}
+{% for f in files %}
     <li><a href="{{f['url']}}">{{f['file']}}</a></li>
 {% endfor %}
 </ul>
