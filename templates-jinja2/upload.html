@@ -51,7 +51,7 @@ a {
 <div id="app">
     <ul>
       <li v-for="file in files">
-        <span v-if="typeof(file.response)=='string'"><a v-bind:href="file.response">[[file.name]]</a></span>
+        <span v-if="typeof(file.response)=='string'"><a target="_blank" v-bind:href="file.response">[[file.name]]</a></span>
         <span v-else>
         [[file.name]]
         </span>
