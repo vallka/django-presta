@@ -82,9 +82,8 @@ a {
     <button class="btn btn-info" v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
     -->
 
-    <div class="uploading" v-show="$refs.upload && $refs.upload.active">Uploading, please wait...</div>
-    <div class="uploaded" v-show="$refs.upload && $refs.upload.uploaded && files">Uploaded! Thank you! Please <a href="javascript:history.back();">click here</a> to return to you shopping cart. You may need to refresh the page to be able to continue.</div>
-  ***[[files]]***
+    <div class="uploading" v-show="$refs.upload && $refs.upload.active">Uploading, please wait... <span id="pro-gress"></span></div>
+    <div class="uploaded" v-show="$refs.upload && $refs.upload.uploaded && files.length">Uploaded! Thank you! Please <a href="javascript:history.back();">click here</a> to return to you shopping cart. You may need to refresh the page to be able to continue.</div>
   </div>
 
 
@@ -124,23 +123,23 @@ new Vue({
         if (newFile.active !== oldFile.active) {
           console.log('Start upload', newFile.active, newFile)
         }
-        if (newFile.active !== oldFile.active) {
-          console.log('Start upload', newFile.active, newFile)
-        }
 
         // Upload progress
         if (newFile.progress !== oldFile.progress) {
-          console.log('progress', newFile.progress, newFile)
+          console.log('progress', newFile.progress)
+          document.getElementById('pro-gress').innerHTML = ' '+newFile.progress+'%'
         }
 
         // Upload error
         if (newFile.error !== oldFile.error) {
           console.log('error', newFile.error, newFile)
+          document.getElementById('pro-gress').innerHTML = ''
         }
 
         // Uploaded successfully
         if (newFile.success !== oldFile.success) {
           console.log('success', newFile.success, newFile)
+          document.getElementById('pro-gress').innerHTML = ''
         }
 
 
