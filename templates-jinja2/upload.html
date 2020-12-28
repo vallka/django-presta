@@ -61,7 +61,7 @@
     </file-upload>
     <!--
 
-{{ request.META }}
+{{ email }}
 
     <button class="btn btn-success" v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button">Start upload</button>
     <button class="btn btn-info" v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
@@ -113,6 +113,9 @@ new Vue({
           if (newFile.xhr) {
             //  Get the response status code
             console.log('status', newFile.xhr.status)
+            if (newFile.xhr.status==200) {
+              alert('Thank you')
+            }
           }
         }
       }
