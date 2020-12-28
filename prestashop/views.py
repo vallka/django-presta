@@ -86,6 +86,7 @@ def putfile(request,email):
     f.write(request.body)
     f.close()
 
+    logger.error(os.path.join(settings.FORCE_SCRIPT_NAME,settings.MEDIA_URL,'customer-certificates',email,filename))
     
     return HttpResponse(os.path.join(settings.FORCE_SCRIPT_NAME,settings.MEDIA_URL,'customer-certificates',email,filename))
 
