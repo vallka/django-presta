@@ -56,7 +56,17 @@ class OrderDetailListView(generic.ListView):
 
         return context
     
+class CertListView(generic.TemplateView):    
+    template_name = 'uploaded.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        cert_dir = os.path.join(settings.MEDIA_ROOT,'customer-certificates',self.kwargs['email'])
+        logger.error(f"CertListView:{cert_dir}")
+        context['cert_dir'] = cert_dir
+
+        return context
 class OrderDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderDetail

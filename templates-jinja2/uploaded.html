@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Uploaded files page{% endblock title %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<style>
+.content {
+    background-color: #f6f6f6;
+    padding: 1rem;
+}
+
+.file-uploads {
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    display: block;
+    width: 90%;
+    height: 250px;
+    border: solid 1px #3e9bc8;
+    margin: auto;
+}
+
+#app {
+    text-align: center;
+    position: relative;
+}
+
+#app div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn-primary {
+  background-color:  #f766a2;
+}
+
+a {
+  color:  #f766a2;
+
+}
+
+</style>  
+{% endblock %}
+
+{% block content %}
+
+{{ email }}
+{{ cert_dir }}
+
+{% endblock content %}
