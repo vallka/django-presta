@@ -55,13 +55,13 @@
     >
     <div>
       <button class="btn btn-primary">
-        Drag'n'drop PDF files here or click to select
+        Drag'n'drop image or PDF file(s) here or click to select
       </button>
     </div>
     </file-upload>
     <!--
 
-{{ request.META['HTTP_REFERER'] }}
+{{ request.META }}
 
     <button class="btn btn-success" v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button">Start upload</button>
     <button class="btn btn-info" v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
@@ -105,23 +105,6 @@ new Vue({
           console.log('Start upload', newFile.active, newFile)
         }
 
-        // Upload progress
-        /*
-        if (newFile.progress !== oldFile.progress) {
-          console.log('progress', newFile.progress, newFile)
-        }
-
-        // Upload error
-        if (newFile.error !== oldFile.error) {
-          console.log('error', newFile.error, newFile)
-        }
-
-        // Uploaded successfully
-        if (newFile.success !== oldFile.success) {
-          console.log('success', newFile.success, newFile)
-        }
-        */
-
 
         if (!newFile.active && oldFile.active) {
           // Get response data
@@ -150,8 +133,8 @@ new Vue({
     inputFilter: function (newFile, oldFile, prevent) {
       if (newFile && !oldFile) {
         // Filter non-image file
-        if (!/\.(pdf)$/i.test(newFile.name)) {
-          alert('Please choose a PDF file!')
+        if (!/\.(pdf)|(jpg)|(jpeg)|(gif)|(png)|(tiff)|(jpg)|(dng)$/i.test(newFile.name)) {
+          alert('Please choose an image or PDF file!')
           return prevent()
         }
       }
