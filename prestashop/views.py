@@ -64,17 +64,18 @@ class CertListView(generic.TemplateView):
 
         cert_dir = os.path.join(settings.MEDIA_ROOT,'customer-certificates',self.kwargs['email'])
         logger.error(f"CertListView:{cert_dir}")
-        logger.error(os.listdir(cert_dir))
 
 
-        context['cert_dir'] = cert_dir
+        if os.path.isdir:
+            logger.error(os.listdir(cert_dir))
+            context['cert_dir'] = cert_dir
         
-        files = []
-        for f in os.listdir(cert_dir):
-            url = settings.FORCE_SCRIPT_NAME + os.path.join(settings.MEDIA_URL,'customer-certificates',self.kwargs['email'],f)
-            files.append({'url':url,'file':f})
+            files = []
+            for f in os.listdir(cert_dir):
+                url = settings.FORCE_SCRIPT_NAME + os.path.join(settings.MEDIA_URL,'customer-certificates',self.kwargs['email'],f)
+                files.append({'url':url,'file':f})
 
-        context['files'] = files
+            context['files'] = files
 
         return context
 class OrderDetailSerializer(serializers.ModelSerializer):
