@@ -35,6 +35,8 @@ WHITENOISE_STATIC_PREFIX = '/static/'
 FORCE_SCRIPT_NAME = '/pyadmin734r04xdw'
 STATIC_URL = '%s%s' % (FORCE_SCRIPT_NAME, WHITENOISE_STATIC_PREFIX)
 
+MEDIA_URL = '/pyadmin734r04xdw/media/' 
+
 
 DEBUG = True
 
