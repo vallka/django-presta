@@ -82,11 +82,11 @@ a {
     <button class="btn btn-info" v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
     -->
 
-
+    <div v-show="$refs.upload && $refs.upload.active">Uploading, please wait...</div>
+    <div v-show="$refs.upload && $refs.upload.uploaded">Uploaded! Thank you! Please <a href="javascript:history.back();">click here</a> to return to you shopping cart. You may need to refresh the page to be able to continue.</div>
+  
   </div>
 
-  <div v-show="$refs.upload && $refs.upload.active">Uploading, please wait...</div>
-  <div v-show="$refs.upload && $refs.upload.uploaded">Uploaded! Thank you! Please <a href="javascript:history.back();">click here</a> to return to you shopping cart. You may need to refresh the page to be able to continue.</div>
 
 {% endblock content %}
 
