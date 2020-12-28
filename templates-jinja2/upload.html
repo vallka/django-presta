@@ -6,6 +6,11 @@
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 <style>
+.content {
+    background-color: #f6f6f6;
+    padding: 1rem;
+}
+
 .file-uploads {
     overflow: hidden;
     position: relative;
@@ -27,6 +32,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.btn-primary {
+  background-color:  #f766a2;
 }
 </style>  
 {% endblock %}
@@ -66,6 +75,9 @@
     <button class="btn btn-success" v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button">Start upload</button>
     <button class="btn btn-info" v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
     -->
+
+    <div id="div-continue" style="display:none">Thank you! Please <a href="javascript:history.back();">click here</a> to return to you shopping cart. You may need to refresh the page to be able to continue.</div>
+
   </div>
 
 {% endblock content %}
@@ -114,8 +126,9 @@ new Vue({
             //  Get the response status code
             console.log('status', newFile.xhr.status)
             if (newFile.xhr.status==200) {
-              alert('Thank you')
+              //alert('Thank you')
               document.cookie = "customer_cert_uploaded={{ email }}; path=/";
+              document.getElementById('div-continue').style.display = 'block';
             }
           }
         }
