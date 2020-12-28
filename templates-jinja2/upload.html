@@ -27,7 +27,7 @@
     position: relative;
 }
 
-#app div {
+#app div.upload-div {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -68,7 +68,7 @@ a {
       :drop="true"
       :data="{filename: filename}"
     >
-    <div>
+    <div class="upload-div">
       <button class="btn btn-primary">
         Drag'n'drop image or PDF file(s) here or click to select
       </button>
@@ -82,8 +82,8 @@ a {
     <button class="btn btn-info" v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
     -->
 
-    <div v-show="$refs.upload && $refs.upload.active">Uploading, please wait...</div>
-    <div v-show="$refs.upload && $refs.upload.uploaded">Uploaded! Thank you! Please <a href="javascript:history.back();">click here</a> to return to you shopping cart. You may need to refresh the page to be able to continue.</div>
+    <div class="uploading" v-show="$refs.upload && $refs.upload.active">Uploading, please wait...</div>
+    <div class="uploaded" v-show="$refs.upload && $refs.upload.uploaded">Uploaded! Thank you! Please <a href="javascript:history.back();">click here</a> to return to you shopping cart. You may need to refresh the page to be able to continue.</div>
   
   </div>
 
