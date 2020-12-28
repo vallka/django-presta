@@ -51,6 +51,10 @@ a {
 {{ email }}
 {{ cert_dir }}
 
-{{ files }}
+<ul>
+{% for f files %}
+    <li><a href="{{f['url']}}">{{f['file']}}</a></li>
+{% endfor %}
+</ul>
 
 {% endblock content %}
