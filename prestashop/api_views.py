@@ -149,6 +149,47 @@ class UpdateProduct(APIView):
                         n_updated += 1
                         logger.info(f'saved:{p.id_product}')
 
+            if obj['what']=='cost-price':
+                queryset = Ps17Product.objects.using(db).filter(id_product__in=ids,)
+                l = len(queryset)
+                logger.info(f'found:{l}')
+                for p in queryset:
+                    n += 1
+                    new_price = obj['replace']
+                    logger.info(f"{n} {p.id_product}: {p.wholesale_price}=>{new_price}")
+                    if p.price!=new_price:
+
+                        logger.info("update ps17_product_shop set wholesale_price=%s where id_product=%s and id_shop=%s")
+                        logger.info(f"pars:{new_price},{p.id_product},1")
+
+
+                        with connections[db].cursor() as cursor:
+                            cursor.execute("update ps17_product_shop set wholesale_price=%s where id_product=%s and id_shop=%s",[new_price,p.id_product,1])
+                            cursor.execute("update ps17_product set wholesale_price=%s where id_product=%s",[new_price,p.id_product])
+
+                        n_updated += 1
+                        logger.info(f'saved:{p.id_product}')
+
+            if obj['what']=='weight':
+                queryset = Ps17Product.objects.using(db).filter(id_product__in=ids,)
+                l = len(queryset)
+                logger.info(f'found:{l}')
+                for p in queryset:
+                    n += 1
+                    new_weight = obj['replace']
+                    logger.info(f"{n} {p.id_product}: {p.weight}=>{new_weight}")
+                    if p.weight!=new_weight:
+
+                        logger.info("update ps17_product_shop set weight=%s where id_product=%s and id_shop=%s")
+                        logger.info(f"pars:{new_weight},{p.id_product},1")
+
+
+                        with connections[db].cursor() as cursor:
+                            cursor.execute("update ps17_product set weight=%s where id_product=%s",[new_weight,p.id_product])
+
+                        n_updated += 1
+                        logger.info(f'saved:{p.id_product}')
+
         logger.error(f'done:{n}/{n_updated}')
 
         return Response({'success':1,'req':obj, 'count':n, 'updated':n_updated})                
