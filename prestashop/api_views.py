@@ -136,7 +136,7 @@ class UpdateProduct(APIView):
                 logger.info(f'found:{l}')
                 for p in queryset:
                     n += 1
-                    new_description_short = re.sub(obj['search'],obj['replace'],p.description,flags=re.DOTALL)
+                    new_description_short = re.sub(obj['search'],obj['replace'],p.description_short,flags=re.DOTALL)
                     logger.info(f"{n} {p.id_product}: {p.description_short}=>{new_description_short}")
                     if p.description_short!=new_description_short:
                         p.description_short=new_description_short
