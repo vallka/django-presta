@@ -98,7 +98,7 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def putfile(request,email):
 
-    filename = request.GET.get('filename',str(uuid.uuid1()) + '.pdf')
+    filename = request.GET.get('filename',str(uuid.uuid1()) + '.pdf').replace(' ','_')
 
     fullname = os.path.join(settings.MEDIA_ROOT,'customer-certificates',email,filename)
 
