@@ -84,103 +84,106 @@ class UpdateProduct(APIView):
 
         n = 0
         n_updated = 0
-        if obj['ids'] and obj['what'] and obj['search']:
+        if obj['ids'] and obj['what']:
             ids = obj['ids'].split(',')
 
-            if obj['what']=='reference':
-                queryset = Ps17Product.objects.using(db).filter(id_product__in=ids)
-                l = len(queryset)
-                logger.info(f'found:{l}')
-                for p in queryset:
-                    n += 1
-                    new_reference = re.sub(obj['search'],obj['replace'],p.reference)
-                    logger.info(f"{n} {p.id_product}: {p.reference}=>{new_reference}")
-                    if p.reference!=new_reference:
-                        p.reference=new_reference
-                        p.save()
-                        n_updated += 1
-                        logger.info(f'saved:{p.id_product}')
+            if obj['search']:
+                if obj['what']=='reference':
+                    queryset = Ps17Product.objects.using(db).filter(id_product__in=ids)
+                    l = len(queryset)
+                    logger.info(f'found:{l}')
+                    for p in queryset:
+                        n += 1
+                        new_reference = re.sub(obj['search'],obj['replace'],p.reference)
+                        logger.info(f"{n} {p.id_product}: {p.reference}=>{new_reference}")
+                        if p.reference!=new_reference:
+                            p.reference=new_reference
+                            p.save()
+                            n_updated += 1
+                            logger.info(f'saved:{p.id_product}')
 
-            if obj['what'][0:4]=='name':
-                id_lang = int(obj['what'][5:])
-                logger.info(f'id_lang:{id_lang}')
-                queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
-                l = len(queryset)
-                logger.info(f'found:{l}')
-                for p in queryset:
-                    n += 1
-                    new_name = re.sub(obj['search'],obj['replace'],p.name)
-                    logger.info(f"{n} {p.id_product}: {p.name}=>{new_name}")
-                    if p.name!=new_name:
-                        p.name=new_name
-                        
-                        #p.save()
-                        # DOSN'T WORK AS ps_product_lang uses composite pk!
+                if obj['what'][0:4]=='name':
+                    id_lang = int(obj['what'][5:])
+                    logger.info(f'id_lang:{id_lang}')
+                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
+                    l = len(queryset)
+                    logger.info(f'found:{l}')
+                    for p in queryset:
+                        n += 1
+                        new_name = re.sub(obj['search'],obj['replace'],p.name)
+                        logger.info(f"{n} {p.id_product}: {p.name}=>{new_name}")
+                        if p.name!=new_name:
+                            p.name=new_name
+                            
+                            #p.save()
+                            # DOSN'T WORK AS ps_product_lang uses composite pk!
 
-                        logger.info("update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and is_shop=%s")
-                        logger.info(f"pars:{new_name},{p.id_product},{p.id_lang},{p.id_shop}")
-
-
-                        with connections[db].cursor() as cursor:
-                            cursor.execute("update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and id_shop=%s",
-                                [new_name,p.id_product,p.id_lang,p.id_shop])
-
-                        n_updated += 1
-                        logger.info(f'saved:{p.id_product},{p.id_lang},{p.id_shop}')
-
-            if obj['what'][0:7]=='summary':
-                id_lang = int(obj['what'][8:])
-                logger.info(f'id_lang:{id_lang}')
-                queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
-                l = len(queryset)
-                logger.info(f'found:{l}')
-                for p in queryset:
-                    n += 1
-                    new_description_short = re.sub(obj['search'],obj['replace'],p.description_short,flags=re.DOTALL)
-                    logger.info(f"{n} {p.id_product}: {p.description_short}=>{new_description_short}")
-                    if p.description_short!=new_description_short:
-                        p.description_short=new_description_short
-                        
-                        #p.save()
-                        # DOSN'T WORK AS ps_product_lang uses composite pk!
-
-                        logger.info("update ps17_product_lang set description_short=%s where id_product=%s and id_lang=%s and is_shop=%s")
-                        logger.info(f"pars:{new_description_short},{p.id_product},{p.id_lang},{p.id_shop}")
+                            logger.info("update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and is_shop=%s")
+                            logger.info(f"pars:{new_name},{p.id_product},{p.id_lang},{p.id_shop}")
 
 
-                        with connections[db].cursor() as cursor:
-                            cursor.execute("update ps17_product_lang set description_short=%s where id_product=%s and id_lang=%s and id_shop=%s",
-                                [new_description_short,p.id_product,p.id_lang,p.id_shop])
+                            with connections[db].cursor() as cursor:
+                                cursor.execute("update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and id_shop=%s",
+                                    [new_name,p.id_product,p.id_lang,p.id_shop])
 
-                        n_updated += 1
-                        logger.info(f'saved:{p.id_product},{p.id_lang},{p.id_shop}')
+                            n_updated += 1
+                            logger.info(f'saved:{p.id_product},{p.id_lang},{p.id_shop}')
 
-            if obj['what'][0:11]=='description':
-                id_lang = int(obj['what'][12:])
-                logger.info(f'id_lang:{id_lang}')
-                queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
-                l = len(queryset)
-                logger.info(f'found:{l}')
-                for p in queryset:
-                    n += 1
-                    new_description = re.sub(obj['search'],obj['replace'],p.description,flags=re.DOTALL)
-                    logger.info(f"{n} {p.id_product}: {p.description}=>{new_description}")
-                    if p.description!=new_description:
-                        p.description=new_description
-                        
-                        #p.save()
-                        # DOSN'T WORK AS ps_product_lang uses composite pk!
+                if obj['what'][0:7]=='summary':
+                    id_lang = int(obj['what'][8:])
+                    logger.info(f'id_lang:{id_lang}')
+                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
+                    l = len(queryset)
+                    logger.info(f'found:{l}')
+                    for p in queryset:
+                        n += 1
+                        new_description_short = re.sub(obj['search'],obj['replace'],p.description_short,flags=re.DOTALL)
+                        logger.info(f"{n} {p.id_product}: {p.description_short}=>{new_description_short}")
+                        if p.description_short!=new_description_short:
+                            p.description_short=new_description_short
+                            
+                            #p.save()
+                            # DOSN'T WORK AS ps_product_lang uses composite pk!
 
-                        logger.info("update ps17_product_lang set description=%s where id_product=%s and id_lang=%s and is_shop=%s")
-                        logger.info(f"pars:{new_description},{p.id_product},{p.id_lang},{p.id_shop}")
+                            logger.info("update ps17_product_lang set description_short=%s where id_product=%s and id_lang=%s and is_shop=%s")
+                            logger.info(f"pars:{new_description_short},{p.id_product},{p.id_lang},{p.id_shop}")
 
 
-                        with connections[db].cursor() as cursor:
-                            cursor.execute("update ps17_product_lang set description=%s where id_product=%s and id_lang=%s and id_shop=%s",
-                                [new_description,p.id_product,p.id_lang,p.id_shop])
+                            with connections[db].cursor() as cursor:
+                                cursor.execute("update ps17_product_lang set description_short=%s where id_product=%s and id_lang=%s and id_shop=%s",
+                                    [new_description_short,p.id_product,p.id_lang,p.id_shop])
 
-                        n_updated += 1
-                        logger.info(f'saved:{p.id_product},{p.id_lang},{p.id_shop}')
+                            n_updated += 1
+                            logger.info(f'saved:{p.id_product},{p.id_lang},{p.id_shop}')
+
+                if obj['what'][0:11]=='description':
+                    id_lang = int(obj['what'][12:])
+                    logger.info(f'id_lang:{id_lang}')
+                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
+                    l = len(queryset)
+                    logger.info(f'found:{l}')
+                    for p in queryset:
+                        n += 1
+                        new_description = re.sub(obj['search'],obj['replace'],p.description,flags=re.DOTALL)
+                        logger.info(f"{n} {p.id_product}: {p.description}=>{new_description}")
+                        if p.description!=new_description:
+                            p.description=new_description
+                            
+                            #p.save()
+                            # DOSN'T WORK AS ps_product_lang uses composite pk!
+
+                            logger.info("update ps17_product_lang set description=%s where id_product=%s and id_lang=%s and is_shop=%s")
+                            logger.info(f"pars:{new_description},{p.id_product},{p.id_lang},{p.id_shop}")
+
+
+                            with connections[db].cursor() as cursor:
+                                cursor.execute("update ps17_product_lang set description=%s where id_product=%s and id_lang=%s and id_shop=%s",
+                                    [new_description,p.id_product,p.id_lang,p.id_shop])
+
+                            n_updated += 1
+                            logger.info(f'saved:{p.id_product},{p.id_lang},{p.id_shop}')
+
+            #end if obj['search']:
 
             if obj['what']=='price':
                 queryset = Ps17Product.objects.using(db).filter(id_product__in=ids,)
