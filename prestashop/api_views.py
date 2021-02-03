@@ -210,7 +210,7 @@ class UpdateProduct(APIView):
                 logger.info(f'found:{l}')
                 for p in queryset:
                     n += 1
-                    new_price = obj['replace']
+                    new_price = obj['replace'].strip()
                     mult = False
                     if '*' in new_price:
                         if new_price[0]=='*' and new_price[1] in ['0','1','2','3','4','5','6','7','8','9']:
@@ -260,22 +260,46 @@ class UpdateProduct(APIView):
                 logger.info(f'found:{l}')
                 for p in queryset:
                     n += 1
-                    new_price = obj['replace']
+                    new_price = obj['replace'].strip()
+                    mult = False
+                    if '*' in new_price:
+                        if new_price[0]=='*' and new_price[1] in ['0','1','2','3','4','5','6','7','8','9']:
+                            mult = True
+                            new_price = new_price[1:]
+                        else:
+                            mult_arr = new_price.split()
+                            if mult_arr[0] == '*':
+                                mult = True
+                                new_price = mult_arr[1]
+
                     logger.info(f"{n} {p.id_product}: {p.wholesale_price}=>{new_price}:{id_shop}")
 
                     if id_shop:
-                        logger.info("update ps17_product_shop set wholesale_price=%s where id_product=%s and id_shop=%s")
+                        if mult:
+                            logger.info("update ps17_product_shop set wholesale_price=wholesale_price*%s where id_product=%s and id_shop=%s")
+                        else:
+                            logger.info("update ps17_product_shop set wholesale_price=%s where id_product=%s and id_shop=%s")
                         logger.info(f"pars:{new_price},{p.id_product},{id_shop}")
 
                         with connections[db].cursor() as cursor:
-                            cursor.execute("update ps17_product_shop set wholesale_price=%s where id_product=%s and id_shop=%s",[new_price,p.id_product,1])
+                            if mult:
+                                cursor.execute("update ps17_product_shop set wholesale_price=wholesale_price*%s where id_product=%s and id_shop=%s",[new_price,p.id_product,1])
+                            else:
+                                cursor.execute("update ps17_product_shop set wholesale_price=%s where id_product=%s and id_shop=%s",[new_price,p.id_product,1])
                     else:
-                        logger.info("update ps17_product_shop set wholesale_price=%s where id_product=%s")
+                        if mult:
+                            logger.info("update ps17_product_shop set wholesale_price=wholesale_price*%s where id_product=%s")
+                        else:
+                            logger.info("update ps17_product_shop set wholesale_price=%s where id_product=%s")
                         logger.info(f"pars:{new_price},{p.id_product}")
 
                         with connections[db].cursor() as cursor:
-                            cursor.execute("update ps17_product_shop set wholesale_price=%s where id_product=%s",[new_price,p.id_product])
-                            cursor.execute("update ps17_product set wholesale_price=%s where id_product=%s",[new_price,p.id_product])
+                            if mult:
+                                cursor.execute("update ps17_product_shop set wholesale_price=wholesale_price*%s where id_product=%s",[new_price,p.id_product])
+                                cursor.execute("update ps17_product set wholesale_price=wholesale_price*%s where id_product=%s",[new_price,p.id_product])
+                            else:
+                                cursor.execute("update ps17_product_shop set wholesale_price=%s where id_product=%s",[new_price,p.id_product])
+                                cursor.execute("update ps17_product set wholesale_price=%s where id_product=%s",[new_price,p.id_product])
 
 
                         n_updated += 1
