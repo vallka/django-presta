@@ -283,9 +283,9 @@ class UpdateProduct(APIView):
 
                         with connections[db].cursor() as cursor:
                             if mult:
-                                cursor.execute("update ps17_product_shop set wholesale_price=wholesale_price*%s where id_product=%s and id_shop=%s",[new_price,p.id_product,1])
+                                cursor.execute("update ps17_product_shop set wholesale_price=wholesale_price*%s where id_product=%s and id_shop=%s",[new_price,p.id_product,id_shop])
                             else:
-                                cursor.execute("update ps17_product_shop set wholesale_price=%s where id_product=%s and id_shop=%s",[new_price,p.id_product,1])
+                                cursor.execute("update ps17_product_shop set wholesale_price=%s where id_product=%s and id_shop=%s",[new_price,p.id_product,id_shop])
                     else:
                         if mult:
                             logger.info("update ps17_product_shop set wholesale_price=wholesale_price*%s where id_product=%s")
@@ -302,8 +302,8 @@ class UpdateProduct(APIView):
                                 cursor.execute("update ps17_product set wholesale_price=%s where id_product=%s",[new_price,p.id_product])
 
 
-                        n_updated += 1
-                        logger.info(f'saved:{p.id_product}')
+                    n_updated += 1
+                    logger.info(f'saved:{p.id_product}')
 
             if obj['what']=='weight':
                 queryset = Ps17Product.objects.using(db).filter(id_product__in=ids,)
