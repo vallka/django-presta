@@ -80,7 +80,16 @@ class UpdateProduct(APIView):
     def post(self, request, format=None):
 
         obj = request.data
-        logger.info(f"UpdateProduct:{obj['ids']} | {obj['what']} | {obj['search']} | {obj['replace']}")
+        logger.info(f"UpdateProduct:{obj['ids']} | {obj['what']} | {obj['search']} | {obj['replace']} | {obj['shop_context']}")
+        id_shop = None
+        ids_shop = None
+        if obj['shop_context'] and obj['shop_context'][0]=='s':
+            id_shop = obj['shop_context'][2:]
+        elif obj['shop_context'] and obj['shop_context'][0]=='g':
+            pass
+            ids_shop = 'some group'
+            # TODO: next time:)
+
 
         n = 0
         n_updated = 0
@@ -105,7 +114,7 @@ class UpdateProduct(APIView):
                 if obj['what'][0:4]=='name':
                     id_lang = int(obj['what'][5:])
                     logger.info(f'id_lang:{id_lang}')
-                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
+                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,id_shop=id_shop)
                     l = len(queryset)
                     logger.info(f'found:{l}')
                     for p in queryset:
@@ -118,7 +127,7 @@ class UpdateProduct(APIView):
                             #p.save()
                             # DOSN'T WORK AS ps_product_lang uses composite pk!
 
-                            logger.info("update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and is_shop=%s")
+                            logger.info("update ps17_product_lang set name=%s where id_product=%s and id_lang=%s and id_shop=%s")
                             logger.info(f"pars:{new_name},{p.id_product},{p.id_lang},{p.id_shop}")
 
 
@@ -132,7 +141,7 @@ class UpdateProduct(APIView):
                 if obj['what'][0:7]=='summary':
                     id_lang = int(obj['what'][8:])
                     logger.info(f'id_lang:{id_lang}')
-                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
+                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,id_shop=id_shop)
                     l = len(queryset)
                     logger.info(f'found:{l}')
                     for p in queryset:
@@ -159,7 +168,7 @@ class UpdateProduct(APIView):
                 if obj['what'][0:11]=='description':
                     id_lang = int(obj['what'][12:])
                     logger.info(f'id_lang:{id_lang}')
-                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
+                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,id_shop=id_shop,)
                     l = len(queryset)
                     logger.info(f'found:{l}')
                     for p in queryset:
@@ -185,6 +194,7 @@ class UpdateProduct(APIView):
 
             #end if obj['search']:
 
+            # TODO: shop_context
             if obj['what']=='price':
                 queryset = Ps17Product.objects.using(db).filter(id_product__in=ids,)
                 l = len(queryset)
