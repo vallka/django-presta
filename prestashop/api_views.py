@@ -211,19 +211,44 @@ class UpdateProduct(APIView):
                 for p in queryset:
                     n += 1
                     new_price = obj['replace']
-                    logger.info(f"{n} {p.id_product}: {p.price}=>{new_price}")
-                    if p.price!=new_price:
+                    mult = False
+                    if '*' in new_price:
+                        mult_arr = new_price.split()
+                        if mult_arr[0] == '*':
+                            mult = True
+                            new_price = mult_arr[1]
 
-                        logger.info("update ps17_product_shop set price=%s where id_product=%s and id_shop=%s")
-                        logger.info(f"pars:{new_price},{p.id_product},1")
+                    logger.info(f"{n} {p.id_product}: {p.price}=>{new_price}:{id_shop}")
 
+                    if id_shop:
+                        if mult:
+                            logger.info("update ps17_product_shop set price=price*%s where id_product=%s and id_shop=%s")
+                        else:
+                            logger.info("update ps17_product_shop set price=%s where id_product=%s and id_shop=%s")
+                        logger.info(f"pars:{new_price},{p.id_product},{id_shop}")
 
                         with connections[db].cursor() as cursor:
-                            cursor.execute("update ps17_product_shop set price=%s where id_product=%s and id_shop=%s",[new_price,p.id_product,1])
-                            cursor.execute("update ps17_product set price=%s where id_product=%s",[new_price,p.id_product])
+                            if mult:
+                                cursor.execute("update ps17_product_shop set price=price*%s where id_product=%s and id_shop=%s",[new_price,p.id_product,id_shop])
+                            else:
+                                cursor.execute("update ps17_product_shop set price=%s where id_product=%s and id_shop=%s",[new_price,p.id_product,id_shop])
+                    else:
+                        if mult:
+                            logger.info("update ps17_product_shop set price=price*%s where id_product=%s")
+                        else:
+                            logger.info("update ps17_product_shop set price=%s where id_product=%s")
+                        logger.info(f"pars:{new_price},{p.id_product}")
 
-                        n_updated += 1
-                        logger.info(f'saved:{p.id_product}')
+                        with connections[db].cursor() as cursor:
+                            if mult:
+                                cursor.execute("update ps17_product_shop set price=price*%s where id_product=%s",[new_price,p.id_product])
+                                cursor.execute("update ps17_product set price=price*%s where id_product=%s",[new_price,p.id_product])
+                            else:
+                                cursor.execute("update ps17_product_shop set price=%s where id_product=%s",[new_price,p.id_product])
+                                cursor.execute("update ps17_product set price=%s where id_product=%s",[new_price,p.id_product])
+
+                    n_updated += 1
+                    logger.info(f'saved:{p.id_product}')
 
             if obj['what']=='cost-price':
                 queryset = Ps17Product.objects.using(db).filter(id_product__in=ids,)
@@ -232,16 +257,22 @@ class UpdateProduct(APIView):
                 for p in queryset:
                     n += 1
                     new_price = obj['replace']
-                    logger.info(f"{n} {p.id_product}: {p.wholesale_price}=>{new_price}")
-                    if p.price!=new_price:
+                    logger.info(f"{n} {p.id_product}: {p.wholesale_price}=>{new_price}:{id_shop}")
 
+                    if id_shop:
                         logger.info("update ps17_product_shop set wholesale_price=%s where id_product=%s and id_shop=%s")
-                        logger.info(f"pars:{new_price},{p.id_product},1")
-
+                        logger.info(f"pars:{new_price},{p.id_product},{id_shop}")
 
                         with connections[db].cursor() as cursor:
                             cursor.execute("update ps17_product_shop set wholesale_price=%s where id_product=%s and id_shop=%s",[new_price,p.id_product,1])
+                    else:
+                        logger.info("update ps17_product_shop set wholesale_price=%s where id_product=%s")
+                        logger.info(f"pars:{new_price},{p.id_product}")
+
+                        with connections[db].cursor() as cursor:
+                            cursor.execute("update ps17_product_shop set wholesale_price=%s where id_product=%s",[new_price,p.id_product])
                             cursor.execute("update ps17_product set wholesale_price=%s where id_product=%s",[new_price,p.id_product])
+
 
                         n_updated += 1
                         logger.info(f'saved:{p.id_product}')
@@ -256,7 +287,7 @@ class UpdateProduct(APIView):
                     logger.info(f"{n} {p.id_product}: {p.weight}=>{new_weight}")
                     if p.weight!=new_weight:
 
-                        logger.info("update ps17_product_shop set weight=%s where id_product=%s and id_shop=%s")
+                        logger.info("update ps17_product set weight=%s where id_product=%s and id_shop=%s")
                         logger.info(f"pars:{new_weight},{p.id_product},1")
 
 
