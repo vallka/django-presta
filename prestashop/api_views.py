@@ -114,7 +114,10 @@ class UpdateProduct(APIView):
                 if obj['what'][0:4]=='name':
                     id_lang = int(obj['what'][5:])
                     logger.info(f'id_lang:{id_lang}')
-                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,id_shop=id_shop)
+                    if id_shop:
+                        queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,id_shop=id_shop)
+                    else:
+                        queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang)
                     l = len(queryset)
                     logger.info(f'found:{l}')
                     for p in queryset:
@@ -141,7 +144,10 @@ class UpdateProduct(APIView):
                 if obj['what'][0:7]=='summary':
                     id_lang = int(obj['what'][8:])
                     logger.info(f'id_lang:{id_lang}')
-                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,id_shop=id_shop)
+                    if id_shop:
+                        queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,id_shop=id_shop)
+                    else:
+                        queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang)
                     l = len(queryset)
                     logger.info(f'found:{l}')
                     for p in queryset:
@@ -168,7 +174,10 @@ class UpdateProduct(APIView):
                 if obj['what'][0:11]=='description':
                     id_lang = int(obj['what'][12:])
                     logger.info(f'id_lang:{id_lang}')
-                    queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,id_shop=id_shop,)
+                    if id_shop:
+                        queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,id_shop=id_shop,)
+                    else:
+                        queryset = Ps17ProductLang.objects.using(db).filter(id_product__in=ids,id_lang=id_lang,)
                     l = len(queryset)
                     logger.info(f'found:{l}')
                     for p in queryset:
