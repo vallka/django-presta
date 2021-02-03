@@ -213,10 +213,14 @@ class UpdateProduct(APIView):
                     new_price = obj['replace']
                     mult = False
                     if '*' in new_price:
-                        mult_arr = new_price.split()
-                        if mult_arr[0] == '*':
+                        if new_price[0]=='*' and new_price[1] in ['0','1','2','3','4','5','6','7','8','9']:
                             mult = True
-                            new_price = mult_arr[1]
+                            new_price = new_price[1:]
+                        else:
+                            mult_arr = new_price.split()
+                            if mult_arr[0] == '*':
+                                mult = True
+                                new_price = mult_arr[1]
 
                     logger.info(f"{n} {p.id_product}: {p.price}=>{new_price}:{id_shop}")
 
