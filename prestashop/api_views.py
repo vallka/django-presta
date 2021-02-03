@@ -301,7 +301,6 @@ class UpdateProduct(APIView):
                                 cursor.execute("update ps17_product_shop set wholesale_price=%s where id_product=%s",[new_price,p.id_product])
                                 cursor.execute("update ps17_product set wholesale_price=%s where id_product=%s",[new_price,p.id_product])
 
-
                     n_updated += 1
                     logger.info(f'saved:{p.id_product}')
 
