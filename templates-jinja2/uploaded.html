@@ -43,6 +43,10 @@ a {
 
 }
 
+img.upl_img {
+    width: 100%;
+}
+
 </style>  
 {% endblock %}
 
@@ -56,5 +60,10 @@ a {
     <li><a href="{{f['url']}}">{{f['file']}}</a></li>
 {% endfor %}
 </ul>
+
+{% for f in files %}
+<hr>
+<img class="upl_img" src="{{f['url']}}">
+{% endfor %}
 
 {% endblock content %}
