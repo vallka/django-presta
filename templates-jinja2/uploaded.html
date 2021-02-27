@@ -57,13 +57,13 @@ img.upl_img {
 
 <ul>
 {% for f in files %}
-    <li><a href="{{f['url']}}">{{f['file']}}</a></li>
+    <li><a href="#{{f['file']}}">{{f['file']}}</a></li>
 {% endfor %}
 </ul>
 
 {% for f in files %}
 <hr>
-<img class="upl_img" src="{{f['url']}}">
+<a href="{{f['url']}}" target="_blank" name="{{f['file']}}"><img class="upl_img" src="{{f['url']}}"></a>
 {% endfor %}
 
 {% endblock content %}
