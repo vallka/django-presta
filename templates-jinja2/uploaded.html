@@ -63,6 +63,11 @@ img.upl_img {
 
 {% for f in files %}
 <hr>
+
+{% if '.pdf' in f %}
+-PDF-
+{% endif %}
+
 <a href="{{f['url']}}" target="_blank" name="{{f['file']}}"><img class="upl_img" src="{{f['url']}}"></a>
 {% endfor %}
 
