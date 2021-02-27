@@ -57,7 +57,7 @@ img.upl_img {
 
 <ul>
 {% for f in files %}
-    <li><a href="#{{f['file']}}">{{f['file']}}</a></li>
+    <li><a href="#{{f['file']}}">{{f['file']}}</a> <a href="#{{f['url']}}"><i class="fa fa-download" aria-hidden="true"></i></a></li>
 {% endfor %}
 </ul>
 
