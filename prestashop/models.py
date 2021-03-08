@@ -189,7 +189,7 @@ i.id_image
 	FROM ps17_order_detail p 
 	left outer join ps17_image i on p.product_id=i.id_product and i.cover=1 
 	left outer join ps17_stock_available a on a.id_product=p.product_id and 	
-	a.id_product_attribute=p.product_attribute_id
+	a.id_product_attribute=p.product_attribute_id and a.id_shop=(select id_shop from ps17_orders where id_order=p.id_order)
     left outer join ps17_product pr on pr.id_product=p.product_id	
 	WHERE id_order=%s order by product_name
 """
