@@ -65,7 +65,7 @@ img.upl_img {
     <hr>
 
     {% if '.pdf' in f['file'] %}
-        <i class="fa fa-file-pdf" aria-hidden="true"></i> <a href="{{f['url']}}" target="_blank" name="{{f['file']}}">{{f['file']}}</a>
+        <a href="{{f['url']}}" target="_blank" name="{{f['file']}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> {{f['file']}}</a>
     {% else %}
         <a href="{{f['url']}}" target="_blank" name="{{f['file']}}"><img class="upl_img" src="{{f['url']}}"></a>
     {% endif %}
