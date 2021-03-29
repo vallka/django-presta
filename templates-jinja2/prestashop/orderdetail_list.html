@@ -27,6 +27,7 @@
   {% for order in orderdetail_list %}
     <div class="product_row gel_row">
       <div>{{order.product_reference}}<br>
+        {{order.product_name}}<br>
         <span class="ean13_col">{{order.product_ean13}}</span>
       </div>
       <div class="qnt_col">{{order.unity}}</div>
