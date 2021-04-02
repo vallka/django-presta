@@ -48,6 +48,12 @@
     </div>
   {% endfor %}
   </div>
+
+  <div class="gel_tfoot">
+    <button id="btn-reset" class="btn">Reset</button>
+  </div>
+
+
 </div>
   {% else %}
     <p>There are no orders.</p>
@@ -67,13 +73,9 @@ $(document).ready(function(){
   order = JSON.parse(window.localStorage.getItem('o'+id_order));
 
   $('.product_row').each(function(){
-    console.log($(this).attr('data-id_product'))
-
-    let id_product = 'p'+$(this).attr('data-id_product');
-    console.log(id_product)
-    console.log(order[id_product])
+    const product_quantity = parseInt($(this).find('.product_quantity').text());
+    const id_product = 'p'+$(this).attr('data-id_product');
     if (order[id_product]) {
-      const product_quantity = parseInt($(this).find('.product_quantity').text());
       if (product_quantity!=order[id_product][0]) {
         order[id_product][0] = product_quantity;
       }
@@ -95,6 +97,9 @@ $(document).ready(function(){
         $(this).find('div.checkbox').removeClass('not_ready');
         $(this).find('div.checkbox').addClass('half_ready');
       }
+    }
+    else {
+      order[id_product] = [product_quantity,0];    
     }
   });
 
