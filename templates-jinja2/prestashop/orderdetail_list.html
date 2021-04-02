@@ -10,6 +10,18 @@
 .gel_row {
   grid-template-columns: 1fr 3em 3em 3em;
 }
+
+.not_ready {
+  background-color:  pink;
+}
+.half_ready {
+  background-color:  goldenrod;
+}
+
+.ready {
+  background-color:  springgreen;
+}
+
 </style>
 
 <div class="gel_table">
@@ -32,7 +44,7 @@
       </div>
       <div class="qnt_col">{{order.unity}}</div>
       <div><span class="product_quantity">{{order.product_quantity}}</span> / <span class="ready_quantity">0</span></div>
-      <div class="checkbox"><input type="checkbox"></div>
+      <div class="checkbox not_ready"><input type="checkbox"></div>
     </div>
   {% endfor %}
   </div>
@@ -50,6 +62,17 @@
 
 $('input[type=checkbox]').change(function(){
   console.log('change:'+this.checked);
+
+  if (this.checked) {
+    $(this).parent('div').removeClass('not_ready');
+    $(this).parent('div').removeClass('half_ready');
+    $(this).parent('div').addClass('ready');
+  }
+  else {
+    $(this).parent('div').removeClass('ready');
+    $(this).parent('div').removeClass('not_ready');
+    $(this).parent('div').addClass('half_ready');
+  }
 
 })
 
