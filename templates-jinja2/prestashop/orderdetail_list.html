@@ -63,7 +63,7 @@
 $('input[type=checkbox]').change(function(){
   console.log('change:'+this.checked);
 
-  console.log($(this).parents('div.gel_row .product_quantity').text());
+  console.log($(this).parents('div.gel_row').find('.product_quantity').text());
 
   if (this.checked) {
     $(this).parent('div').removeClass('not_ready');
