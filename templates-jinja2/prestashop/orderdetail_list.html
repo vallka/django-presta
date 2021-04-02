@@ -64,13 +64,13 @@ $('input[type=checkbox]').change(function(){
   console.log('change:'+this.checked);
 
   const product_quantity = parseInt($(this).parents('div.gel_row').find('.product_quantity').text());
-  const ready_quantity = parseInt($(this).parents('div.gel_row').find('.ready_quantity').text());
+  let ready_quantity = parseInt($(this).parents('div.gel_row').find('.ready_quantity').text());
 
 
   if (this.checked) {
     if (ready_quantity != product_quantity) {
       if (ready_quantity < product_quantity) {
-        ready_quantity++;
+        $(this).parents('div.gel_row').find('.ready_quantity').text(++ready_quantity);
       }
       if (ready_quantity == product_quantity) {
         $(this).parent('div').addClass('ready');
