@@ -14,7 +14,7 @@
 
 <div class="gel_table">
   <div class="gel_thead">
-    <div>{{order.reference}} ({{order.id_order}}) {{order.firstname}} {{order.lastname}} {{order.is_new}}</div>
+    <div>{{order.reference}} (<span id="id_order">{{order.id_order}}</span>) {{order.firstname}} {{order.lastname}} {{order.is_new}}</div>
     <div class="gel_row">
       <div>reference / ean13</div>
       <div>units</div>
@@ -26,13 +26,13 @@
   <div class="gel_tbody">
   {% for order in orderdetail_list %}
     <div class="product_row gel_row">
-      <div>{{order.product_reference}}<br>
+      <div>{{order.product_reference}} (<span class="id_product">{{order.id_product}}</span>)<br>
         {{order.product_name}}<br>
         <span class="ean13_col">{{order.product_ean13}}</span>
       </div>
       <div class="qnt_col">{{order.unity}}</div>
-      <div>{{order.product_quantity}}</div>
-      <div><input type="checkbox"></div>
+      <div><span class="product_quantity">{{order.product_quantity}}</span> / <span class="ready_quantity">0</span></div>
+      <div class="checkbox"><input type="checkbox"></div>
     </div>
   {% endfor %}
   </div>
