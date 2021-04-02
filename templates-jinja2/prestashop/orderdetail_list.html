@@ -80,6 +80,7 @@ $(document).ready(function(){
 
       $(this).find('.ready_quantity').text(order[id_product][1]);
       if (order[id_product][1]==product_quantity) {
+        console.log('!ready');
         $(this).find('div.checkbox').addClass('ready');
         $(this).find('div.checkbox').removeClass('not_ready');
         $(this).find('div.checkbox').removeClass('half_ready');
@@ -89,6 +90,7 @@ $(document).ready(function(){
         console.log($(this).find('input[type=checkbox]').prop('checked'))
       }
       else if (order[id_product][1] > 0) {
+        console.log('!half ready');
         $(this).find('div.checkbox').removeClass('ready');
         $(this).find('div.checkbox').removeClass('not_ready');
         $(this).find('div.checkbox').addClass('half_ready');
