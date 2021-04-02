@@ -168,11 +168,13 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
 
   let ready = 0;
   let total = 0;
-  $(order).each(function(key,element){
+  $.each(order,function(key,element){
     console.log(key)
     console.log(element)
-    ++total;
-    if (element[0]==element[1]) ++ready;
+    if (typeof element=='array') {
+      ++total;
+      if (element[0]==element[1]) ++ready;
+    }
   });
 
   console.log(ready,total);
