@@ -168,7 +168,9 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
 
   let ready = 0;
   let total = 0;
-  $(order).each((key,element) => {
+  $(order).each(function(key,element){
+    console.log(key)
+    console.log(element)
     ++total;
     if (element[0]==element[1]) ++ready;
   });
