@@ -63,20 +63,42 @@
 $('input[type=checkbox]').change(function(){
   console.log('change:'+this.checked);
 
-  console.log($(this).parents('div.gel_row').find('.product_quantity').text());
+  const product_quantity = parseInt($(this).parents('div.gel_row').find('.product_quantity').text());
+  const ready_quantity = parseInt($(this).parents('div.gel_row').find('.ready_quantity').text());
+
 
   if (this.checked) {
-    $(this).parent('div').removeClass('not_ready');
-    $(this).parent('div').removeClass('half_ready');
-    $(this).parent('div').addClass('ready');
+    if (ready_quantity != product_quantity) {
+      if (ready_quantity < product_quantity) {
+        ready_quantity++;
+      }
+      if (ready_quantity == product_quantity) {
+        $(this).parent('div').addClass('ready');
+        $(this).parent('div').removeClass('not_ready');
+        $(this).parent('div').removeClass('half_ready');
+      }
+      else {
+        this.checked = false;
+        if (ready_quantity == 0) {
+          $(this).parent('div').addClass('not_ready');
+          $(this).parent('div').removeClass('ready');
+          $(this).parent('div').removeClass('half_ready');
+        }
+        else {
+          $(this).parent('div').addClass('half_ready');
+          $(this).parent('div').removeClass('ready');
+          $(this).parent('div').removeClass('not_ready');
+        }
+      }
+    }
   }
   else {
-    $(this).parent('div').removeClass('ready');
-    $(this).parent('div').removeClass('not_ready');
-    $(this).parent('div').addClass('half_ready');
+    if (ready_quantity > 0) {
+      this.checked = true;
+    }
   }
 
-})
+});
 
 function process(code) {
   //alert(code);
