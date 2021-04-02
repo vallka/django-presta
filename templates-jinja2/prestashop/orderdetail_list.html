@@ -179,7 +179,7 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
   });
 
   console.log(ready,total);
-  if (ready && total==ready) {
+  if (ready && $('.product_row').length==ready) {
     console.log('+ready');
   }
   else {
