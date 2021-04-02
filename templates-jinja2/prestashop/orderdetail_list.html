@@ -15,7 +15,7 @@
   background-color:  pink;
 }
 .gel_row > div.half_ready {
-  background-color:  goldenrod;
+  background-color:  gold;
 }
 
 .gel_row > div.ready {
@@ -62,6 +62,8 @@
 
 $('input[type=checkbox]').change(function(){
   console.log('change:'+this.checked);
+
+  console.log($(this).parent('div.gel_row .product_quantity').text());
 
   if (this.checked) {
     $(this).parent('div').removeClass('not_ready');
