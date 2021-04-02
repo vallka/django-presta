@@ -72,6 +72,7 @@ $(document).ready(function(){
     let id_product = 'p'+$(this).parents('div.gel_row').attr('data-id_product');
     if (order[id_product]) {
       $(this).find('.ready_quantity').text(order[id_product][1]);
+      console.log('==='+order[id_product][1])
     }
   });
 });
