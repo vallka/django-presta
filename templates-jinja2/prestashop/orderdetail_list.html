@@ -167,12 +167,14 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
   window.localStorage.setItem('o'+id_order, JSON.stringify(order));
 
   let ready = 0;
+  let total = 0;
   $(order).each(element => {
+    ++total;
     if (element[0]==element[1]) ++ready;
   });
 
   console.log(ready);
-  if (ready && order.length==ready) {
+  if (ready && total==ready) {
     console.log('+ready');
   }
   else {
