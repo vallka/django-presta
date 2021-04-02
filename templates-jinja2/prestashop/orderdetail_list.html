@@ -50,7 +50,7 @@
   </div>
 
   <div class="gel_tfoot">
-    <button id="btn-reset" class="btn">Reset</button>
+    <button id="btn-reset" class="btn btn-danger">Reset</button>
   </div>
 
 
@@ -87,9 +87,7 @@ $(document).ready(function(){
         $(this).find('div.checkbox').removeClass('not_ready');
         $(this).find('div.checkbox').removeClass('half_ready');
 
-        console.log($(this).find('input[type=checkbox]').prop('checked'))
         $(this).find('input[type=checkbox]').prop('checked',true);
-        console.log($(this).find('input[type=checkbox]').prop('checked'))
       }
       else if (order[id_product][1] > 0) {
         console.log('!half ready');
@@ -145,6 +143,21 @@ $(document).ready(function(){
 
   });
 
+
+  $('#btn-reset').click(function () {
+    $('.product_row').each(function(){
+      $(this).find('div.checkbox').addClass('not_ready');
+        $(this).find('div.checkbox').removeClass('ready');
+        $(this).find('div.checkbox').removeClass('half_ready');
+
+        $(this).find('input[type=checkbox]').prop('checked',false);
+        $(this).find('.product_quantity').text(0);
+    });
+
+    order = {};
+    window.localStorage.setItem('o'+id_order, JSON.stringify(order));
+
+  });
 });
 
 
