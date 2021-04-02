@@ -70,7 +70,7 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
 $('input[type=checkbox]').change(function(){
   console.log('change:'+this.checked);
 
-  const id_product = $(this).parents('div.gel_row').attr('data-id_product');
+  const id_product = 'p'+$(this).parents('div.gel_row').attr('data-id_product');
   const product_quantity = parseInt($(this).parents('div.gel_row').find('.product_quantity').text());
   let ready_quantity = parseInt($(this).parents('div.gel_row').find('.ready_quantity').text());
 
