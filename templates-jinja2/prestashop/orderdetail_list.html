@@ -68,9 +68,9 @@ $(document).ready(function(){
 
 
 function updateOrder(id_product,product_quantity,ready_quantity) {
-  order.id_product = [product_quantity,ready_quantity];
-  window.localStorage.setItem('oo'+id_order, JSON.stringify(order));
-  console.log(JSON.stringify(order))
+  order[id_product] = [product_quantity,ready_quantity];
+  window.localStorage.setItem('o'+id_order, JSON.stringify(order));
+  console.log(order,JSON.stringify(order))
 }
 
 $('input[type=checkbox]').change(function(){
