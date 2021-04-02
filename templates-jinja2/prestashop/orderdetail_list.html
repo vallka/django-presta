@@ -165,7 +165,20 @@ $(document).ready(function(){
 function updateOrder(id_product,product_quantity,ready_quantity) {
   order[id_product] = [product_quantity,ready_quantity];
   window.localStorage.setItem('o'+id_order, JSON.stringify(order));
-  console.log(order,JSON.stringify(order))
+
+  let ready = 0;
+  order.forEach(element => {
+    if (element[0]==element[1]) ++ready;
+  });
+
+  console.log(ready);
+  if (ready && order.length==ready) {
+    console.log('+ready');
+  }
+  else {
+    console.log('-not ready');
+
+  }
 }
 
 
