@@ -64,6 +64,15 @@ var id_order;
 
 $(document).ready(function(){
   id_order = $('.gel_table').attr('data-id_order');
+  order = JSON.parse(window.localStorage.getItem('o'+id_order));
+
+  $('.product_row').each(function(){
+    console.log($(this).attr('data-id_product'))
+    let id_product = 'p'+$(this).parents('div.gel_row').attr('data-id_product');
+    if (order[id_product]) {
+      $(this).find('.ready_quantity').text(order[id_product][1]);
+    }
+  }
 })
 
 
