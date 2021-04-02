@@ -178,7 +178,7 @@ class OrderDetail(models.Model):
         return """
 SELECT 
 p.id_order_detail,
-p.product_id,
+p.product_id as id_product,
 pr.reference as product_reference,
 p.product_name,
 pr.ean13 as product_ean13,
