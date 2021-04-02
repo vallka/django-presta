@@ -92,6 +92,49 @@ $(document).ready(function(){
       }
     }
   });
+
+  $('input[type=checkbox]').change(function(){
+    console.log('change:'+this.checked);
+
+    const id_product = 'p'+$(this).parents('div.gel_row').attr('data-id_product');
+    const product_quantity = parseInt($(this).parents('div.gel_row').find('.product_quantity').text());
+    let ready_quantity = parseInt($(this).parents('div.gel_row').find('.ready_quantity').text());
+
+
+    if (this.checked) {
+      if (ready_quantity != product_quantity) {
+        if (ready_quantity < product_quantity) {
+          $(this).parents('div.gel_row').find('.ready_quantity').text(++ready_quantity);
+          updateOrder(id_product,product_quantity,ready_quantity);
+        }
+        if (ready_quantity == product_quantity) {
+          $(this).parent('div').addClass('ready');
+          $(this).parent('div').removeClass('not_ready');
+          $(this).parent('div').removeClass('half_ready');
+        }
+        else {
+          this.checked = false;
+          if (ready_quantity == 0) {
+            $(this).parent('div').addClass('not_ready');
+            $(this).parent('div').removeClass('ready');
+            $(this).parent('div').removeClass('half_ready');
+          }
+          else {
+            $(this).parent('div').addClass('half_ready');
+            $(this).parent('div').removeClass('ready');
+            $(this).parent('div').removeClass('not_ready');
+          }
+        }
+      }
+    }
+    else {
+      if (ready_quantity > 0) {
+        this.checked = true;
+      }
+    }
+
+  });
+
 });
 
 
@@ -101,47 +144,6 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
   console.log(order,JSON.stringify(order))
 }
 
-$('input[type=checkbox]').change(function(){
-  console.log('change:'+this.checked);
-
-  const id_product = 'p'+$(this).parents('div.gel_row').attr('data-id_product');
-  const product_quantity = parseInt($(this).parents('div.gel_row').find('.product_quantity').text());
-  let ready_quantity = parseInt($(this).parents('div.gel_row').find('.ready_quantity').text());
-
-
-  if (this.checked) {
-    if (ready_quantity != product_quantity) {
-      if (ready_quantity < product_quantity) {
-        $(this).parents('div.gel_row').find('.ready_quantity').text(++ready_quantity);
-        updateOrder(id_product,product_quantity,ready_quantity);
-      }
-      if (ready_quantity == product_quantity) {
-        $(this).parent('div').addClass('ready');
-        $(this).parent('div').removeClass('not_ready');
-        $(this).parent('div').removeClass('half_ready');
-      }
-      else {
-        this.checked = false;
-        if (ready_quantity == 0) {
-          $(this).parent('div').addClass('not_ready');
-          $(this).parent('div').removeClass('ready');
-          $(this).parent('div').removeClass('half_ready');
-        }
-        else {
-          $(this).parent('div').addClass('half_ready');
-          $(this).parent('div').removeClass('ready');
-          $(this).parent('div').removeClass('not_ready');
-        }
-      }
-    }
-  }
-  else {
-    if (ready_quantity > 0) {
-      this.checked = true;
-    }
-  }
-
-});
 
 function process(code) {
   //alert(code);
