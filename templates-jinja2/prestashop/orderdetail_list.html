@@ -172,7 +172,7 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
     console.log(key)
     console.log(element)
     console.log(typeof(element))
-    if (typeof(element)=='array') {
+    if (Array.isArray(element)) {
       ++total;
       if (element[0]==element[1]) ++ready;
     }
