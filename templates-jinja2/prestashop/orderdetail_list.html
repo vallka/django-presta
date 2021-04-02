@@ -71,6 +71,7 @@ var id_order;
 $(document).ready(function(){
   id_order = $('.gel_table').attr('data-id_order');
   order = JSON.parse(window.localStorage.getItem('o'+id_order));
+  if (! order) order = {};
 
   $('.product_row').each(function(){
     const product_quantity = parseInt($(this).find('.product_quantity').text());
