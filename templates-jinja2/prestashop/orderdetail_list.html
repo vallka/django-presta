@@ -24,7 +24,7 @@
 
 </style>
 
-<div class="gel_table">
+<div class="gel_table" data-id_order="{{order.id_order}}">
   <div class="gel_thead">
     <div>{{order.reference}} (<span id="id_order">{{order.id_order}}</span>) {{order.firstname}} {{order.lastname}} {{order.is_new}}</div>
     <div class="gel_row">
@@ -59,11 +59,17 @@
 {% block javascript %}
 {{ super() }}
 <script>
-
 var order = [];
+var id_order;
+
+$(document).ready(function(){
+  id_order = $('.gel_table').attr('data-id_order');
+})
+
 
 function updateOrder(id_product,product_quantity,ready_quantity) {
   order[id_product] = [product_quantity,ready_quantity];
+  window.localStorage.setItem('o'+id_order, JSON.stringify(order));
   console.log(order)
 }
 
