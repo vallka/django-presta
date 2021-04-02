@@ -73,8 +73,23 @@ $(document).ready(function(){
     console.log(id_product)
     console.log(order[id_product])
     if (order[id_product]) {
+      const product_quantity = parseInt($(this).parents('div.gel_row').find('.product_quantity').text());
+      if (product_quantity!=order[id_product][0]) {
+        order[id_product][0] = product_quantity;
+      }
+
       $(this).find('.ready_quantity').text(order[id_product][1]);
-      console.log('==='+order[id_product][1])
+      if (order[id_product][1]==product_quantity) {
+        $(this).find('div.checkbox').addClass('ready');
+        $(this).find('div.checkbox').removeClass('not_ready');
+        $(this).find('div.checkbox').removeClass('half_ready');
+        $(this).find('input[type=checkbox]').prop('checked',true);
+      }
+      else if (order[id_product][1] > 0) {
+        $(this).find('div.checkbox').removeClass('ready');
+        $(this).find('div.checkbox').removeClass('not_ready');
+        $(this).find('div.checkbox').addClass('half_ready');
+      }
     }
   });
 });
