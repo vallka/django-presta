@@ -69,7 +69,7 @@ $(document).ready(function(){
   $('.product_row').each(function(){
     console.log($(this).attr('data-id_product'))
 
-    let id_product = 'p'+$(this).parents('div.gel_row').attr('data-id_product');
+    let id_product = 'p'+$(this).attr('data-id_product');
     console.log(id_product)
     console.log(order[id_product])
     if (order[id_product]) {
