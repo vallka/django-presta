@@ -83,7 +83,10 @@ $(document).ready(function(){
         $(this).find('div.checkbox').addClass('ready');
         $(this).find('div.checkbox').removeClass('not_ready');
         $(this).find('div.checkbox').removeClass('half_ready');
+
+        console.log($(this).find('input[type=checkbox]').prop('checked'))
         $(this).find('input[type=checkbox]').prop('checked',true);
+        console.log($(this).find('input[type=checkbox]').prop('checked'))
       }
       else if (order[id_product][1] > 0) {
         $(this).find('div.checkbox').removeClass('ready');
