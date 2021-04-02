@@ -167,7 +167,7 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
   window.localStorage.setItem('o'+id_order, JSON.stringify(order));
 
   let ready = 0;
-  order.forEach(element => {
+  $(order).each(element => {
     if (element[0]==element[1]) ++ready;
   });
 
