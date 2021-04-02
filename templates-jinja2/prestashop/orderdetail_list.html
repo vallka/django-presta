@@ -47,6 +47,12 @@
 {% block javascript %}
 {{ super() }}
 <script>
+
+$('input[type=checkbox]').change(function(){
+  console.log('change:'+this.checked);
+
+})
+
 function process(code) {
   //alert(code);
   $('.product_row').each(function(){
