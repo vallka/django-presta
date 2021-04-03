@@ -10,6 +10,10 @@
 .gel_row {
   grid-template-columns: 1fr 2fr 3fr 3fr;
 }
+.gel_row > div.ready {
+  background-color:  springgreen;
+}
+
 </style>
   
 <div class="gel_table">
@@ -32,7 +36,7 @@
             <br />
             {{order.country}}
           </div>
-          <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.order_state}}</a></div>
+          <div class="order_state"><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.order_state}}</a></div>
           <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.date_add}}</a></div>
       </div>
       {% endfor %}
@@ -52,7 +56,14 @@ $(document).ready(function(){
   $('.gel_row').each(function(){
     let id_order = $(this).attr('data-id_order');
     console.log(id_order);
-    console.log(window.localStorage.getItem('o'+id_order+'-ready'));
+    let ready = window.localStorage.getItem('o'+id_order+'-ready');
+    console.log(ready);
+    if (ready) {
+      $(this).find('.order_state').addClass('ready');
+    }
+    else {
+      $(this).find('.order_state').removeClass('ready');
+    }
 
   });
 });
