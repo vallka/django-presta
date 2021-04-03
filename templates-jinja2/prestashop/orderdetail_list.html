@@ -158,6 +158,7 @@ $(document).ready(function(){
 
     order = {};
     window.localStorage.setItem('o'+id_order, JSON.stringify(order));
+    window.localStorage.removeItem('o'+id_order+'-ready');
 
   });
 });
