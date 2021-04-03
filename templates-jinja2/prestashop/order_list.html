@@ -24,7 +24,7 @@
   </div>
   <div class="gel_tbody">
     {% for order in order_list %}
-      <div class="gel_row">
+      <div class="gel_row" data-id_order="{{order.id_order}}"></div>>
           <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.reference}}</a> <br />
             (<a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.id_order}}</a>)
           </div>
@@ -47,4 +47,14 @@
 
 {% block javascript %}
 {{ super() }}
+<script>
+$(document).ready(function(){
+  $('.gel_row').each(function(){
+    let id_order = $(this).attr('data-id_order');
+    console.log(id_order);
+    console.log(window.localStorage.getItem('o'+id_order+'-ready'));
+
+  });
+});
+</script>
 {% endblock %}

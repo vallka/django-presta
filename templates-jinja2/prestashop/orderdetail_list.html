@@ -168,24 +168,19 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
   window.localStorage.setItem('o'+id_order, JSON.stringify(order));
 
   let ready = 0;
-  let total = 0;
   $.each(order,function(key,element){
-    console.log(key)
-    console.log(element)
-    console.log(typeof(element))
     if (Array.isArray(element)) {
-      ++total;
       if (element[0]==element[1]) ++ready;
     }
   });
 
-  console.log(ready,total);
   if (ready && $('.product_row').length==ready) {
     console.log('+ready');
+    window.localStorage.setItem('o'+id_order+'-ready', true);
   }
   else {
     console.log('-not ready');
-
+    window.localStorage.removeItem.setItem('o'+id_order+'-ready');
   }
 }
 
