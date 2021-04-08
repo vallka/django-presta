@@ -51,6 +51,7 @@
 
   <div class="gel_tfoot">
     <button id="btn-reset" class="btn btn-danger">Reset</button>
+    <button id="btn-update-status" class="btn btn-success" style="display:none">Set Status</button>
   </div>
 
 
@@ -159,6 +160,8 @@ $(document).ready(function(){
     order = {};
     window.localStorage.setItem('o'+id_order, JSON.stringify(order));
     window.localStorage.removeItem('o'+id_order+'-ready');
+    $('#btn-update-status').hide();
+
 
   });
 });
@@ -178,10 +181,12 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
   if (ready && $('.product_row').length==ready) {
     console.log('+ready');
     window.localStorage.setItem('o'+id_order+'-ready', true);
+    $('#btn-update-status').show();
   }
   else {
     console.log('-not ready');
     window.localStorage.removeItem('o'+id_order+'-ready');
+    $('#btn-update-status').hide();
   }
 }
 
