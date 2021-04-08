@@ -33,6 +33,9 @@
             (<a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.id_order}}</a>)
           </div>
           <div><a href="{% url 'prestashop:order_detail' order.id_order %}">{{order.firstname}} {{order.lastname}}</a>
+            {% if order.is_new %}  
+            (*NEW*)
+            {% endif %}
             <br />
             {{order.country}}
           </div>

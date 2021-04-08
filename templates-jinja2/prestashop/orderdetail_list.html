@@ -28,9 +28,9 @@
   <div class="gel_thead">
     <div>{{order.reference}} (<span id="id_order">{{order.id_order}}</span>) {{order.firstname}} {{order.lastname}} 
       {% if order.is_new %}  
-      NEW CLIENT
+      (*NEW*)
       {% endif %}
-      {{order.id_order_state}}
+      {{order.order_state}} ({{order.id_order_state}})
     </div>
     <div class="gel_row">
       <div>reference / ean13</div>
