@@ -74,6 +74,10 @@ $(document).ready(function(){
   order = JSON.parse(window.localStorage.getItem('o'+id_order));
   if (! order) order = {};
 
+  if (window.localStorage.getItem('o'+id_order+'-ready')) {
+    $('#btn-update-status').show();
+  }
+
   $('.product_row').each(function(){
     const product_quantity = parseInt($(this).find('.product_quantity').text());
     const id_product = 'p'+$(this).attr('data-id_product');
