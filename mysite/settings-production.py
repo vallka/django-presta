@@ -9,7 +9,7 @@ DATABASES = {
         'USER': 'gellifique',
         'PASSWORD': os.environ['POLLS_DB_PASSWORD'],
         #'HOST': '127.0.0.1',
-        'HOST': '172.31.17.32',
+        #'HOST': '172.31.17.32',
         'HOST': '172.31.18.205',
     },
     'presta': {
@@ -18,7 +18,8 @@ DATABASES = {
         'USER': 'gellifique',
         'PASSWORD': os.environ['POLLS_DB_PASSWORD'],
         #'HOST': '127.0.0.1',
-        'HOST': '172.31.17.32',
+        #'HOST': '172.31.17.32',
+        'HOST': '172.31.18.205',
     },
 }  
 
