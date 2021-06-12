@@ -178,7 +178,8 @@ $(document).ready(function(){
     $('.product_row').each(function(){
       const product_quantity = parseInt($(this).find('.product_quantity').text());
       const id_product = 'p'+$(this).attr('data-id_product');
-      order[id_product] = [product_quantity,0];    
+      //order[id_product] = [product_quantity,0];    
+      order[id_product][1] = 0;    
 
       $(this).find('div.checkbox').addClass('not_ready');
         $(this).find('div.checkbox').removeClass('ready');
@@ -212,7 +213,8 @@ $(document).ready(function(){
 function updateOrder(id_product,product_quantity,ready_quantity) {
   console.log('updateOrder:'+id_product+':'+product_quantity+':'+ready_quantity);
 
-  order[id_product] = [product_quantity,ready_quantity];
+  //order[id_product] = [product_quantity,ready_quantity];
+  order[id_product][1] = ready_quantity;
   window.localStorage.removeItem('o'+id_order);
   window.localStorage.setItem('o'+id_order, JSON.stringify(order));
 
