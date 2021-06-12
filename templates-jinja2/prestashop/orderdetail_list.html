@@ -88,7 +88,9 @@ $(document).ready(function(){
   $('.product_row').each(function(){
     const product_quantity = parseInt($(this).find('.product_quantity').text());
     const id_product = 'p'+$(this).attr('data-id_product');
+    console.log('initp:'+id_product+':'+order[id_product]);
     if (order[id_product]) {
+      console.log('init-set:'+id_product);
       if (product_quantity!=order[id_product][0]) {
         order[id_product][0] = product_quantity;
       }
