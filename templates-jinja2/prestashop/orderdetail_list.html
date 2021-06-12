@@ -110,6 +110,10 @@ $(document).ready(function(){
         $(this).find('div.checkbox').removeClass('not_ready');
         $(this).find('div.checkbox').addClass('half_ready');
       }
+      else {
+        console.log('!not ready');
+        $(this).find('div.checkbox').addClass('not_ready');
+      }
     }
     else {
       order[id_product] = [product_quantity,0];    
