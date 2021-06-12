@@ -218,9 +218,15 @@ function process(code) {
     console.log( '? ' + ttt + ' == ' + code);
     if (ttt==code) {
       console.log( "!!!!");
+      $('#audio_yes').get(0).play();
+
       $(this).find('input[type=checkbox]').prop('checked',true);
       $(this).find('input[type=checkbox]').change();
     }
+    else {
+      $('#audio_no').get(0).play();
+    }
+
   });
 }
 
