@@ -184,7 +184,8 @@ $(document).ready(function(){
         $(this).find('.ready_quantity').text(0);
     });
 
-    window.localStorage.setItem('o'+id_order, JSON.stringify(order));
+    window.localStorage.removeItem('o'+id_order);
+    //window.localStorage.setItem('o'+id_order, JSON.stringify(order));
     window.localStorage.removeItem('o'+id_order+'-ready');
 
 
@@ -208,6 +209,7 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
   console.log('updateOrder:'+id_product+':'+product_quantity+':'+ready_quantity);
 
   order[id_product] = [product_quantity,ready_quantity];
+  window.localStorage.removeItem('o'+id_order);
   window.localStorage.setItem('o'+id_order, JSON.stringify(order));
 
   console.log(order['p1220']);
