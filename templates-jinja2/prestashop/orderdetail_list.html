@@ -133,9 +133,6 @@ $(document).ready(function(){
 
     console.log(id_product+':'+product_quantity+':'+ready_quantity);
 
-    console.log(order['p1220']);
-    console.log(order['p1521']);
-    console.log(order);
 
     if (this.checked) {
       if (ready_quantity != product_quantity) {
@@ -173,15 +170,10 @@ $(document).ready(function(){
 
 
   $('#btn-reset').click(function () {
-    //order = {};
+    order = {};
     console.log('reset')
 
     $('.product_row').each(function(){
-      const product_quantity = parseInt($(this).find('.product_quantity').text());
-      const id_product = 'p'+$(this).attr('data-id_product');
-      //order[id_product] = [product_quantity,0];    
-      order[id_product][1] = 0;    
-
       $(this).find('div.checkbox').addClass('not_ready');
         $(this).find('div.checkbox').removeClass('ready');
         $(this).find('div.checkbox').removeClass('half_ready');
@@ -191,23 +183,13 @@ $(document).ready(function(){
     });
 
     window.localStorage.removeItem('o'+id_order);
-    //window.localStorage.setItem('o'+id_order, JSON.stringify(order));
     window.localStorage.removeItem('o'+id_order+'-ready');
-
-
-
 
     $('#btn-update-status').hide();
 
-    console.log(order);
-    document.activeElement.blur();
-
+    document.activeElement.blur(); //remove focus from Reset button!!!
   });
 
-
-  $('#btn-update-status').click(function () {
-    $('#audio_no').get(0).play();
-  });
   
 });
 
@@ -220,9 +202,6 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
   window.localStorage.removeItem('o'+id_order);
   window.localStorage.setItem('o'+id_order, JSON.stringify(order));
 
-  console.log(order['p1220']);
-  console.log(order['p1521']);
-  console.log(order);
 
   let ready = 0;
   $.each(order,function(key,element){
@@ -231,9 +210,6 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
     }
   });
 
-  console.log(order['p1220']);
-  console.log(order['p1521']);
-  console.log(order);
 
   if (ready && $('.product_row').length==ready) {
     console.log('+ready');
@@ -249,32 +225,21 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
 
 
 function process(code) {
-  console.log('pressed:'+code);
-  console.log(order['p1220']);
-  console.log(order['p1521']);
-  console.log(order);
 
   let found = false;
   $('.product_row').each(function(){
     tt = $(this).find('.ean13_col');
-    //console.log( tt );
-    //console.log( tt[0] );
     ttt = tt.text()
-    //console.log( '? ' + ttt + ' == ' + code);
     if (ttt==code) {
-      //console.log( "!!!!");
-      //$('#audio_yes').get(0).play();
       found = this;
-
-      //$(this).find('input[type=checkbox]').prop('checked',true);
-      //$(this).find('input[type=checkbox]').change();
     }
 
   });
   if (!found) {
-      //$('#audio_no').get(0).play();
+    $('#audio_no').get(0).play();
   }
   else {
+    $('#audio_yes').get(0).play();
     $(found).find('input[type=checkbox]').prop('checked',true);
     $(found).find('input[type=checkbox]').change();
   }
