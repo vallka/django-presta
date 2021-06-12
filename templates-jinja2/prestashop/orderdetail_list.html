@@ -232,7 +232,7 @@ function process(code) {
     console.log( '? ' + ttt + ' == ' + code);
     if (ttt==code) {
       console.log( "!!!!");
-      $('#audio_yes').get(0).play();
+      //$('#audio_yes').get(0).play();
       found = true;
 
       $(this).find('input[type=checkbox]').prop('checked',true);
@@ -241,7 +241,7 @@ function process(code) {
 
   });
   if (!found) {
-      $('#audio_no').get(0).play();
+      //$('#audio_no').get(0).play();
   }
 
 }
