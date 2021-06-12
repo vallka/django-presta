@@ -210,24 +210,24 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
 
 function process(code) {
   //alert(code);
+  let found = false;
   $('.product_row').each(function(){
     tt = $(this).find('.ean13_col');
-    console.log( tt );
-    console.log( tt[0] );
     ttt = tt.text()
-    console.log( '? ' + ttt + ' == ' + code);
     if (ttt==code) {
-      console.log( "!!!!");
       $('#audio_yes').get(0).play();
+      found = true;
 
       $(this).find('input[type=checkbox]').prop('checked',true);
       $(this).find('input[type=checkbox]').change();
     }
-    else {
-      $('#audio_no').get(0).play();
-    }
 
   });
+  
+  if (!found) {
+      $('#audio_no').get(0).play();
+  }
+
 }
 
 
