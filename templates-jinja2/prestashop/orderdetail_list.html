@@ -244,7 +244,7 @@ function process(code) {
     //console.log( tt );
     //console.log( tt[0] );
     ttt = tt.text()
-    console.log( '? ' + ttt + ' == ' + code);
+    //console.log( '? ' + ttt + ' == ' + code);
     if (ttt==code) {
       //console.log( "!!!!");
       //$('#audio_yes').get(0).play();
@@ -280,8 +280,9 @@ var code='';
     }
   
     else if (event.originalEvent.key=='Enter' && code.length==13) {
-      process(code);
+      const ccode = code;
       code = '';
+      process(ccode);
     }
     else {
       code = '';
