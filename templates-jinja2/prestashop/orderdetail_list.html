@@ -159,7 +159,13 @@ $(document).ready(function(){
 
 
   $('#btn-reset').click(function () {
+    order = {};
+
     $('.product_row').each(function(){
+      const product_quantity = parseInt($(this).find('.product_quantity').text());
+      const id_product = 'p'+$(this).attr('data-id_product');
+      order[id_product] = [product_quantity,0];    
+
       $(this).find('div.checkbox').addClass('not_ready');
         $(this).find('div.checkbox').removeClass('ready');
         $(this).find('div.checkbox').removeClass('half_ready');
@@ -168,9 +174,12 @@ $(document).ready(function(){
         $(this).find('.ready_quantity').text(0);
     });
 
-    order = {};
     window.localStorage.setItem('o'+id_order, JSON.stringify(order));
     window.localStorage.removeItem('o'+id_order+'-ready');
+
+
+
+
     $('#btn-update-status').hide();
 
 
