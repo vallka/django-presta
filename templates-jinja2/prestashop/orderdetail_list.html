@@ -254,15 +254,19 @@ function process(code) {
     if (ttt==code) {
       //console.log( "!!!!");
       //$('#audio_yes').get(0).play();
-      found = true;
+      found = this;
 
-      $(this).find('input[type=checkbox]').prop('checked',true);
-      $(this).find('input[type=checkbox]').change();
+      //$(this).find('input[type=checkbox]').prop('checked',true);
+      //$(this).find('input[type=checkbox]').change();
     }
 
   });
   if (!found) {
       //$('#audio_no').get(0).play();
+  }
+  else {
+    $(found).find('input[type=checkbox]').prop('checked',true);
+    $(found).find('input[type=checkbox]').change();
   }
 
 }
