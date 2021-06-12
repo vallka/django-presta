@@ -198,13 +198,13 @@ $(document).ready(function(){
 
 
 function updateOrder(id_product,product_quantity,ready_quantity) {
-  console.log('updateOrder'+id_product+':'+product_quantity+':'+ready_quantity);
+  console.log('updateOrder:'+id_product+':'+product_quantity+':'+ready_quantity);
 
   order[id_product] = [product_quantity,ready_quantity];
   window.localStorage.setItem('o'+id_order, JSON.stringify(order));
 
   console.log(order['p1220']);
-  console.log(order['p1221']);
+  console.log(order['p1521']);
   console.log(order);
 
   let ready = 0;
