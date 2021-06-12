@@ -58,7 +58,9 @@
     <button id="btn-reset" class="btn btn-danger">Reset</button>
     <button id="btn-update-status" class="btn btn-success" style="display:none">Set Status</button>
   </div>
-
+  
+  <audio id="audio_yes" src="{% static 'audio/jazzy-chords.wav' %}" preload="auto"></audio>
+  <audio id="audio_no" src="{% static 'audio/wrong-buzzer.wav' %}" preload="auto"></audio>
 
 </div>
   {% else %}
@@ -173,6 +175,12 @@ $(document).ready(function(){
 
 
   });
+
+
+  $('#btn-update-status').click(function () {
+    $('#audio_yes').get(0).play();
+  });
+  
 });
 
 
