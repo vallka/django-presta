@@ -229,6 +229,10 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
     }
   });
 
+  console.log(order['p1220']);
+  console.log(order['p1521']);
+  console.log(order);
+
   if (ready && $('.product_row').length==ready) {
     console.log('+ready');
     window.localStorage.setItem('o'+id_order+'-ready', true);
