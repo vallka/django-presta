@@ -124,6 +124,7 @@ $(document).ready(function(){
     const product_quantity = parseInt($(this).parents('div.gel_row').find('.product_quantity').text());
     let ready_quantity = parseInt($(this).parents('div.gel_row').find('.ready_quantity').text());
 
+    console.log(id_product+':'+product_quantity+':'+ready_quantity);
 
     if (this.checked) {
       if (ready_quantity != product_quantity) {
