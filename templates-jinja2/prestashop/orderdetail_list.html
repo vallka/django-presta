@@ -284,6 +284,7 @@ var code='';
     }
   
     else if (event.originalEvent.key=='Enter' && code.length==13) {
+      event.preventDefault();
       const ccode = code;
       code = '';
       process(ccode);
