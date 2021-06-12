@@ -197,8 +197,7 @@ $(document).ready(function(){
 function updateOrder(id_product,product_quantity,ready_quantity) {
   console.log('updateOrder:'+id_product+':'+product_quantity+':'+ready_quantity);
 
-  //order[id_product] = [product_quantity,ready_quantity];
-  order[id_product][1] = ready_quantity;
+  order[id_product] = [product_quantity,ready_quantity];
   window.localStorage.removeItem('o'+id_order);
   window.localStorage.setItem('o'+id_order, JSON.stringify(order));
 
