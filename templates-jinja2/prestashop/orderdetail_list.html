@@ -243,7 +243,11 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
 
 
 function process(code) {
-  //alert(code);
+  alert('pressed:'+code);
+  console.log(order['p1220']);
+  console.log(order['p1521']);
+  console.log(order);
+
   let found = false;
   $('.product_row').each(function(){
     tt = $(this).find('.ean13_col');
