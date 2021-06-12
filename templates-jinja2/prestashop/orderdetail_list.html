@@ -203,7 +203,8 @@ function updateOrder(id_product,product_quantity,ready_quantity) {
   order[id_product] = [product_quantity,ready_quantity];
   window.localStorage.setItem('o'+id_order, JSON.stringify(order));
 
-  console.log(order);
+  console.log(order['p1220']);
+  console.log(order['p1221']);
 
   let ready = 0;
   $.each(order,function(key,element){
