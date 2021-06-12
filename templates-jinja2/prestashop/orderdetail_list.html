@@ -230,12 +230,12 @@ function process(code) {
   let found = false;
   $('.product_row').each(function(){
     tt = $(this).find('.ean13_col');
-    console.log( tt );
-    console.log( tt[0] );
+    //console.log( tt );
+    //console.log( tt[0] );
     ttt = tt.text()
     console.log( '? ' + ttt + ' == ' + code);
     if (ttt==code) {
-      console.log( "!!!!");
+      //console.log( "!!!!");
       //$('#audio_yes').get(0).play();
       found = true;
 
@@ -253,7 +253,7 @@ function process(code) {
 
 var code='';
   $( "body" ).keyup(function( event ) {
-    console.log( event.originalEvent.key + ' --- ' + code);
+    //console.log( event.originalEvent.key + ' --- ' + code);
   
     if (event.originalEvent.key=='0' ||
         event.originalEvent.key=='1' ||
