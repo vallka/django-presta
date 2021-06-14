@@ -80,7 +80,13 @@ class UpdateOrderStatus(APIView):
     def post(self, request, format=None):
         obj = request.data
         logger.info(f"UpdateOrderStatus:{obj['id_order']} | {obj['id_status']}")
-        return Response({'success':1,'req':obj})                
+
+        with connections[db].cursor() as cursor:
+            cursor.execute("select current_state from ps17_orders where id_order=%s",[obj['id_order']])
+            state = cursor.fetchone()
+
+
+        return Response({'success':1,'req':obj,'state':state})                
 
 class UpdateProduct(APIView):
     permission_classes = (IsAuthenticated,)     
