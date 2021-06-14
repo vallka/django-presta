@@ -256,9 +256,11 @@ function process(code) {
 
   });
   if (!found) {
+    $('#audio_no').get(0).volume = 0.5;
     $('#audio_no').get(0).play();
   }
   else {
+    $('#audio_yes').get(0).volume = 0.5;
     $('#audio_yes').get(0).play();
     $(found).find('input[type=checkbox]').prop('checked',true);
     $(found).find('input[type=checkbox]').change();
