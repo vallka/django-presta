@@ -83,7 +83,7 @@ class UpdateOrderStatus(APIView):
 
         with connections[db].cursor() as cursor:
             cursor.execute("select current_state from ps17_orders where id_order=%s",[obj['id_order']])
-            state = cursor.fetchone()
+            state = cursor.fetchone()[0]
 
 
         return Response({'success':1,'req':obj,'state':state})                
@@ -103,7 +103,7 @@ class UpdateProduct(APIView):
             id_shop = obj['shop_context'][2:]
         elif obj['shop_context'] and obj['shop_context'][0]=='g':
             pass
-            ids_shop = 'some group'
+        ids_shop = 'some group'
             # TODO: next time:)
 
 
