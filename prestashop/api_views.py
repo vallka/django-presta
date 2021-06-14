@@ -72,6 +72,16 @@ class ProductList(generics.ListAPIView):
     
         return Response(serializer.data)                
 
+class UpdateOrderStatus(APIView):
+    permission_classes = (IsAuthenticated,)     
+    parser_class = (JSONParser,)
+
+    @swagger_auto_schema(operation_description="Update order status",)
+    def post(self, request, format=None):
+        obj = request.data
+        logger.info(f"UpdateOrderStatus:{obj['id_order']} | {obj['id_status']}")
+        return Response({'success':1,'req':obj})                
+
 class UpdateProduct(APIView):
     permission_classes = (IsAuthenticated,)     
     parser_class = (JSONParser,)

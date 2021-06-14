@@ -190,7 +190,28 @@ $(document).ready(function(){
     document.activeElement.blur(); //remove focus from Reset button!!!
   });
 
-  
+
+  $('#btn-update-status').click(function () {
+    let url = '/pyadmin734r04xdw/api/v1/prestashop/ordr/updatestatus/';
+    $.ajax({
+      method: "post",
+      async: false,
+      data: {
+            "id_order": id_order,
+            "id_status": 39,
+      },
+      dataType: "json",
+      url: url,
+      headers: {"Authorization": "Token 6b246cc18769c6ec02dc20009649d5ae5903d454"},
+      success: function(data) {
+        console.log(data)
+        alert('Updated')
+
+    }});
+  });
+
+
+
 });
 
 

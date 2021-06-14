@@ -76,6 +76,7 @@ urlpatterns = [
     path('api/v1/prestashop/product/<str:ids>/', ProductList.as_view()),
     path('api/v1/prestashop/order/', OrderList.as_view()),
     path('api/v1/prestashop/order/<int:id_order>/', OrderDetailList.as_view()),
+    path('api/v1/prestashop/order/updatestatus/', UpdateOrderStatus.as_view()),
     
 
     re_path(r'^api/v1/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
