@@ -152,7 +152,7 @@ new Vue({
             console.log('status', newFile.xhr.status)
             if (newFile.xhr.status==200) {
               //alert('Thank you')
-              document.cookie = "customer_cert_uploaded={{ email }}; path=/";
+              document.cookie = "customer_cert_uploaded={{ email }}; path=/; domain=gellifique.co.uk";
               //document.getElementById('div-continue').style.display = 'block';
             }
           }
