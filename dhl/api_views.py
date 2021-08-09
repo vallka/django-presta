@@ -105,7 +105,7 @@ class UPSAction(generics.ListAPIView):
             
             cursor.execute("insert into ps17_order_history (id_employee,id_order,id_order_state,date_add) values (%s,%s,%s,now())", [0,id_order,31])
 
-        return Response({'status': 'OK','data':resp})
+        return Response({'status': 'OK','data':resp, 'headers':{'Access-Control-Allow-Origin':'*'}})
 
 def processItem(dat,id_order):
     newHeaders = {
@@ -172,7 +172,7 @@ class UPSLabelAction(generics.ListAPIView):
         id_order = obj['id_order']
         shipping_no = resp["LabelRecoveryResponse"]["LabelResults"]["ShipmentIdentificationNumber"]
 
-        return Response({'status': 'OK','data':resp})
+        return Response({'status': 'OK','data':resp, 'headers':{'Access-Control-Allow-Origin':'*'}})
 
 def processLabelItem(dat,id_order):
     newHeaders = {
